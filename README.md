@@ -27,3 +27,16 @@ yarn run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+
+
+
+
+# Log
+
+```
+yarn add vue-router
+yarn add axios
+
+```
