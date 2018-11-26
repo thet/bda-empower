@@ -58,8 +58,8 @@ export default {
 
       let url = 'http://localhost:8080/Plone';
       let path = this.$route.path || '';
-        axios.get(url + path, {headers: {"Accept": "application/json"}})
-       .then(results => {
+      axios.get(url + path, {headers: {"Accept": "application/json"}})
+        .then(results => {
           this.loading = false;
           this.context = results.data;
           console.log(this.context);
