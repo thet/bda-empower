@@ -5,6 +5,8 @@ import config from '@/config';
 
 Vue.use(Vuex);
 
+axios.defaults.headers.common['Accept'] = 'application/json';
+
 export default new Vuex.Store({
   state: {
     contentTree: {},
@@ -23,7 +25,7 @@ export default new Vuex.Store({
 
     LOAD_CONTEXT({ commit }, { path }) {
       axios
-        .get(config.baseURI + path || '', { headers: {'Accept': 'application/json' }})
+        .get(config.baseURI + path || '')
         .then(response => {
           commit('SET_CONTEXT', { context: response.data });
         })
@@ -39,9 +41,6 @@ export default new Vuex.Store({
             {
               login: username,
               password: password,
-            },
-            {
-              headers: {'Accept': 'application/json' }
             }
           )
           .then(response => {
