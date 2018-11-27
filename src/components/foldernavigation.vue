@@ -15,9 +15,11 @@ import utils from '@/utils';
 
 export default {
   computed: {
+
     context () {
-      return this.$store.state.context;
+      return this.$store.state.context.context;
     },
+
     parentPath () {
       // Create path to parent directory
       let path = this.$route.path.split('/');
@@ -27,11 +29,14 @@ export default {
       path.splice(-1, 1);
       return path.join('/') || '/';
     }
+
   },
+
   methods: {
     makePath (uri) {
       return utils.makePath(uri);
     },
   }
+
 }
 </script>

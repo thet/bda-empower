@@ -13,22 +13,32 @@ export default {
   },
 
   computed: {
+
+    context () {
+      return this.$store.state.context.context;
+    },
+
     component () {
       if (!this.context) {
         return;
       }
+
+      // Get component name = type
       let component = this.context['@type'];
+
+      // Fallback component
       if (Object.keys(this.$options.components).indexOf(component) === -1) {
         component = 'Default';
       }
+
       return component;
-    },
-    ...mapState(['context'])
+    }
+
   },
 
   methods: {
     load () {
-      this.$store.dispatch('LOAD_CONTEXT', { path: this.$route.path });
+      this.$store.dispatch('context/LOAD_CONTEXT', { path: this.$route.path });
     }
   },
 
