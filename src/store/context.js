@@ -7,6 +7,7 @@ export default {
 
   state: {
     context: null,
+    tree: {}
   },
 
   actions: {
@@ -26,6 +27,7 @@ export default {
 
     SET_CONTEXT: (state, { context }) => {
       state.context = context;
+      state.tree[context['@id']] = context;
     }
 
   }
