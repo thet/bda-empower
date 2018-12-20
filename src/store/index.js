@@ -6,6 +6,8 @@ import Context from './context';
 
 Vue.use(Vuex);
 
+// axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('auth_token');
+
 axios.defaults.headers.common['Accept'] = 'application/json';
 
 export default new Vuex.Store({

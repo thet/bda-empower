@@ -7,37 +7,37 @@ export default {
 
   state: {
     auth_status: '',
-    auth_token: localStorage.getItem('auth_token') || '',
+    auth_token: localStorage.getItem('auth_token') || undefined,
   },
 
   getters: {
-    isLoggedIn: state => !!state.auth_token,
-    authStatus: state => state.auth_status
+    isLoggedIn: state => !!state.auth_token
   },
 
   actions: {
-
     LOGIN: ({ commit }, { username, password }) => {
       return new Promise((resolve, reject) => {
         commit('AUTH_REQUEST');
         axios
-          .post(
-            config.baseURI + '/@login',
-            {
+          .post(config.baseURI + '/@login', {
               login: username,
-              password: password,
-            }
-          )
+              password: password
+          })
           .then(response => {
+            debugger;
             const token = response.data.token;
-            localStorage.setItem('auth_token', token);
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-            commit('AUTH_SUCCESS', token);
+            if (token) {
+              localStorage.setItem('auth_token', token);
+              axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+              commit('AUTH_SUCCESS', token);
+            } else {
+              commit('AUTH_ERROR');
+            }
             resolve(response);
           })
           .catch(error => {
-            commit('AUTH_ERROR');
             localStorage.removeItem('auth_token');
+            commit('AUTH_ERROR');
             reject(error);
           });
         });
@@ -45,10 +45,14 @@ export default {
 
     LOGOUT: ({ commit }) => {
       return new Promise((resolve, reject) => {
-        commit('AUTH_LOGOUT');
-        localStorage.removeItem('auth_token');
-        delete axios.defaults.headers.common['Authorization'];
-        resolve();
+        try {
+          localStorage.removeItem('auth_token');
+          delete axios.defaults.headers.common['Authorization'];
+          commit('AUTH_LOGOUT');
+          resolve();
+        } catch {
+          reject();
+        }
       });
     }
 
@@ -71,7 +75,7 @@ export default {
 
     AUTH_LOGOUT: (state) => {
       state.auth_status = '';
-      state.auth_token = '';
+      state.auth_token = undefined;
     }
 
   }
