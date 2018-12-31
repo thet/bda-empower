@@ -14,9 +14,7 @@ export default {
 
     LOAD_CONTEXT: ({ commit }, { path }) => {
       axios
-        .get(config.baseURI + path || '', {
-          headers: {'Authorization': `Bearer ${localStorage.getItem('auth_token')}`}
-        })
+        .get(config.baseURI + path || '')
         .then(response => {
           commit('SET_CONTEXT', { context: response.data });
         })

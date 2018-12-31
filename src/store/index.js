@@ -6,10 +6,6 @@ import Context from './context';
 
 Vue.use(Vuex);
 
-// axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('auth_token');
-
-axios.defaults.headers.common['Accept'] = 'application/json';
-
 export default new Vuex.Store({
 
   modules: {
@@ -18,3 +14,20 @@ export default new Vuex.Store({
   }
 
 });
+
+// AXIOS Config
+axios.defaults.headers.common['Accept'] = 'application/json';
+
+// Add a request interceptor
+axios.interceptors.request.use(
+  function (config) {
+    const auth_token = localStorage.getItem('auth_token');
+    if (auth_token) {
+      config.headers['Authorization'] = `Bearer ${auth_token}`;
+    }
+    return config;
+  }, function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
+);

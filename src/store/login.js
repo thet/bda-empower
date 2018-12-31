@@ -27,7 +27,6 @@ export default {
             const token = response.data.token;
             if (token) {
               localStorage.setItem('auth_token', token);
-              axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
               commit('AUTH_SUCCESS', token);
             } else {
               commit('AUTH_ERROR');
@@ -46,7 +45,6 @@ export default {
       return new Promise((resolve, reject) => {
         try {
           localStorage.removeItem('auth_token');
-          delete axios.defaults.headers.common['Authorization'];
           commit('AUTH_LOGOUT');
           resolve();
         } catch {
