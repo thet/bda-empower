@@ -24,7 +24,6 @@ export default {
               password: password
           })
           .then(response => {
-            debugger;
             const token = response.data.token;
             if (token) {
               localStorage.setItem('auth_token', token);
