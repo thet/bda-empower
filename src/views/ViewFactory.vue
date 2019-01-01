@@ -4,21 +4,18 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
 import Default from '@/views/Default';
 export default {
-
   components: {
     Default
   },
 
   computed: {
-
-    context () {
+    context() {
       return this.$store.state.context.context;
     },
 
-    component () {
+    component() {
       if (!this.context) {
         return;
       }
@@ -33,23 +30,21 @@ export default {
 
       return component;
     }
-
   },
 
   methods: {
-    load () {
+    load() {
       this.$store.dispatch('context/LOAD_CONTEXT', { path: this.$route.path });
     }
   },
 
-  mounted () {
+  mounted() {
     this.load();
   },
 
   watch: {
     // call again the method if the route changes
-    '$route': 'load'
-  },
-
-}
+    $route: 'load'
+  }
+};
 </script>

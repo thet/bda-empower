@@ -2,12 +2,11 @@ import axios from 'axios';
 import config from '@/config';
 
 export default {
-
   namespaced: true,
 
   state: {
     auth_status: '',
-    auth_token: localStorage.getItem('auth_token') || undefined,
+    auth_token: localStorage.getItem('auth_token') || undefined
   },
 
   getters: {
@@ -20,8 +19,8 @@ export default {
         commit('AUTH_REQUEST');
         axios
           .post(config.baseURI + '/@login', {
-              login: username,
-              password: password
+            login: username,
+            password: password
           })
           .then(response => {
             const token = response.data.token;
@@ -38,7 +37,7 @@ export default {
             commit('AUTH_ERROR');
             reject(error);
           });
-        });
+      });
     },
 
     LOGOUT: ({ commit }) => {
@@ -52,12 +51,10 @@ export default {
         }
       });
     }
-
   },
 
   mutations: {
-
-    AUTH_REQUEST: (state) => {
+    AUTH_REQUEST: state => {
       state.auth_status = 'loading';
     },
 
@@ -66,15 +63,13 @@ export default {
       state.auth_token = token;
     },
 
-    AUTH_ERROR: (state) => {
+    AUTH_ERROR: state => {
       state.auth_status = 'error';
     },
 
-    AUTH_LOGOUT: (state) => {
+    AUTH_LOGOUT: state => {
       state.auth_status = '';
       state.auth_token = undefined;
     }
-
   }
-
 };

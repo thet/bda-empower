@@ -7,12 +7,10 @@ import Context from './context';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-
   modules: {
     login: Login,
     context: Context
   }
-
 });
 
 // AXIOS Config
@@ -20,13 +18,14 @@ axios.defaults.headers.common['Accept'] = 'application/json';
 
 // Add a request interceptor
 axios.interceptors.request.use(
-  function (config) {
+  function(config) {
     const auth_token = localStorage.getItem('auth_token');
     if (auth_token) {
       config.headers['Authorization'] = `Bearer ${auth_token}`;
     }
     return config;
-  }, function (error) {
+  },
+  function(error) {
     // Do something with request error
     return Promise.reject(error);
   }

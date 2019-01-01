@@ -2,7 +2,6 @@ import axios from 'axios';
 import config from '@/config';
 
 export default {
-
   namespaced: true,
 
   state: {
@@ -11,7 +10,6 @@ export default {
   },
 
   actions: {
-
     LOAD_CONTEXT: ({ commit }, { path }) => {
       axios
         .get(config.baseURI + path || '')
@@ -19,19 +17,15 @@ export default {
           commit('SET_CONTEXT', { context: response.data });
         })
         .catch(error => {
-          console.log(error)
+          console.log(error);
         });
-    },
-
+    }
   },
 
   mutations: {
-
     SET_CONTEXT: (state, { context }) => {
       state.context = context;
       state.tree[context['@id']] = context;
     }
-
   }
-
 };

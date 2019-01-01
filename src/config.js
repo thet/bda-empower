@@ -1,3 +1,3 @@
 export default {
-  baseURI: 'http://localhost:8080/Plone',
+  baseURI: 'http://localhost:8080/Plone'
 };
