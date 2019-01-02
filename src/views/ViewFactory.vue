@@ -4,9 +4,11 @@
   </div>
 </template>
 <script>
+import Contribution from '@/views/Contribution';
 import Default from '@/views/Default';
 export default {
   components: {
+    Contribution,
     Default
   },
 
@@ -22,6 +24,10 @@ export default {
 
       // Get component name = type
       let component = this.context['@type'];
+
+      if (component === 'Case') {
+        component = 'Contribution';
+      }
 
       // Fallback component
       if (Object.keys(this.$options.components).indexOf(component) === -1) {
