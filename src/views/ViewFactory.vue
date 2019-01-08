@@ -4,12 +4,12 @@
   </div>
 </template>
 <script>
-import Contribution from '@/views/Contribution';
-import Default from '@/views/Default';
+import ContributionView from '@/views/ContributionView';
+import DefaultView from '@/views/DefaultView';
 export default {
   components: {
-    Contribution,
-    Default
+    ContributionView,
+    DefaultView
   },
 
   computed: {
@@ -30,11 +30,11 @@ export default {
       }
 
       // Fallback component
-      if (Object.keys(this.$options.components).indexOf(component) === -1) {
+      if (Object.keys(this.$options.components).indexOf(component + 'View') === -1) {
         component = 'Default';
       }
 
-      return component;
+      return component + 'View';
     }
   },
 
