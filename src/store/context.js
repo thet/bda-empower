@@ -6,7 +6,17 @@ export default {
 
   state: {
     context: null,
-    tree: {}
+    tree: {},
+  },
+
+  getters: {
+    get: (state, getters) => path => {
+      let ob = state.tree.get(path);
+      if (!ob) {
+        this.actions.LOAD_CONTEXT(path);
+      }
+      return ob;
+    }
   },
 
   actions: {

@@ -47,6 +47,20 @@
           <strong>URL:</strong>
           <router-link :to="{ path: makePath(item['@id']) }">{{ item.title }}</router-link>
         </li>
+        <li v-if="previous">
+          <strong>Zum vorherigen Workspace:</strong>
+          <router-link :to="{ path: makePath(previous) }">{{ previous.title }}</router-link>
+        </li>
+        <li v-if="next.length">
+          <strong>Zum nächsten Workspace:</strong>
+          <ul>
+            <li
+                v-for="ws in next"
+                :key="ws">
+              <router-link :to="{ path: makePath(ws) }">{{ ws.title }}</router-link>
+            </li>
+          </ul>
+        </li>
       </ul>
     </footer>
 
@@ -54,12 +68,33 @@
 </template>
 <script>
 import utils from '@/utils';
+import { mapGetters } from 'vuex';
 
 export default {
 
   props: [
     'item'
   ],
+
+  computed: {
+    previous: function() {
+      let ob = this.all.get(this.item.previous_workspace);
+      return ob;
+    },
+    next: function() {
+      let nexts = [];
+      for (let it in this.item.next_workspaces) {
+        let ob = this.all(it);
+        if (ob) {
+          nexts.push(ob);
+        }
+      }
+      return nexts;
+    },
+    ...mapGetters({
+      all: 'state/all'
+    })
+  },
 
   methods: {
     makePath(uri) {
