@@ -68,7 +68,6 @@
 </template>
 <script>
 import utils from '@/utils';
-import { mapGetters } from 'vuex';
 
 export default {
 
@@ -78,22 +77,25 @@ export default {
 
   computed: {
     previous: function() {
-      let ob = this.all.get(this.item.previous_workspace);
+      let ob;
+      let path = this.item.previous_workspace;
+      if (path) {
+        this.$store.dispatch('context/LOAD_CONTEXT', { path: path });
+        let ob = this.$store.state.context.tree[path];
+      }
       return ob;
     },
     next: function() {
       let nexts = [];
-      for (let it in this.item.next_workspaces) {
-        let ob = this.all(it);
+      for (let path of this.item.next_workspaces) {
+        this.$store.dispatch('context/LOAD_CONTEXT', { path: path });
+        let ob = this.$store.state.context.tree[path];
         if (ob) {
           nexts.push(ob);
         }
       }
       return nexts;
-    },
-    ...mapGetters({
-      all: 'state/all'
-    })
+    }
   },
 
   methods: {
