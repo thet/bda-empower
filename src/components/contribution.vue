@@ -1,63 +1,63 @@
 <template>
-  <article :class="[ 'uid-' + item.uid, 'state-' + item.review_state ]">
+  <article v-if="context" :class="[ 'uid-' + context.UID, 'state-' + context.review_state ]">
 
     <header>
-      <h3>{{ item.title }}</h3>
+      <h3>{{ context.title }}</h3>
       <ul>
         <li>
           <strong>Autor*in:</strong>
-          <span>{{ item.creator }}</span>
+          <span>{{ context.creator }}</span>
         </li>
         <li>
           <strong>Erstellt:</strong>
-          <time :datetime="item.created">{{ item.created }}</time>
+          <time :datetime="context.created">{{ context.created }}</time>
         </li>
-        <li v-if="item.modified">
+        <li v-if="context.modified">
           <strong>Verändert:</strong>
-          <time :datetime="item.modified">{{ item.modified }}</time>
+          <time :datetime="context.modified">{{ context.modified }}</time>
         </li>
       </ul>
     </header>
 
-    <div v-html="item.text"></div>
+    <div v-if="context.text.data" v-html="context.text.data"></div>
 
     <footer>
       <ul>
-        <li v-if="item.workspace">
+        <li v-if="context.workspace">
           <strong>Workspace:</strong>
-          <span>{{ item.workspace }}</span>
+          <span>{{ context.workspace }}</span>
         </li>
-        <li v-if="item.client">
+        <li v-if="context.client">
           <strong>Klient*in:</strong>
-          <span>{{ item.client }}</span>
+          <span>{{ context.client }}</span>
         </li>
-        <li v-if="item.coordinators">
+        <li v-if="context.coordinators">
           <strong>Koordinator*in:</strong>
-          <span>{{ item.coordinators }}</span>
+          <span>{{ context.coordinators }}</span>
         </li>
-        <li v-if="item.expert_pool">
+        <li v-if="context.expert_pool">
           <strong>Expert*innen Pool:</strong>
-          <span>{{ item.expert_pool }}</span>
+          <span>{{ context.expert_pool }}</span>
         </li>
-        <li v-if="item.experts_assigned">
+        <li v-if="context.experts_assigned">
           <strong>Zugewiesene Expert*innen:</strong>
-          <span>{{ item.experts_assigned }}</span>
+          <span>{{ context.experts_assigned }}</span>
         </li>
         <li>
           <strong>URL:</strong>
-          <router-link :to="{ path: makePath(item['@id']) }">{{ item.title }}</router-link>
+          <router-link :to="{ path: makePath(context['@id']) }">{{ context.title }}</router-link>
         </li>
-        <li v-if="previous">
+        <li v-if="item.previous_workspace">
           <strong>Zum vorherigen Workspace:</strong>
-          <router-link :to="{ path: makePath(previous) }">{{ previous.title }}</router-link>
+          <router-link :to="{ path: makePath(item.previous_workspace.path) }">{{ item.previous_workspace.title }}</router-link>
         </li>
-        <li v-if="next.length">
+        <li v-if="item.next_workspaces.length">
           <strong>Zum nächsten Workspace:</strong>
           <ul>
             <li
-                v-for="ws in next"
+                v-for="ws in item.next_workspaces"
                 :key="ws">
-              <router-link :to="{ path: makePath(ws) }">{{ ws.title }}</router-link>
+              <router-link :to="{ path: makePath(ws.path) }">{{ ws.title }}</router-link>
             </li>
           </ul>
         </li>
@@ -76,32 +76,27 @@ export default {
   ],
 
   computed: {
-    previous: function() {
-      let ob;
-      let path = this.item.previous_workspace;
-      if (path) {
-        this.$store.dispatch('context/LOAD_CONTEXT', { path: path });
-        let ob = this.$store.state.context.tree[path];
-      }
-      return ob;
-    },
-    next: function() {
-      let nexts = [];
-      for (let path of this.item.next_workspaces) {
-        this.$store.dispatch('context/LOAD_CONTEXT', { path: path });
-        let ob = this.$store.state.context.tree[path];
-        if (ob) {
-          nexts.push(ob);
-        }
-      }
-      return nexts;
+    context: function() {
+      return this.$store.state.context.tree[this.item['@id']];
     }
   },
 
   methods: {
-    makePath(uri) {
-      return utils.makePath(uri);
+    makePath(url) {
+      return utils.makePath(url);
+    },
+    load() {
+      this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'] });
     }
+  },
+
+  mounted() {
+    this.load();
+  },
+
+  watch: {
+    // call again the method if the route changes
+    $route: 'load'
   }
 
 };

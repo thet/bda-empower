@@ -40,7 +40,7 @@ export default {
 
   methods: {
     load() {
-      this.$store.dispatch('context/LOAD_CONTEXT', { path: this.$route.path });
+      this.$store.dispatch('context/LOAD_CONTEXT', { path: this.$route.path, expand_thread: true });
     }
   },
 

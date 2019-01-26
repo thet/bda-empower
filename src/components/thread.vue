@@ -20,6 +20,6 @@ export default {
       return this.context['@components'].thread.start_path;
     }
   }
+
 };
 </script>
-
