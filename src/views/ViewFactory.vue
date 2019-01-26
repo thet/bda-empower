@@ -14,7 +14,7 @@ export default {
 
   computed: {
     context() {
-      return this.$store.state.context.context;
+      return this.$store.state.context.current_context;
     },
 
     component() {
@@ -40,7 +40,7 @@ export default {
 
   methods: {
     load() {
-      this.$store.dispatch('context/LOAD_CONTEXT', { path: this.$route.path, expand_thread: true });
+      this.$store.dispatch('context/LOAD_CONTEXT', { path: this.$route.path });
     }
   },
 
@@ -52,5 +52,6 @@ export default {
     // call again the method if the route changes
     $route: 'load'
   }
+
 };
 </script>

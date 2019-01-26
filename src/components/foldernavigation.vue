@@ -4,7 +4,7 @@
       <li v-if="parentPath">
         <router-link :to="{ path: parentPath }">Parent Item</router-link>
       </li>
-      <li v-for="item in context.items">
+      <li v-for="item in context.items" :key="item.UUID">
         <router-link :to="{ path: makePath(item['@id']) }">
           {{ item.title }}
         </router-link>
@@ -18,7 +18,7 @@ import utils from '@/utils';
 export default {
   computed: {
     context() {
-      return this.$store.state.context.context;
+      return this.$store.state.context.current_context;
     },
 
     parentPath() {

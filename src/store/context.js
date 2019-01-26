@@ -6,37 +6,31 @@ export default {
   namespaced: true,
 
   state: {
-    context: null,
+    current_context: null,
+    current_thread: null,
     tree: {},
   },
 
-  getters: {
-    get: (state, getters) => path => {
-      let ob = state.tree[path];
-      if (!ob) {
-
-        this.actions.LOAD_CONTEXT(path);
-      }
-      return ob;
-    }
-  },
-
   actions: {
-    LOAD_CONTEXT: ({ commit, state }, { path='', url='', expand_thread=false, force=false }) => {
+    LOAD_CONTEXT: ({ commit, state }, { path='', url='', set_current=true, force=false }) => {
 
-      if (!expand_thread && !force && state.tree[path]) {
+      path = path || utils.makePath(url);
+      url = url || utils.makeURL(path);
+
+      if (!force && state.tree[path]) {
+        if (set_current) {
+          commit('SET_CURRENT_CONTEXT', { context: state.tree[path] });
+        }
         return;
-      }
-
-      url = url || (path && utils.makeURL(path));
-      if (expand_thread) {
-        url = `${url}?expand=thread`;
       }
 
       axios
         .get(url)
         .then(response => {
-          commit('SET_CONTEXT', { context: response.data, expand_thread: expand_thread });
+          commit('SET_CONTEXT', { context: response.data });
+          if (set_current) {
+            commit('SET_CURRENT_CONTEXT', { context: response.data });
+          }
         })
         .catch(error => {
           console.log(`Error while LOAD_CONTEXT for context: ${url}`);
@@ -44,19 +38,14 @@ export default {
         });
     },
 
-    LOAD_THREAD: ({ commit, state }, { url, force=false }) => {
-
-      if (force) {
-        commit('CLEAR_TREE');
-      }
-
+    LOAD_THREAD: ({ commit, state }, { url }) => {
       axios
         .get(url)
         .then(response => {
-          commit('SET_TREE', { tree: response.data });
+          commit('SET_CURRENT_THREAD', { thread: response.data });
         })
         .catch(error => {
-          console.log(`Error while LOAD_TREE at: ${url}`);
+          console.log(`Error while LOAD_THREAD at: ${url}`);
           console.log(error);
         });
     }
@@ -64,23 +53,23 @@ export default {
   },
 
   mutations: {
-    SET_CONTEXT: (state, { context, expand_thread=false }) => {
-      if (expand_thread) {
-        // TODO: rename to workspace and hold the current workspace here.
-        state.context = context;
-      }
+
+    SET_CONTEXT: (state, { context }) => {
       state.tree[context['@id']] = context;
       state.tree[context['@id']]._loaded = new Date();
     },
-    SET_TREE: (state, { tree }) => {
-      for (item of tree) {
-        if (!state.tree[item['@id']]) {
-          state.tree[item['@id']] = item;
-        }
-      }
-    },
+
     CLEAR_TREE: (state) => {
       state.tree = {};
+    },
+
+    SET_CURRENT_CONTEXT: (state, { context }) => {
+      state.current_context = context;
+    },
+
+    SET_CURRENT_THREAD: (state, { thread }) => {
+      state.current_thread = thread;
     }
+
   }
 };

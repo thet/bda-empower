@@ -86,7 +86,7 @@ export default {
       return utils.makePath(url);
     },
     load() {
-      this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'] });
+      this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'], set_current: false });
     }
   },
 
