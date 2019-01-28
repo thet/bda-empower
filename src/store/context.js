@@ -6,20 +6,20 @@ export default {
   namespaced: true,
 
   state: {
-    current_context: null,
-    current_thread: null,
+    current_context: {},
+    current_thread: {},
     tree: {},
   },
 
   actions: {
     LOAD_CONTEXT: ({ commit, state }, { path='', url='', set_current=true, force=false }) => {
 
-      path = path || utils.makePath(url);
       url = url || utils.makeURL(path);
 
-      if (!force && state.tree[path]) {
+      if (!force && state.tree[url]) {
+        console.log(`ALREADY LOADED: ${url}`);
         if (set_current) {
-          commit('SET_CURRENT_CONTEXT', { context: state.tree[path] });
+          commit('SET_CURRENT_CONTEXT', { context: state.tree[url] });
         }
         return;
       }
@@ -27,6 +27,7 @@ export default {
       axios
         .get(url)
         .then(response => {
+          console.log(`LOADED: ${url}`);
           commit('SET_CONTEXT', { context: response.data });
           if (set_current) {
             commit('SET_CURRENT_CONTEXT', { context: response.data });
@@ -42,6 +43,7 @@ export default {
       axios
         .get(url)
         .then(response => {
+          console.log(`LOADED THREAD: ${url}`);
           commit('SET_CURRENT_THREAD', { thread: response.data });
         })
         .catch(error => {
@@ -55,8 +57,12 @@ export default {
   mutations: {
 
     SET_CONTEXT: (state, { context }) => {
+      console.log('SET_CONTEXT');
       state.tree[context['@id']] = context;
       state.tree[context['@id']]._loaded = new Date();
+      // assign new object, otherwise it won't be reactive.
+      // TODO: change structure to list, as this isn't efficient
+      state.tree = JSON.parse(JSON.stringify(state.tree));
     },
 
     CLEAR_TREE: (state) => {
@@ -64,10 +70,12 @@ export default {
     },
 
     SET_CURRENT_CONTEXT: (state, { context }) => {
+      console.log('SET_CURRENT_CONTEXT');
       state.current_context = context;
     },
 
     SET_CURRENT_THREAD: (state, { thread }) => {
+      console.log('SET_CURRENT_THREAD');
       state.current_thread = thread;
     }
 

@@ -77,7 +77,8 @@ export default {
 
   computed: {
     context: function() {
-      return this.$store.state.context.tree[this.item['@id']];
+      let context = this.$store.state.context.tree[this.item['@id']];
+      return context;
     }
   },
 

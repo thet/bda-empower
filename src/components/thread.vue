@@ -1,5 +1,5 @@
 <template>
-  <ThreadRecurse :tree="tree.items" :path="tree.startPath" />
+  <ThreadRecurse v-if="tree.start_path" :path="tree.start_path" />
 </template>
 <script>
 import ThreadRecurse from '@/components/thread_recurse';
