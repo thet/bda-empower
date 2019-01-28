@@ -7,8 +7,36 @@ export default {
 
   state: {
     items: [],
-    current_context: {},
-    current_thread: {}
+    current_context: {
+      '@components': {},
+      '@id': '',
+      '@type': '',
+      'UID': '',
+      '_loaded': null,
+      'allow_discussion': false,
+      'contributors': [],
+      'created': null,
+      'creators': [],
+      'experts_assigned': '',
+      'id': '',
+      'is_folderish': true,
+      'items': '',
+      'items_total': 0,
+      'layout': '',
+      'modified': null,
+      'parent': '',
+      'review_state': '',
+      'rights': '',
+      'text': '',
+      'title': '',
+      'version': '',
+      'workspace': ''
+    },
+    current_thread: {
+      '@id': '',
+      'items': [],
+      'start_path': ''
+    }
   },
 
   getters: {
@@ -50,6 +78,7 @@ export default {
     },
 
     LOAD_THREAD: ({ commit, state }, { url }) => {
+      commit('CLEAR_CURRENT_THREAD');
       axios
         .get(url)
         .then(response => {
@@ -72,10 +101,6 @@ export default {
       state.items.push(context);
     },
 
-    CLEAR_TREE: (state) => {
-      state.items = {};
-    },
-
     SET_CURRENT_CONTEXT: (state, { context }) => {
       console.log('SET_CURRENT_CONTEXT');
       state.current_context = context;
@@ -84,6 +109,10 @@ export default {
     SET_CURRENT_THREAD: (state, { thread }) => {
       console.log('SET_CURRENT_THREAD');
       state.current_thread = thread;
+    },
+
+    CLEAR_CURRENT_THREAD: (state) => {
+      state.current_thread = {};
     }
 
   }
