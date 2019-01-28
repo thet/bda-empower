@@ -72,14 +72,15 @@ import utils from '@/utils';
 export default {
 
   props: [
+    'contexttree',
     'item'
   ],
 
   computed: {
     context: function() {
-      let context = this.$store.state.context.tree[this.item['@id']];
-      return context;
-    }
+      return this.contexttree[this.item['@id']];
+    },
+
   },
 
   methods: {

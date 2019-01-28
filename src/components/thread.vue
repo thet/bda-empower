@@ -1,7 +1,8 @@
 <template>
-  <ThreadRecurse v-if="tree.start_path" :path="tree.start_path" />
+  <ThreadRecurse v-if="tree.start_path" :contexttree="contexttree" :path="tree.start_path" />
 </template>
 <script>
+import { mapGetters } from 'vuex';
 import ThreadRecurse from '@/components/thread_recurse';
 
 export default {
@@ -12,7 +13,10 @@ export default {
   computed: {
     tree() {
       return this.$store.state.context.current_thread;
-    }
+    },
+    ...mapGetters({
+      contexttree: 'context/contexttree'
+    })
   },
 
   methods: {

@@ -6,9 +6,19 @@ export default {
   namespaced: true,
 
   state: {
+    items: [],
     current_context: {},
-    current_thread: {},
-    tree: {},
+    current_thread: {}
+  },
+
+  getters: {
+    contextmap: state => {
+      let tree = {};
+      for (item of state.items) {
+        tree[item['@id']] = item;
+      }
+      return tree;
+    }
   },
 
   actions: {
@@ -16,10 +26,10 @@ export default {
 
       url = url || utils.makeURL(path);
 
-      if (!force && state.tree[url]) {
+      if (!force && state.items[url]) {
         console.log(`ALREADY LOADED: ${url}`);
         if (set_current) {
-          commit('SET_CURRENT_CONTEXT', { context: state.tree[url] });
+          commit('SET_CURRENT_CONTEXT', { context: state.items[url] });
         }
         return;
       }
@@ -28,7 +38,7 @@ export default {
         .get(url)
         .then(response => {
           console.log(`LOADED: ${url}`);
-          commit('SET_CONTEXT', { context: response.data });
+          commit('ADD_CONTEXT', { context: response.data });
           if (set_current) {
             commit('SET_CURRENT_CONTEXT', { context: response.data });
           }
@@ -56,17 +66,14 @@ export default {
 
   mutations: {
 
-    SET_CONTEXT: (state, { context }) => {
-      console.log('SET_CONTEXT');
-      state.tree[context['@id']] = context;
-      state.tree[context['@id']]._loaded = new Date();
-      // assign new object, otherwise it won't be reactive.
-      // TODO: change structure to list, as this isn't efficient
-      state.tree = JSON.parse(JSON.stringify(state.tree));
+    ADD_CONTEXT: (state, { context }) => {
+      console.log('ADD_CONTEXT');
+      context._loaded = new Date();
+      state.items.push(context);
     },
 
     CLEAR_TREE: (state) => {
-      state.tree = {};
+      state.items = {};
     },
 
     SET_CURRENT_CONTEXT: (state, { context }) => {

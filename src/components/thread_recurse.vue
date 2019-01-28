@@ -1,8 +1,8 @@
 <template>
   <div>
   <div class="article_wrapper" v-for="item in items" :key="item['@id']">
-    <Contribution :item="item" />
-    <ThreadRecurse :path="newPath(item)" />
+    <Contribution :contexttree="contexttree" :item="item" />
+    <ThreadRecurse :contexttree="contexttree" :path="newPath(item)" />
   </div>
   </div>
 </template>
@@ -20,7 +20,8 @@ export default {
   },
 
   props: [
-    'path',
+    'contexttree',
+    'path'
   ],
 
   computed: {
