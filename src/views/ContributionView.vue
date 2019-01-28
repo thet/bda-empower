@@ -1,15 +1,20 @@
 <template>
   <div class="viewWrapper">
-    <Thread />
+    <Thread :context="context" />
   </div>
 </template>
 <script>
 import Thread from '@/components/thread';
 
 export default {
+
   components: {
     Thread
   },
-  props: ['context']
+
+  props: [
+    'context'
+  ]
+
 };
 </script>

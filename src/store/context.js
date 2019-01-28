@@ -12,9 +12,9 @@ export default {
   },
 
   getters: {
-    contextmap: state => {
+    contexttree: state => {
       let tree = {};
-      for (item of state.items) {
+      for (let item of state.items) {
         tree[item['@id']] = item;
       }
       return tree;

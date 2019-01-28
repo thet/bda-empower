@@ -2,7 +2,7 @@
   <div>
   <div class="article_wrapper" v-for="item in items" :key="item['@id']">
     <Contribution :contexttree="contexttree" :item="item" />
-    <ThreadRecurse :contexttree="contexttree" :path="newPath(item)" />
+    <ThreadRecurse :contexttree="contexttree" :path="newPath(item)" :tree="tree" />
   </div>
   </div>
 </template>
@@ -21,13 +21,11 @@ export default {
 
   props: [
     'contexttree',
-    'path'
+    'path',
+    'tree'
   ],
 
   computed: {
-    tree() {
-      return this.$store.state.context.current_thread;
-    },
     items() {
       return this.tree.items[this.path];
     }

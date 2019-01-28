@@ -56,7 +56,7 @@
           <ul>
             <li
                 v-for="ws in item.next_workspaces"
-                :key="ws">
+                :key="ws.path">
               <router-link :to="{ path: makePath(ws.path) }">{{ ws.title }}</router-link>
             </li>
           </ul>
