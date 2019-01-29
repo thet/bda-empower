@@ -1,9 +1,10 @@
 <template>
-  <article v-if="context" :class="[ 'uid-' + context.UID, 'state-' + context.review_state ]">
+  <intersect @enter="load">
+  <article :class="[ 'uid-' + item.UID, 'state-' + item.review_state ]">
 
     <header>
-      <h3>{{ context.title }}</h3>
-      <ul>
+      <h3>{{ item.title }}</h3>
+      <ul v-if="context">
         <li>
           <strong>Autor*in:</strong>
           <span>{{ context.creator }}</span>
@@ -19,10 +20,10 @@
       </ul>
     </header>
 
-    <div v-if="context.text.data" v-html="context.text.data"></div>
+    <div v-if="context && context.text.data" v-html="context.text.data"></div>
 
     <footer>
-      <ul>
+      <ul v-if="context">
         <li v-if="context.workspace">
           <strong>Workspace:</strong>
           <span>{{ context.workspace }}</span>
@@ -45,7 +46,7 @@
         </li>
         <li>
           <strong>URL:</strong>
-          <router-link :to="{ path: makePath(context['@id']) }">{{ context.title }}</router-link>
+          <router-link :to="{ path: makePath(item['@id']) }">{{ item.title }}</router-link>
         </li>
         <li v-if="item.previous_workspace">
           <strong>Zum vorherigen Workspace:</strong>
@@ -65,11 +66,17 @@
     </footer>
 
   </article>
+  </intersect>
 </template>
 <script>
+import Intersect from 'vue-intersect'
 import utils from '@/utils';
 
 export default {
+
+  components: {
+    Intersect
+  },
 
   props: [
     'contexttree',
@@ -88,17 +95,10 @@ export default {
       return utils.makePath(url);
     },
     load() {
-      this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'], set_current: false });
+      if (!this.context) {
+        this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'], set_current: false });
+      }
     }
-  },
-
-  mounted() {
-    this.load();
-  },
-
-  watch: {
-    // call again the method if the route changes
-    $route: 'load'
   }
 
 };

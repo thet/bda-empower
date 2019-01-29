@@ -2,6 +2,8 @@ import App from './App.vue';
 import Vue from 'vue';
 import router from './router';
 import store from './store';
+import 'intersection-observer'; // W3C Polyfill
+
 
 Vue.config.productionTip = false;
 
