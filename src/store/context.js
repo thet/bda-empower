@@ -50,9 +50,16 @@ export default {
   },
 
   actions: {
-    LOAD_CONTEXT: ({ commit, state }, { path='', url='', set_current=true, force=false }) => {
+    LOAD_CONTEXT: ({ commit, state }, {
+      path='',
+      url='',
+      workspace=undefined,
+      set_current=true,
+      force=false
+    }) => {
 
       url = url || utils.makeURL(path);
+      url = workspace ? `${url}?workspace=${workspace}` : url;
 
       if (!force && state.items[url]) {
         console.log(`ALREADY LOADED: ${url}`);
