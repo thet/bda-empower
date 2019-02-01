@@ -1,9 +1,19 @@
 <template>
-  <div>
-    <FormSchema v-if="schema" :schema="schema" v-model="model" @submit="submit">
-      <button type="submit">Save</button>
-    </FormSchema>
-  </div>
+  <v-layout v-if="schema" row justify-center>
+    <v-dialog v-model="dialog" persistent max-width="600px">
+      <v-card>
+        <v-card-text>
+          <FormSchema :schema="schema" v-model="model" @submit="save">
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" flat @click="dialog=false">Close</v-btn>
+              <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+            </v-card-actions>
+          </FormSchema>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+  </v-layout>
 </template>
 <script>
 import FormSchema from '@formschema/native'
@@ -21,6 +31,7 @@ export default {
 
   data: function() {
     return {
+      dialog: true, // Edit button already clicked
       model: JSON.parse(JSON.stringify(this.context)),
       schema_props: {
         'Contribution': [
@@ -37,7 +48,6 @@ export default {
           'expert_pool'
         ]
       }
-
     }
   },
 
@@ -69,8 +79,9 @@ export default {
     load() {
       this.$store.dispatch('types/LOAD_TYPE', { url: this.context['@id'], type: this.context['@type'] });
     },
-    submit() {
+    save() {
       this.$store.dispatch('context/PATCH', { url: this.context['@id'], model: this.model });
+      this.dialog = false;
     }
   },
 

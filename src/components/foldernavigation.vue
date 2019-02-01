@@ -1,16 +1,30 @@
 <template>
-  <nav>
-    <ul>
-      <li v-if="parentPath">
-        <router-link :to="{ path: parentPath }">Parent Item</router-link>
-      </li>
-      <li v-for="item in context.items" :key="item.UUID">
-        <router-link :to="{ path: makePath(item['@id']) }">
-          {{ item.title }}
-        </router-link>
-      </li>
-    </ul>
-  </nav>
+  <v-list class="pt-0" dense>
+    <v-list-tile v-if="parentPath">
+      <v-list-tile-action>
+        <v-icon>dashboard</v-icon>
+      </v-list-tile-action>
+
+      <v-list-tile-content>
+        <v-list-tile-title>
+          <router-link :to="{ path: parentPath }">Parent Item</router-link>
+        </v-list-tile-title>
+      </v-list-tile-content>
+    </v-list-tile>
+
+    <v-list-tile v-for="item in context.items" :key="item.UUID">
+      <v-list-tile-action>
+        <v-icon>dashboard</v-icon>
+      </v-list-tile-action>
+      <v-list-tile-content>
+        <v-list-tile-title>
+          <router-link :to="{ path: makePath(item['@id']) }">
+            {{ item.title }}
+          </router-link>
+        </v-list-tile-title>
+      </v-list-tile-content>
+    </v-list-tile>
+  </v-list>
 </template>
 <script>
 import utils from '@/utils';
@@ -37,5 +51,6 @@ export default {
       return utils.makePath(uri);
     }
   }
+
 };
 </script>

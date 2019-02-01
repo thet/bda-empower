@@ -1,10 +1,10 @@
 <template>
   <intersect @enter="load">
-    <article :class="[ 'uid-' + item.UID, 'state-' + item.review_state ]">
+    <v-card :class="[ 'uid-' + item.UID, 'state-' + item.review_state ]">
 
       <ContributionEdit v-if="edit" :context="context" />
 
-      <header>
+      <v-card-title>
         <h3>{{ item.title }}</h3>
         <ul v-if="context">
           <li>
@@ -20,9 +20,9 @@
             <time :datetime="context.modified">{{ context.modified }}</time>
           </li>
         </ul>
-      </header>
+      </v-card-title>
 
-      <div v-if="context && context.text.data" v-html="context.text.data"></div>
+      <v-card-text v-if="context && context.text.data" v-html="context.text.data"></v-card-text>
 
       <footer>
         <ul v-if="context">
@@ -66,15 +66,18 @@
           </li>
         </ul>
 
-        <button
-            title="Edit"
-            :class="{ editing: edit }"
-            @click="toggle_edit"
-            v-if="editable">Edit</button>
+        <v-card-actions>
+          <v-btn fab dark small right bottom absolute color="cyan" :class="{ editing: edit }"
+              title="Edit"
+              @click="toggle_edit"
+              v-if="editable">
+            <v-icon dark>edit</v-icon>
+          </v-btn>
+        </v-card-actions>
 
       </footer>
 
-    </article>
+    </v-card>
   </intersect>
 </template>
 <script>

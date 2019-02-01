@@ -1,29 +1,24 @@
 <template>
   <div id="app">
-    <router-view />
-    <footer>
-      <router-link v-if="!isLoggedIn" to="login">Login</router-link>
-      <span v-if="isLoggedIn"><a @click="logout">Logout</a></span>
-    </footer>
+    <v-app>
+      <Toolbar></Toolbar>
+      <v-content>
+        <router-view />
+      </v-content>
+    </v-app>
   </div>
 </template>
 
 <script>
+import Toolbar from '@/components/toolbar';
+
 export default {
+
   name: 'app',
 
-  computed: {
-    isLoggedIn() {
-      return this.$store.getters['login/isLoggedIn'];
-    }
-  },
-
-  methods: {
-    logout() {
-      this.$store.dispatch('login/LOGOUT').then(() => {
-        this.$router.push('/login');
-      });
-    }
+  components: {
+    Toolbar
   }
+
 };
 </script>

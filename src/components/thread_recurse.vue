@@ -42,15 +42,7 @@ export default {
 };
 </script>
 <style type="scss">
-
   .article_wrapper .article_wrapper {
     margin-left: 2em;
   }
-  .article_wrapper article {
-    margin: 2em 0;
-    padding: 2em;
-    border: 1px solid black;
-    border-radius: 2em 0 2em 0;
-  }
-
 </style>
