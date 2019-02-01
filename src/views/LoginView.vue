@@ -1,12 +1,12 @@
 <template>
-  <form class="login" @submit.prevent="login">
+  <v-form class="login" @submit.prevent="login">
     <h1>Sign in</h1>
     <label>User Name</label>
-    <input required v-model="username" placeholder="User name" />
+    <v-text-field required v-model="username" placeholder="User name" />
     <label>Password</label>
-    <input required v-model="password" type="password" placeholder="Password" />
-    <button type="submit">Login</button>
-  </form>
+    <v-text-field required v-model="password" type="password" placeholder="Password" />
+    <v-btn @click="login">Login</v-btn>
+  </v-form>
 </template>
 <script>
 export default {
