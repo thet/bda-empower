@@ -2,6 +2,8 @@
   <intersect @enter="load">
     <article :class="[ 'uid-' + item.UID, 'state-' + item.review_state ]">
 
+      <ContributionEdit v-if="edit" :context="context" />
+
       <header>
         <h3>{{ item.title }}</h3>
         <ul v-if="context">
@@ -63,18 +65,27 @@
             </ul>
           </li>
         </ul>
+
+        <button
+            title="Edit"
+            :class="{ editing: edit }"
+            @click="toggle_edit"
+            v-if="editable">Edit</button>
+
       </footer>
 
     </article>
   </intersect>
 </template>
 <script>
+import ContributionEdit from '@/components/contribution_edit';
 import Intersect from 'vue-intersect'
 import utils from '@/utils';
 
 export default {
 
   components: {
+    ContributionEdit,
     Intersect
   },
 
@@ -83,11 +94,20 @@ export default {
     'item'
   ],
 
+  data: function() {
+    return {
+      edit: false
+    };
+  },
+
   computed: {
     context: function() {
       return this.contexttree[this.item['@id']];
     },
-
+    editable: function() {
+      // TODO: check for user rights.
+      return !!this.context;
+    }
   },
 
   methods: {
@@ -98,6 +118,10 @@ export default {
       if (!this.context) {
         this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'], set_current: false });
       }
+    },
+    toggle_edit() {
+      this.edit = !this.edit;
+      console.log(this.edit ? 'editing' : 'not editing');
     }
   }
 

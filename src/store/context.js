@@ -96,16 +96,43 @@ export default {
           console.log(`Error while LOAD_THREAD at: ${url}`);
           console.log(error);
         });
-    }
+    },
+
+    PATCH: ({ commit, state }, { url, model }) => {
+
+      axios
+        .patch(
+          url,
+          headers={'Prefer': 'return=representation'}  // return the updated context from server.
+        )
+        .then(response => {
+          console.log(`PATCH: ${url}`);
+          commit('UPDATE_CONTEXT', { context: response.data });
+        })
+        .catch(error => {
+          console.log(`Error while PATCH for context: ${url}`);
+          console.log(error);
+        });
+    },
 
   },
 
   mutations: {
 
     ADD_CONTEXT: (state, { context }) => {
-      console.log('ADD_CONTEXT');
       context._loaded = new Date();
       state.items.push(context);
+      console.log('ADD_CONTEXT');
+    },
+
+    UPDATE_CONTEXT: (state, { context }) => {
+      context._loaded = new Date();
+      for (let i = 0; i < state.items.length; i++) {
+        if (state.items[i]['@id'] === context['@id']) {
+          state.items[i] = context;
+        }
+      }
+      console.log(`UPDATE_CONTEXT: ${context['@id']}`);
     },
 
     SET_CURRENT_CONTEXT: (state, { context }) => {

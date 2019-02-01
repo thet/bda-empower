@@ -3,13 +3,15 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import Login from './login';
 import Context from './context';
+import Types from './types';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
     login: Login,
-    context: Context
+    context: Context,
+    types: Types
   }
 });
 

@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@formschema/native": "^2.0.0-alpha.2",
     "axios": "^0.18.0",
     "intersection-observer": "^0.5.1",
     "vue": "^2.5.17",
