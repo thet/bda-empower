@@ -73,9 +73,31 @@ export default {
         .get(url)
         .then(response => {
           console.log(`LOADED: ${url}`);
-          commit('ADD_CONTEXT', { context: response.data });
+
+          let context = response.data;
+          context.items = context.items.map(it => {
+            switch (it['@type']) {
+              case 'Folder':
+                it.icon = 'folder';
+                break;
+              case 'Cases':
+                it.icon = 'view_list';
+                break;
+              case 'Case':
+                it.icon = 'dashboard';
+                break;
+              case 'Contribution':
+                it.icon = 'comment';
+                break;
+              default:
+                it.icon = 'chat_bubble';
+            }
+            return it;
+          });
+
+          commit('ADD_CONTEXT', { context: context });
           if (set_current) {
-            commit('SET_CURRENT_CONTEXT', { context: response.data });
+            commit('SET_CURRENT_CONTEXT', { context: context });
           }
         })
         .catch(error => {
