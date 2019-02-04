@@ -2,10 +2,10 @@
   <intersect @enter="load">
     <v-card :class="[ 'uid-' + item.UID, 'state-' + item.review_state ]">
 
-      <ContributionEdit v-if="edit" :context="context" />
+      <!--ContributionEdit v-if="edit" :context="context" /-->
 
       <v-card-title>
-        <h3>{{ item.title }}</h3>
+        <h3><TextLine v-model="item.title" :label="'Title'" :edit="edit" /></h3>
         <ul v-if="context">
           <li>
             <strong>Autor*in:</strong>
@@ -22,7 +22,7 @@
         </ul>
       </v-card-title>
 
-      <v-card-text v-if="context && context.text.data" v-html="context.text.data"></v-card-text>
+      <TextArea v-if="context && context.text" v-model="context.text.data" :label="'Text'" :edit="edit"></TextArea>
 
       <footer>
         <ul v-if="context">
@@ -82,6 +82,8 @@
 </template>
 <script>
 import ContributionEdit from '@/components/contribution_edit';
+import TextLine from '@/elements/TextLine';
+import TextArea from '@/elements/TextArea';
 import Intersect from 'vue-intersect'
 import utils from '@/utils';
 
@@ -89,7 +91,9 @@ export default {
 
   components: {
     ContributionEdit,
-    Intersect
+    Intersect,
+    TextLine,
+    TextArea
   },
 
   props: [
