@@ -1,0 +1,26 @@
+image: docker:latest
+
+services:
+- name: docker:dind
+  command: ["--experimental"]
+
+stages:
+- build
+- deploy
+
+before_script:
+- echo "login to $CI_REGISTRY with $CI_BUILD_TOKEN"
+- docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+- docker version
+
+build:
+  stage: build
+  tags:
+  - docker-build
+  only:
+  - tags
+  script:
+  - echo "build $CI_REGISTRY_IMAGE"
+  - docker build --pull -t $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG -t $CI_REGISTRY_IMAGE:latest .
+  - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+  - docker push $CI_REGISTRY_IMAGE:latest
