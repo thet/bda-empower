@@ -54,7 +54,7 @@ export default {
       path='',
       url='',
       workspace=undefined,
-      set_current=true,
+      set_current=false,
       force=false
     }) => {
 

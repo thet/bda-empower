@@ -21,7 +21,7 @@ export default {
   methods: {
     load() {
       let path = this.$route.path.split('+ws')[0];
-      this.$store.dispatch('context/LOAD_CONTEXT', { path: path, workspace: this.$route.params.id });
+      this.$store.dispatch('context/LOAD_CONTEXT', { path: path, workspace: this.$route.params.id, set_current: true });
     }
   },
 
