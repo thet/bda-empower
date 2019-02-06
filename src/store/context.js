@@ -120,16 +120,31 @@ export default {
         });
     },
 
-    PATCH: ({ commit, state }, { url, model }) => {
+    PATCH: ({ dispatch, commit, state }, { url=null, context=null, model=null }) => {
+
+      if (context) {
+        url = context['@id'];
+        model = JSON.parse(JSON.stringify(context));
+
+        // Clean the data with what we want need to save
+        let patch_model = new config[`${context['@type']}Model`]({});
+        for (let attr in model) {
+          if (!(attr in patch_model)) {
+            delete model[attr];
+          }
+        }
+      }
 
       axios
         .patch(
           url,
-          headers={'Prefer': 'return=representation'}  // return the updated context from server.
+          model
+          // {headers: {'Prefer': 'return=representation'}},  // return the updated context from server.
         )
         .then(response => {
           console.log(`PATCH: ${url}`);
-          commit('UPDATE_CONTEXT', { context: response.data });
+          dispatch('LOAD_CONTEXT', { url: url, force: true });
+          // commit('ADD_CONTEXT', { context: response.data });
         })
         .catch(error => {
           console.log(`Error while PATCH for context: ${url}`);
@@ -142,19 +157,21 @@ export default {
   mutations: {
 
     ADD_CONTEXT: (state, { context }) => {
-      context._loaded = new Date();
-      state.items.push(context);
-      console.log('ADD_CONTEXT');
-    },
-
-    UPDATE_CONTEXT: (state, { context }) => {
+      let upd = false;
       context._loaded = new Date();
       for (let i = 0; i < state.items.length; i++) {
         if (state.items[i]['@id'] === context['@id']) {
+          console.log('update');
           state.items[i] = context;
+          upd = true;
+          break;
         }
       }
-      console.log(`UPDATE_CONTEXT: ${context['@id']}`);
+      if (! upd) {
+        console.log('add');
+        state.items.push(context);
+      }
+      console.log(`ADD_CONTEXT: ${context['@id']}`);
     },
 
     SET_CURRENT_CONTEXT: (state, { context }) => {

@@ -5,7 +5,7 @@
       <!--ContributionEdit v-if="edit" :context="context" /-->
 
       <v-card-title>
-        <h3><TextLine v-model="item.title" :label="'Title'" :edit="edit" /></h3>
+        <h3><TextLine v-if="context" v-model="context.title" :label="'Title'" :edit="edit" /></h3>
         <ul v-if="context">
           <li>
             <strong>Autor*in:</strong>
@@ -67,12 +67,26 @@
         </ul>
 
         <v-card-actions>
-          <v-btn fab dark small right bottom absolute color="cyan" :class="{ editing: edit }"
-              title="Edit"
-              @click="toggle_edit"
-              v-if="editable">
-            <v-icon dark>edit</v-icon>
-          </v-btn>
+          <div v-if="editable">
+            <v-btn fab dark small color="red"
+                title="Cancel"
+                @click="cancel"
+                v-if="edit">
+              <v-icon dark>cancel</v-icon>
+              </v-btn>
+              <v-btn fab dark small color="green"
+                title="Save"
+                @click="save"
+                v-if="edit">
+              <v-icon dark>save</v-icon>
+            </v-btn>
+            <v-btn fab dark small color="cyan" :class="{ editing: edit }"
+                title="Edit"
+                @click="toggle_edit"
+                v-if="!edit">
+              <v-icon dark>edit</v-icon>
+            </v-btn>
+          </div>
         </v-card-actions>
 
       </footer>
@@ -112,8 +126,7 @@ export default {
       return this.contexttree[this.item['@id']];
     },
     editable: function() {
-      // TODO: check for user rights.
-      return !!this.context;
+      return this.context && this.context.can_edit;
     }
   },
 
@@ -123,12 +136,20 @@ export default {
     },
     load() {
       if (!this.context) {
-        this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'], set_current: false });
+        this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'] });
       }
     },
     toggle_edit() {
       this.edit = !this.edit;
       console.log(this.edit ? 'editing' : 'not editing');
+    },
+    cancel() {
+      this.edit = false;
+      this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'], force: true });
+    },
+    save() {
+      this.$store.dispatch('context/PATCH', { context: this.context });
+      this.edit = false;
     }
   }
 
