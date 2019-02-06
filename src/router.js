@@ -16,7 +16,7 @@ export default new Router({
     },
     {
       path: '**/+ws/:id',
-      name: 'view-factory',
+      name: 'ws-view',
       component: WorkspaceView
     },
     {
