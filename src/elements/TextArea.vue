@@ -1,21 +1,49 @@
 <template>
   <div>
-    <v-textarea
+    <TextEditor
       v-if="edit"
-      :edit="edit"
-      :label="label"
-      v-model="_value"
-    ></v-textarea>
+      :text="_value"
+      :options="editor_options"
+      v-on:edit="editor_edit"
+      custom-tag="div"
+    ></TextEditor>
     <div v-if="!edit" v-html="value"></div>
   </div>
 </template>
 <script>
+import TextEditor from 'vue2-medium-editor';
+import 'medium-editor/dist/css/medium-editor.css';
+import 'medium-editor/dist/css/themes/default.css';
+
 export default {
+
+  components: {
+    TextEditor
+  },
+
   props: {
     edit: Boolean,
     label: String,
     value: String
   },
+
+  data: function() {
+    return {
+      editor_options: {
+        toolbar: {
+          buttons: ['bold', 'italic', 'underline', 'anchor']
+        },
+        anchor: {
+          customClassOption: 'alink',
+          customClassOptionText: 'Button',
+          linkValidation: false,
+          targetCheckbox: false,
+          targetCheckboxText: 'Open in new window'
+        }
+      }
+    }
+  },
+
   computed: {
     _value: {
       get: function() {
@@ -24,6 +52,12 @@ export default {
       set: function(x) {
         this.$emit('input', x);
       }
+    }
+  },
+
+  methods: {
+    editor_edit: function(operation) {
+      this._value = operation.api.origElements.innerHTML;
     }
   }
 
