@@ -90,10 +90,8 @@ export default {
   },
 
   watch: {
-    // call again the method if the route changes
-    $route: 'load'
+    context: 'load'
   }
-
 
 };
 </script>

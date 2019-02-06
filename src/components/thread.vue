@@ -39,7 +39,7 @@ export default {
   },
 
   watch: {
-    // call again the method if the route changes
+    // load thread when context changes
     context: 'load'
   }
 
