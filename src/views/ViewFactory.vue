@@ -40,11 +40,11 @@ export default {
 
   methods: {
     load() {
-      this.$store.dispatch('context/LOAD_CONTEXT', { path: this.$route.path });
+      this.$store.dispatch('context/LOAD_CONTEXT', { path: this.$route.path, set_current: true });
     }
   },
 
-  mounted() {
+  created() {
     this.load();
   },
 
