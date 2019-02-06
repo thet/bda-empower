@@ -32,6 +32,7 @@ class CaseModel {
 }
 
 export default {
+  // baseURI: 'http://matt.zoplo.com:35180/Plone',
   baseURI: 'http://localhost:8080/Plone',
   basePath: '/Plone',
   ContributionModel: ContributionModel,
