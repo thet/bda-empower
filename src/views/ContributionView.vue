@@ -50,6 +50,5 @@ export default {
     'context'
   ]
 
-
 };
 </script>

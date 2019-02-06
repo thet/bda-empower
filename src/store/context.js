@@ -158,13 +158,13 @@ export default {
     },
 
     SET_CURRENT_CONTEXT: (state, { context }) => {
-      console.log('SET_CURRENT_CONTEXT');
       state.current_context = context;
+      console.log('SET_CURRENT_CONTEXT: ' + context['@id']);
     },
 
     SET_CURRENT_THREAD: (state, { thread }) => {
-      console.log('SET_CURRENT_THREAD');
       state.current_thread = thread;
+      console.log('SET_CURRENT_THREAD');
     },
 
     CLEAR_CURRENT_THREAD: (state) => {
