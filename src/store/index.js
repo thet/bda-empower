@@ -4,6 +4,7 @@ import axios from 'axios';
 import Login from './login';
 import Context from './context';
 import Types from './types';
+import Users from './users';
 
 Vue.use(Vuex);
 
@@ -11,7 +12,8 @@ export default new Vuex.Store({
   modules: {
     login: Login,
     context: Context,
-    types: Types
+    types: Types,
+    users: Users
   }
 });
 

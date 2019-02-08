@@ -40,7 +40,7 @@
           </li>
           <li v-if="context.expert_pool">
             <strong>Expert*innen Pool:</strong>
-            <span>{{ context.expert_pool }}</span>
+            <AutocompleteUsers v-model="context.expert_pool" :label="'Expert*innen Pool'" :edit="edit"/>
           </li>
           <li v-if="context.experts_assigned">
             <strong>Zugewiesene Expert*innen:</strong>
@@ -95,6 +95,7 @@
   </intersect>
 </template>
 <script>
+import AutocompleteUsers from '@/elements/Autocomplete_users';
 import ContributionEdit from '@/components/contribution_edit';
 import TextLine from '@/elements/TextLine';
 import TextArea from '@/elements/TextArea';
@@ -104,6 +105,7 @@ import utils from '@/utils';
 export default {
 
   components: {
+    AutocompleteUsers,
     ContributionEdit,
     Intersect,
     TextLine,
