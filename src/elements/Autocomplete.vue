@@ -28,8 +28,8 @@ export default {
       get() {
         return this.value;
       },
-      set(x) {
-        this.$emit('input', x);
+      set(val) {
+        this.$emit('input', val);
       }
     }
   }
