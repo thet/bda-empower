@@ -1,5 +1,5 @@
 <template>
-  <Autocomplete v-model="_value" :edit="edit" :label="label" :items="items" />
+  <Autocomplete v-model="_value" :edit="edit" :label="label" :items="items" :multiple="multiple" />
 </template>
 <script>
 import Autocomplete from '@/elements/Autocomplete';
@@ -13,7 +13,8 @@ export default {
   props: {
     edit: Boolean,
     label: String,
-    value: String
+    value: String,
+    multiple: Boolean
   },
 
   computed: {
@@ -21,8 +22,8 @@ export default {
       get() {
         return this.value;
       },
-      set(x) {
-        this.$emit('input', x);
+      set(val) {
+        this.$emit('input', val);
       }
     },
     items() {

@@ -5,9 +5,10 @@
         v-model="_value"
         :items="items"
         :label="label"
-        box
+        :multiple="multiple"
         chips
-        multiple
+        deletable-chips
+        dense
       ></v-autocomplete>
     <span v-if="!edit">{{ value }}</span>
   </span>
@@ -19,16 +20,21 @@ export default {
     label: String,
     value: String,
     items: Array,
+    multiple: Boolean
   },
   computed: {
-    //_value() {
-    //  return this.value;
-    //},
     _value: {
       get() {
-        return this.value;
+        let val = this.value;
+        if (this.multiple) {
+          val = val.split(';').filter(it => it);
+        }
+        return val;
       },
       set(val) {
+        if (this.multiple) {
+          val = val.join(';');
+        }
         this.$emit('input', val);
       }
     }

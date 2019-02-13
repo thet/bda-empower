@@ -32,19 +32,19 @@
           </li>
           <li v-if="context.client">
             <strong>Klient*in:</strong>
-            <span>{{ context.client }}</span>
+            <AutocompleteUsers v-model="context.client" :label="'Klient*in'" :edit="edit" :multiple="false"/>
           </li>
           <li v-if="context.coordinators">
             <strong>Koordinator*in:</strong>
-            <span>{{ context.coordinators }}</span>
+            <AutocompleteUsers v-model="context.coodinators" :label="'Koordinator*in'" :edit="edit" :multiple="false"/>
           </li>
           <li v-if="context.expert_pool">
             <strong>Expert*innen Pool:</strong>
-            <AutocompleteUsers v-model="context.expert_pool" :label="'Expert*innen Pool'" :edit="edit"/>
+            <AutocompleteUsers v-model="context.expert_pool" :label="'Expert*innen Pool'" :edit="edit" :multiple="true"/>
           </li>
           <li v-if="context.experts_assigned">
             <strong>Zugewiesene Expert*innen:</strong>
-            <span>{{ context.experts_assigned }}</span>
+            <AutocompleteAssigned v-model="context.experts_assigned" :url="item['@id']" :label="'Zugewiesene Expert*innen'" :edit="edit" :multiple="true"/>
           </li>
           <li>
             <strong>URL:</strong>
