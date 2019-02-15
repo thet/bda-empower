@@ -9,7 +9,7 @@ export default {
       '@id': '',
       'terms': []
     },
-    current_parrent_allowed: []
+    parent_allowed: []
   },
 
   getters: {
@@ -40,7 +40,7 @@ export default {
         });
     },
 
-    LOAD_PARENT_ALLOWED: ({ commit, state }, { url }) => {
+    LOAD_PARENT_ALLOWED: async ({ commit, state }, { url }) => {
 
       url = `${url}/@vocabularies/empower.parent_allowed_users`;
       axios

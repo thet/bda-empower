@@ -32,19 +32,19 @@
           </li>
           <li v-if="context.client">
             <strong>Klient*in:</strong>
-            <AutocompleteUsers v-model="context.client" :label="'Klient*in'" :edit="edit" :multiple="false"/>
+            <Autocomplete v-model="context.client" :label="'Klient*in'" :edit="edit" :multiple="false" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
           </li>
           <li v-if="context.coordinators">
             <strong>Koordinator*in:</strong>
-            <AutocompleteUsers v-model="context.coodinators" :label="'Koordinator*in'" :edit="edit" :multiple="false"/>
+            <Autocomplete v-model="context.coodinators" :label="'Koordinator*in'" :edit="edit" :multiple="false" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
           </li>
           <li v-if="context.expert_pool">
             <strong>Expert*innen Pool:</strong>
-            <AutocompleteUsers v-model="context.expert_pool" :label="'Expert*innen Pool'" :edit="edit" :multiple="true"/>
+            <Autocomplete v-model="context.expert_pool" :label="'Expert*innen Pool'" :edit="edit" :multiple="true" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
           </li>
           <li v-if="context.experts_assigned">
             <strong>Zugewiesene Expert*innen:</strong>
-            <AutocompleteAssigned v-model="context.experts_assigned" :url="item['@id']" :label="'Zugewiesene Expert*innen'" :edit="edit" :multiple="true"/>
+            <Autocomplete v-model="context.expert_pool" :label="'Zugewiesene Expert*innen'" :edit="edit" :multiple="true" :store_getter="'users/parent_allowed'" :store_loader="'users/LOAD_PARENT_ALLOWED'"/>
           </li>
           <li>
             <strong>URL:</strong>
@@ -95,7 +95,7 @@
   </intersect>
 </template>
 <script>
-import AutocompleteUsers from '@/elements/Autocomplete_users';
+import Autocomplete from '@/elements/Autocomplete';
 import ContributionEdit from '@/components/contribution_edit';
 import TextLine from '@/elements/TextLine';
 import TextArea from '@/elements/TextArea';
@@ -105,7 +105,7 @@ import utils from '@/utils';
 export default {
 
   components: {
-    AutocompleteUsers,
+    Autocomplete,
     ContributionEdit,
     Intersect,
     TextLine,
