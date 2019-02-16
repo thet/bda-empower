@@ -36,7 +36,7 @@
           </li>
           <li v-if="context.coordinators">
             <strong>Koordinator*in:</strong>
-            <Autocomplete v-model="context.coodinators" :label="'Koordinator*in'" :edit="edit" :multiple="false" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
+            <Autocomplete v-model="context.coordinators" :label="'Koordinator*in'" :edit="edit" :multiple="false" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
           </li>
           <li v-if="context.expert_pool">
             <strong>Expert*innen Pool:</strong>
