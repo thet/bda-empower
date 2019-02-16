@@ -9,7 +9,7 @@
         <ul v-if="context">
           <li>
             <strong>Autor*in:</strong>
-            <span>{{ context.creator }}</span>
+            <span>{{ context.creators }}</span>
           </li>
           <li>
             <strong>Erstellt:</strong>
