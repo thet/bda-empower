@@ -48,7 +48,8 @@
   "prettier": {
     "singleQuote": true,
     "jsxBracketSameLine": true,
-    "htmlWhitespaceSensitivity": "ignore"
+    "htmlWhitespaceSensitivity": "ignore",
+    "trailingComma": "es5"
   },
   "postcss": {
     "plugins": {
