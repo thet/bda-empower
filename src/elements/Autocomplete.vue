@@ -18,7 +18,7 @@ export default {
   props: {
     edit: Boolean,
     label: String,
-    value: String,
+    value: [String, Array],
     multiple: Boolean,
     store_loader: String,
     store_getter: String
@@ -26,18 +26,10 @@ export default {
   computed: {
     _value: {
       get() {
-        let val = this.value;
-        let val_default = '';
-        if (this.multiple) {
-          val = val.split(';').filter(it => it);
-          val_default = [];
-        }
-        return val || val_default;
+        let val_default = this.multiple ? [] : '';
+        return this.value || val_default;
       },
       set(val) {
-        if (this.multiple) {
-          val = val.join(';');
-        }
         this.$emit('input', val);
       }
     },
