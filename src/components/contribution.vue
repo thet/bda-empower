@@ -95,6 +95,7 @@
   </intersect>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 import Autocomplete from '@/elements/Autocomplete';
 import ContributionEdit from '@/components/contribution_edit';
 import TextLine from '@/elements/TextLine';
@@ -113,7 +114,6 @@ export default {
   },
 
   props: [
-    'contexttree',
     'item'
   ],
 
@@ -129,7 +129,10 @@ export default {
     },
     editable: function() {
       return this.context && this.context.can_edit;
-    }
+    },
+    ...mapGetters({
+      contexttree: 'context/contexttree'
+    })
   },
 
   methods: {
