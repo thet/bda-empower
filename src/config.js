@@ -2,26 +2,32 @@ class ContributionModel {
   // ContributionModel for editing. The real content object has much more
   // attributes.
   constructor({
-    title,
-    text,
-    experts_assigned
+    type = '',
+    title = '',
+    text = { data: '' },
+    experts_assigned = [],
+    workspace = ''
   }) {
+    this['@type'] = type;
     this.title = title;
     this.text = text;
     this.experts_assigned = experts_assigned;
+    this.workspace = workspace;
   }
 }
 
 class CaseModel {
   // CaseModel for editing. The real content object has much more attributes.
   constructor({
-    title,
-    description,
-    text,
-    client,
-    coordinators,
-    expert_pool
+    type = '',
+    title = '',
+    description = '',
+    text = '',
+    client = [],
+    coordinators = [],
+    expert_pool = []
   }) {
+    this['@type'] = type;
     this.title = title;
     this.description = description;
     this.text = text;

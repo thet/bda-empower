@@ -1,6 +1,6 @@
 <template>
   <intersect @enter="load">
-    <v-card :class="[ 'uid-' + item.UID, 'state-' + item.review_state ]">
+    <v-card :class="[ 'uid-' + item.UID || '', 'state-' + item.review_state || 'private']">
 
       <!--ContributionEdit v-if="edit" :context="context" /-->
 
@@ -44,9 +44,9 @@
           </li>
           <li v-if="context.experts_assigned">
             <strong>Zugewiesene Expert*innen:</strong>
-            <Autocomplete v-model="context.expert_pool" :label="'Zugewiesene Expert*innen'" :edit="edit" :multiple="true" :store_getter="'users/parent_allowed'" :store_loader="'users/LOAD_PARENT_ALLOWED'"/>
+            <Autocomplete v-model="context.expert_assigned" :label="'Zugewiesene Expert*innen'" :edit="edit" :multiple="true" :store_getter="'users/parent_allowed'" :store_loader="'users/LOAD_PARENT_ALLOWED'"/>
           </li>
-          <li>
+          <li v-if="item['@id']">
             <strong>URL:</strong>
             <router-link :to="{ path: makePath(item['@id']) }">{{ item.title }}</router-link>
           </li>
@@ -54,7 +54,7 @@
             <strong>Zum vorherigen Workspace:</strong>
             <router-link :to="{ path: makePath(item.previous_workspace.path) }">{{ item.previous_workspace.title }}</router-link>
           </li>
-          <li v-if="item.next_workspaces.length">
+          <li v-if="item.next_workspaces && item.next_workspaces.length">
             <strong>Zum nächsten Workspace:</strong>
             <ul>
               <li
@@ -86,6 +86,12 @@
                 v-if="!edit">
               <v-icon dark>edit</v-icon>
             </v-btn>
+            <v-btn fab dark small color="green" :class="{ editing: edit }"
+                title="Add"
+                @click="do_add"
+                v-if="!edit">
+              <v-icon dark>add</v-icon>
+            </v-btn>
           </div>
         </v-card-actions>
 
@@ -102,6 +108,8 @@ import TextLine from '@/elements/TextLine';
 import TextArea from '@/elements/TextArea';
 import Intersect from 'vue-intersect'
 import utils from '@/utils';
+import config from '@/config';
+
 
 export default {
 
@@ -119,16 +127,31 @@ export default {
 
   data: function() {
     return {
-      edit: false
+      edit: !this.item['@id'] // when no id we're adding content and want to present the edit mode immediately.
     };
   },
 
   computed: {
     context: function() {
-      return this.contexttree[this.item['@id']];
+      if (this.item['@id']) {
+        return this.contexttree[this.item['@id']];
+      } else {
+        // no id? we're adding content.
+        let addModel;
+        if (this.item['@type'] === 'Case') {
+          addModel = new config.CaseModel();
+        } else {
+          addModel = new config.ContributionModel({
+            workspace: this.item.parent.workspace
+          });
+
+        }
+        addModel['@type'] = this.item['@type'];
+        return addModel;
+      }
     },
     editable: function() {
-      return this.context && this.context.can_edit;
+      return this.context && this.context.can_edit || ! this.item['@id'];
     },
     ...mapGetters({
       contexttree: 'context/contexttree'
@@ -140,20 +163,28 @@ export default {
       return utils.makePath(url);
     },
     load() {
-      if (!this.context) {
+      if (this.item['@id'] && !this.context) {
         this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'] });
       }
     },
     toggle_edit() {
       this.edit = !this.edit;
-      console.log(this.edit ? 'editing' : 'not editing');
+    },
+    do_add() {
+      this.$emit('addcontribution');
     },
     cancel() {
       this.edit = false;
-      this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'], force: true });
+      if (this.item['@id']) {
+        this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'], force: true });
+      }
     },
     save() {
-      this.$store.dispatch('context/PATCH', { context: this.context });
+      if (this.item['@id']) {
+        this.$store.dispatch('context/PATCH', { context: this.context });
+      } else {
+        this.$store.dispatch('context/POST', { url: this.item.parent['@id'], context: this.context });
+      }
       this.edit = false;
     }
   }

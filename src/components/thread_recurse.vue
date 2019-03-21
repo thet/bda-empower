@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="article_wrapper" v-for="item in items" :key="item['@id']">
-      <Contribution :item="item" />
+      <Contribution :item="item" @addcontribution="addContribution" />
+      <div v-if="add" class="article_wrapper">
+        <Contribution :item="{ '@type': 'Contribution', 'parent': item }" @addcontribution="addContribution" />
+      </div>
       <ThreadRecurse v-if="item['@id']" :path="newPath(item)" />
     </div>
   </div>
@@ -23,6 +26,12 @@ export default {
     'path'
   ],
 
+  data: function() {
+    return {
+      add: false
+    }
+  },
+
   computed: {
     items() {
       let tree = this.$store.state.context.current_thread;
@@ -35,6 +44,9 @@ export default {
       let id = item['@id'].split('/').splice(-1); // get last element
       let newPath = this.path + '/' + id[0];
       return newPath;
+    },
+    addContribution() {
+      this.add = true;
     }
   }
 

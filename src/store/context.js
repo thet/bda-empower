@@ -152,6 +152,33 @@ export default {
         });
     },
 
+    POST: ({ dispatch, commit, state }, { url, context }) => {
+
+      let model = JSON.parse(JSON.stringify(context));
+      // Clean the data with what we want need to save
+      let post_model = new config[`${context['@type']}Model`]({});
+      for (let attr in model) {
+        if (!(attr in post_model)) {
+          delete model[attr];
+        }
+      }
+
+      axios
+        .post(
+          url,
+          model
+          // {headers: {'Prefer': 'return=representation'}},  // return the updated context from server.
+        )
+        .then(response => {
+          console.log(`POST at: ${url}`);
+          dispatch('LOAD_CONTEXT', { url: url, force: true });
+          // commit('ADD_CONTEXT', { context: response.data });
+        })
+        .catch(error => {
+          console.log(`Error while POST at context: ${url}`);
+          console.log(error);
+        });
+    },
   },
 
   mutations: {
