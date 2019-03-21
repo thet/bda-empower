@@ -2,7 +2,7 @@
   <div>
     <div class="article_wrapper" v-for="item in items" :key="item['@id']">
       <Contribution :item="item" />
-      <ThreadRecurse :path="newPath(item)" :tree="tree" />
+      <ThreadRecurse v-if="item['@id']" :path="newPath(item)" />
     </div>
   </div>
 </template>
@@ -20,13 +20,13 @@ export default {
   },
 
   props: [
-    'path',
-    'tree'
+    'path'
   ],
 
   computed: {
     items() {
-      return this.tree.items[this.path];
+      let tree = this.$store.state.context.current_thread;
+      return tree.items[this.path];
     }
   },
 
