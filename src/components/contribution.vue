@@ -22,7 +22,9 @@
         </ul>
       </v-card-title>
 
-      <TextArea v-if="context && context.text" v-model="context.text.data" :label="'Text'" :edit="edit"></TextArea>
+      <TextArea v-if="context" v-model="context.description" :label="'Description'" :edit="edit"></TextArea>
+
+      <TextEditor v-if="context" v-model="context.text.data" :label="'Text'" :edit="edit"></TextEditor>
 
       <footer>
         <ul v-if="context">
@@ -106,6 +108,7 @@ import Autocomplete from '@/elements/Autocomplete';
 import ContributionEdit from '@/components/contribution_edit';
 import TextLine from '@/elements/TextLine';
 import TextArea from '@/elements/TextArea';
+import TextEditor from '@/elements/TextEditor';
 import Intersect from 'vue-intersect'
 import utils from '@/utils';
 import config from '@/config';
@@ -118,7 +121,8 @@ export default {
     ContributionEdit,
     Intersect,
     TextLine,
-    TextArea
+    TextArea,
+    TextEditor
   },
 
   props: [

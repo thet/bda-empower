@@ -4,7 +4,7 @@
         v-if="edit"
         v-model="_value"
         :label="label"></v-text-field>
-    <span v-if="!edit">{{ value }}</span>
+    <span v-if="!edit && value">{{ value }}</span>
   </span>
 </template>
 <script>

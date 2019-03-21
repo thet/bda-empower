@@ -10,7 +10,7 @@
         deletable-chips
         dense
       ></v-autocomplete>
-    <span v-if="!edit">{{ value }}</span>
+    <span v-if="!edit && value">{{ value }}</span>
   </span>
 </template>
 <script>
