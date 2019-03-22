@@ -163,26 +163,32 @@ export default {
   },
 
   methods: {
+
     makePath(url) {
       return utils.makePath(url);
     },
+
     load() {
       if (this.item['@id'] && !this.context) {
         this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'] });
       }
     },
+
     toggle_edit() {
       this.edit = !this.edit;
     },
+
     do_add() {
       this.$emit('addcontribution');
     },
+
     cancel() {
       this.edit = false;
       if (this.item['@id']) {
         this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'], force: true });
       }
     },
+
     save() {
       if (this.item['@id']) {
         this.$store.dispatch('context/PATCH', { context: this.context });
@@ -191,6 +197,7 @@ export default {
       }
       this.edit = false;
     }
+
   }
 
 };
