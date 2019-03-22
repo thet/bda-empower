@@ -37,6 +37,18 @@ class CaseModel {
   }
 }
 
+class ThreadModel {
+  constructor({
+    id = '',
+    items = [],
+    start_path = ''
+  }) {
+    this['@id'] = id;
+    this.items = items;
+    this.start_path = start_path;
+  }
+}
+
 export default {
   // baseURI: 'http://matt.zoplo.com:35180/Plone',
   baseURI: 'http://localhost:8080/Plone',

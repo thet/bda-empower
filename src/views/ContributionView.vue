@@ -5,32 +5,32 @@
       dark
       slider-color="yellow"
   >
-      <v-tab ripple>
+    <v-tab ripple>
         Analyse
       </v-tab>
       <v-tab-item>
-        <Thread :context="context" />
+        <Thread :context="context" :workspace="'analysis'" />
       </v-tab-item>
 
       <v-tab ripple>
         Strategien
       </v-tab>
       <v-tab-item>
-        Strategien
+        <Thread :context="context" :workspace="'strategy'" />
       </v-tab-item>
 
       <v-tab ripple>
         Aktionsplan
       </v-tab>
       <v-tab-item>
-        Evaluierung
+        <Thread :context="context" :workspace="'action'" />
       </v-tab-item>
 
       <v-tab ripple>
         Evaluierung
       </v-tab>
       <v-tab-item>
-        Evaluierung
+        <Thread :context="context" :workspace="'evaluation'" />
       </v-tab-item>
 
     </v-tabs>

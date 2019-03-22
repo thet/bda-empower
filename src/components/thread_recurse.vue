@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="article_wrapper" v-for="item in items" :key="item['@id']">
+    <div class="article_wrapper" v-for="item in items" :key="`thread-${workspace}-${item['@id']}`">
       <Contribution :item="item" @addcontribution="addContribution" />
       <div v-if="add" class="article_wrapper">
         <Contribution :item="{ '@type': 'Contribution', 'parent': item }" @addcontribution="addContribution" />
       </div>
-      <ThreadRecurse v-if="item['@id']" :path="newPath(item)" />
+      <ThreadRecurse v-if="item['@id']" :path="newPath(item)" :workspace="workspace" />
     </div>
   </div>
 </template>
@@ -23,7 +23,8 @@ export default {
   },
 
   props: [
-    'path'
+    'path',
+    'workspace'
   ],
 
   data: function() {
@@ -34,7 +35,7 @@ export default {
 
   computed: {
     items() {
-      let tree = this.$store.state.context.current_thread;
+      let tree = this.$store.state.context.workspace_threads[this.workspace];
       return tree.items[this.path];
     }
   },

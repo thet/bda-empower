@@ -32,10 +32,11 @@ export default {
       'version': '',
       'workspace': ''
     },
-    current_thread: {
-      '@id': '',
-      'items': [],
-      'start_path': ''
+    workspace_threads: {
+      'analysis': {}, //new config.ThreadModel(),
+      'strategy': {}, //new config.ThreadModel(),
+      'action': {}, //new config.ThreadModel(),
+      'evaluation': {} // new config.ThreadModel()
     }
   },
 
@@ -106,13 +107,25 @@ export default {
         });
     },
 
-    LOAD_THREAD: ({ commit, state }, { url }) => {
-      commit('CLEAR_CURRENT_THREAD');
+    LOAD_THREAD: ({ commit, state }, { url, workspace=undefined }) => {
+      commit(
+        'CLEAR_THREAD',
+        {
+          workspace: workspace
+        });
       axios
-        .get(url)
+        .get(
+          url,
+          { params: { workspace: workspace }}
+        )
         .then(response => {
           console.log(`LOADED THREAD: ${url}`);
-          commit('SET_CURRENT_THREAD', { thread: response.data });
+          commit(
+            'SET_THREAD',
+            {
+              thread: response.data,
+              workspace: workspace
+            });
         })
         .catch(error => {
           console.log(`Error while LOAD_THREAD at: ${url}`);
@@ -206,13 +219,17 @@ export default {
       console.log('SET_CURRENT_CONTEXT: ' + context['@id']);
     },
 
-    SET_CURRENT_THREAD: (state, { thread }) => {
-      state.current_thread = thread;
-      console.log('SET_CURRENT_THREAD');
+    SET_THREAD: (state, { thread, workspace }) => {
+      state.workspace_threads[workspace] = thread;
+      console.log(`SET_THREAD for workspace ${workspace}`);
     },
 
-    CLEAR_CURRENT_THREAD: (state) => {
-      state.current_thread = {};
+    CLEAR_THREAD: (state, workspace=undefined) => {
+      if (! workspace) {
+        state.workspace_threads = {};
+      } else {
+        state.workspace_threads[workspace] = {};
+      }
     }
 
   }

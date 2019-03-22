@@ -1,5 +1,5 @@
 <template>
-  <ThreadRecurse v-if="tree.start_path" :path="tree.start_path" />
+  <ThreadRecurse v-if="tree.start_path" :path="tree.start_path" :workspace="workspace" />
 </template>
 <script>
 import ThreadRecurse from '@/components/thread_recurse';
@@ -10,12 +10,13 @@ export default {
   },
 
   props: [
-    'context'
+    'context',
+    'workspace'
   ],
 
   computed: {
     tree() {
-      return this.$store.state.context.current_thread;
+      return this.$store.state.context.workspace_threads[this.workspace];
     },
   },
 
@@ -24,7 +25,8 @@ export default {
       this.$store.dispatch(
         'context/LOAD_THREAD',
         {
-          url: this.context['@components']['thread']['@id']
+          url: this.context['@components']['thread']['@id'],
+          workspace: this.workspace
         }
       );
     }
