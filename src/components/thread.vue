@@ -1,5 +1,7 @@
 <template>
-  <ThreadRecurse v-if="tree.start_path" :path="tree.start_path" :workspace="workspace" />
+  <div>
+    <ThreadRecurse v-for="path in paths" :path="path" :key="path" :workspace="workspace" />
+  </div>
 </template>
 <script>
 import ThreadRecurse from '@/components/thread_recurse';
@@ -15,6 +17,13 @@ export default {
   ],
 
   computed: {
+    paths() {
+      return Object.keys(this.tree.items).filter(it => {
+        let path = it.split('/');
+        let parent_path = path.slice(0, path.length - 2).join('/');
+        return ! this.tree.items[parent_path];
+      });
+    },
     tree() {
       return this.$store.state.context.workspace_threads[this.workspace];
     },
