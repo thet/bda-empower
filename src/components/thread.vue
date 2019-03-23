@@ -18,6 +18,9 @@ export default {
 
   computed: {
     paths() {
+      if (! (this.tree && this.tree.items)) {
+        return [];
+      }
       return Object.keys(this.tree.items).filter(it => {
         let path = it.split('/');
         let parent_path = path.slice(0, path.length - 2).join('/');

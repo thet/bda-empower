@@ -33,6 +33,7 @@ export default {
       'workspace': ''
     },
     workspace_threads: {
+      'case': {}, //new config.ThreadModel(),
       'analysis': {}, //new config.ThreadModel(),
       'strategy': {}, //new config.ThreadModel(),
       'action': {}, //new config.ThreadModel(),

@@ -4,8 +4,16 @@
       color="cyan"
       dark
       slider-color="yellow"
-  >
-    <v-tab ripple>
+    >
+
+      <v-tab ripple>
+        Fall
+      </v-tab>
+      <v-tab-item>
+        <Thread :context="context" :workspace="'case'" />
+      </v-tab-item>
+
+      <v-tab ripple>
         Analyse
       </v-tab>
       <v-tab-item>
