@@ -29,7 +29,7 @@ export default {
     },
     tree() {
       return this.$store.state.context.workspace_threads[this.workspace];
-    },
+    }
   },
 
   methods: {

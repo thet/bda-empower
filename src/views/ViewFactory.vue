@@ -4,10 +4,12 @@
   </div>
 </template>
 <script>
+import CasesView from '@/views/CasesView';
 import ContributionView from '@/views/ContributionView';
 import DefaultView from '@/views/DefaultView';
 export default {
   components: {
+    CasesView,
     ContributionView,
     DefaultView
   },
