@@ -22,7 +22,7 @@
         </ul>
       </v-card-title>
 
-      <TextArea v-if="context" v-model="context.description" :label="'Description'" :edit="edit"></TextArea>
+      <TextArea v-if="available_field('description')" v-model="context.description" :label="'Description'" :edit="edit"></TextArea>
 
       <TextEditor v-if="context" v-model="context.text.data" :label="'Text'" :edit="edit"></TextEditor>
 
@@ -163,6 +163,10 @@ export default {
   },
 
   methods: {
+
+    available_field(name) {
+      return this.context && this.context.hasOwnProperty(name);
+    },
 
     makePath(url) {
       return utils.makePath(url);
