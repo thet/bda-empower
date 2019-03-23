@@ -23,14 +23,14 @@ export default {
       url = `${url}/@types/${type}`;
 
       if (!force && state.types[type]) {
-        console.log(`ALREADY LOADED TYPE: ${type}`);
+        console.log(`LOAD_TYPE - using cache: ${type}`);
         return;
       }
 
       axios
         .get(url)
         .then(response => {
-          console.log(`LOADED TYPE: ${url}`);
+          console.log(`LOAD_TYPE: ${type}, ${url}`);
           commit('ADD_TYPE', { type: type, schema: response.data });
         })
         .catch(error => {
@@ -54,6 +54,7 @@ export default {
 
     CLEAR_TYPES: (state) => {
       state.types = [];
+      console.log(`CLEAR_TYPE ${type}`);
     }
 
   }

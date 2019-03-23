@@ -64,7 +64,7 @@ export default {
       url = workspace ? `${url}?workspace=${workspace}` : url;
 
       if (!force && state.items[url]) {
-        console.log(`ALREADY LOADED: ${url}`);
+        console.log(`LOAD_CONTEXT - using cache: ${url}`);
         if (set_current) {
           commit('SET_CURRENT_CONTEXT', { context: state.items[url] });
         }
@@ -74,7 +74,7 @@ export default {
       axios
         .get(url)
         .then(response => {
-          console.log(`LOADED: ${url}`);
+          console.log(`LOAD_CONTEXT: ${url}`);
 
           let context = response.data;
           context.items = context.items.map(it => {
@@ -120,7 +120,7 @@ export default {
           { params: { workspace: workspace }}
         )
         .then(response => {
-          console.log(`LOADED THREAD: ${url}`);
+          console.log(`LOAD_THREAD: ${url}`);
           commit(
             'SET_THREAD',
             {
@@ -202,14 +202,14 @@ export default {
       context._loaded = new Date();
       for (let i = 0; i < state.items.length; i++) {
         if (state.items[i]['@id'] === context['@id']) {
-          console.log('update');
+          console.log('ADD_CONTEXT - update');
           state.items[i] = context;
           upd = true;
           break;
         }
       }
       if (! upd) {
-        console.log('add');
+        console.log('ADD_CONTEXT - add');
         state.items.push(context);
       }
       console.log(`ADD_CONTEXT: ${context['@id']}`);
@@ -217,19 +217,21 @@ export default {
 
     SET_CURRENT_CONTEXT: (state, { context }) => {
       state.current_context = context;
-      console.log('SET_CURRENT_CONTEXT: ' + context['@id']);
+      console.log(`SET_CURRENT_CONTEXT: ${context['@id']}`);
     },
 
     SET_THREAD: (state, { thread, workspace }) => {
       state.workspace_threads[workspace] = thread;
-      console.log(`SET_THREAD for workspace ${workspace}`);
+      console.log(`SET_THREAD - workspace ${workspace}`);
     },
 
     CLEAR_THREAD: (state, workspace=undefined) => {
       if (! workspace) {
         state.workspace_threads = {};
+        console.log('CLEAR_THREAD - all threads');
       } else {
         state.workspace_threads[workspace] = {};
+        console.log(`CLEAR_THREAD - workspace ${workspace}`);
       }
     }
 

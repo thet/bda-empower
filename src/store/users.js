@@ -23,7 +23,7 @@ export default {
     LOAD_USERS: ({ commit, state }, { force=false }) => {
 
       if (!force && state.users.terms.length) {
-        console.log('ALREADY LOADED USERS');
+        console.log('LOAD_USERS - use cache');
         return;
       }
 
@@ -31,7 +31,7 @@ export default {
       axios
         .get(url)
         .then(response => {
-          console.log('LOADED USERS');
+          console.log(`LOAD_USERS: ${url}`);
           commit('ADD_USERS', { users: response.data });
         })
         .catch(error => {
@@ -46,7 +46,7 @@ export default {
       axios
         .get(url)
         .then(response => {
-          console.log('LOADED PARENT_ALLOWED');
+          console.log(`LOAD_PARENT_ALLOWED: ${url}`);
           commit('ADD_PARENT_ALLOWED', { parent_allowed: response.data });
         })
         .catch(error => {

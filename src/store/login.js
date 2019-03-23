@@ -30,6 +30,7 @@ export default {
             } else {
               commit('AUTH_ERROR');
             }
+            console.log(`LOGIN ${username}`);
             resolve(response);
           })
           .catch(error => {
@@ -45,6 +46,7 @@ export default {
         try {
           localStorage.removeItem('auth_token');
           commit('AUTH_LOGOUT');
+          console.log(`LOGOUT ${username}`);
           resolve();
         } catch {
           reject();

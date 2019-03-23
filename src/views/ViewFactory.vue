@@ -36,7 +36,9 @@ export default {
         component = 'Default';
       }
 
-      return component + 'View';
+      let view_name = component + 'View';
+      console.log(`Using view ${view_name}`);
+      return view_name;
     }
   },
 
