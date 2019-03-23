@@ -5,7 +5,7 @@
       <!--ContributionEdit v-if="edit" :context="context" /-->
 
       <v-card-title>
-        <h3><TextLine v-if="context" v-model="context.title" :label="'Title'" :edit="edit" /></h3>
+        <h3><TextLine v-if="available_field('title')" v-model="context.title" :label="'Title'" :edit="edit" /></h3>
         <ul v-if="context">
           <li>
             <strong>Autor*in:</strong>
@@ -24,7 +24,7 @@
 
       <TextArea v-if="available_field('description')" v-model="context.description" :label="'Description'" :edit="edit"></TextArea>
 
-      <TextEditor v-if="context" v-model="context.text.data" :label="'Text'" :edit="edit"></TextEditor>
+      <TextEditor v-if="available_field('text')" v-model="context.text.data" :label="'Text'" :edit="edit"></TextEditor>
 
       <footer>
         <ul v-if="context">
@@ -32,19 +32,19 @@
             <strong>Workspace:</strong>
             <span>{{ context.workspace }}</span>
           </li>
-          <li v-if="context.client">
+          <li v-if="available_field('client')">
             <strong>Klient*in:</strong>
             <Autocomplete v-model="context.client" :label="'Klient*in'" :edit="edit" :multiple="true" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
           </li>
-          <li v-if="context.coordinators">
+          <li v-if="available_field('coordinators')">
             <strong>Koordinator*in:</strong>
             <Autocomplete v-model="context.coordinators" :label="'Koordinator*in'" :edit="edit" :multiple="true" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
           </li>
-          <li v-if="context.expert_pool">
+          <li v-if="available_field('expert_pool')">
             <strong>Expert*innen Pool:</strong>
             <Autocomplete v-model="context.expert_pool" :label="'Expert*innen Pool'" :edit="edit" :multiple="true" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
           </li>
-          <li v-if="context.experts_assigned">
+          <li v-if="available_field('experts_assigned')">
             <strong>Zugewiesene Expert*innen:</strong>
             <Autocomplete v-model="context.expert_assigned" :label="'Zugewiesene Expert*innen'" :edit="edit" :multiple="true" :store_getter="'users/parent_allowed'" :store_loader="'users/LOAD_PARENT_ALLOWED'"/>
           </li>
