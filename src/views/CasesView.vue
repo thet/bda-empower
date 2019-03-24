@@ -19,8 +19,9 @@ export default {
 
   computed: {
     items() {
+      let workspace_threads = this.$store.state.context.workspace_threads;
       let path = utils.makePath(this.context['@id']);
-      return this.tree && this.tree.items[path] || [];
+      return workspace_threads[this.workspace] && workspace_threads[this.workspace].items[path] || [];
     },
     tree() {
       return this.$store.state.context.workspace_threads[this.workspace];
@@ -39,9 +40,9 @@ export default {
     }
   },
 
-  mounted() {
+  created() {
     this.load();
-  },
+  }
 
 };
 </script>
