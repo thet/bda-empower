@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import axios from 'axios';
 import config from '@/config';
 import utils from '@/utils';
@@ -120,7 +121,7 @@ export default {
           { params: { workspace: workspace }}
         )
         .then(response => {
-          console.log(`LOAD_THREAD: ${url}`);
+          console.log(`LOAD_THREAD: ${url}, workspace ${workspace}`);
           commit(
             'SET_THREAD',
             {
@@ -221,16 +222,16 @@ export default {
     },
 
     SET_THREAD: (state, { thread, workspace }) => {
-      state.workspace_threads[workspace] = thread;
+      Vue.set(state.workspace_threads, workspace, thread);
       console.log(`SET_THREAD - workspace ${workspace}`);
     },
 
-    CLEAR_THREAD: (state, workspace=undefined) => {
+    CLEAR_THREAD: (state, { workspace=undefined }) => {
       if (! workspace) {
         state.workspace_threads = {};
         console.log('CLEAR_THREAD - all threads');
       } else {
-        state.workspace_threads[workspace] = {};
+        Vue.set(state.workspace_threads, workspace, {})
         console.log(`CLEAR_THREAD - workspace ${workspace}`);
       }
     }
