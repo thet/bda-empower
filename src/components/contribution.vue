@@ -46,7 +46,7 @@
           </li>
           <li v-if="available_field('experts_assigned')">
             <strong>Zugewiesene Expert*innen:</strong>
-            <Autocomplete v-model="context.expert_assigned" :label="'Zugewiesene Expert*innen'" :edit="edit" :multiple="true" :store_getter="'users/parent_allowed'" :store_loader="'users/LOAD_PARENT_ALLOWED'"/>
+            <Autocomplete v-model="context.experts_assigned" :label="'Zugewiesene Expert*innen'" :edit="edit" :multiple="true" :store_getter="'users/parent_allowed'" :store_loader="'users/LOAD_PARENT_ALLOWED'" :options_loader="{ url: context['@id'] }"/>
           </li>
           <li v-if="item['@id']">
             <strong>URL:</strong>

@@ -21,7 +21,8 @@ export default {
     value: [String, Array],
     multiple: Boolean,
     store_loader: String,
-    store_getter: String
+    store_getter: String,
+    options_loader: Object
   },
   computed: {
     _value: {
@@ -40,7 +41,7 @@ export default {
   watch: {
     edit(newEdit) {
       if (newEdit) {
-        this.$store.dispatch(this.store_loader, {});
+        this.$store.dispatch(this.store_loader, this.options_loader || {});
       }
     }
   }

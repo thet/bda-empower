@@ -9,12 +9,18 @@ export default {
       '@id': '',
       'terms': []
     },
-    parent_allowed: []
+    parent_allowed: {
+      '@id': '',
+      'terms': []
+    }
   },
 
   getters: {
     users: state => {
       return state.users.terms.map(it => { return { 'text': it.title, 'value': it.token }; });
+    },
+    parent_allowed: state => {
+      return state.parent_allowed.terms.map(it => { return { 'text': it.title, 'value': it.token }; });
     }
   },
 
