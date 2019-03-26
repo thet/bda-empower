@@ -1,6 +1,13 @@
 <template>
   <intersect @enter="load">
-    <article class="em-contribution" :class="[ 'em-contribution-' + (context && context.workspace) || '', 'uid-' + item.UID || '', 'state-' + item.review_state || 'private', context ? '' : 'em-contribution-init']">
+    <article class="em-contribution"
+      :class="[
+        'em-contribution-' + (context && context.workspace) || '',
+        'uid-' + item.UID || '',
+        'state-' + item.review_state || 'private',
+        item.is_workspace_root ? 'em-workspace-root' : null,
+        context ? null : 'em-contribution-init'
+    ]">
 
       <!--ContributionEdit v-if="edit" :context="context" /-->
 

@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <section class="em-workspace" :class="'em-workspace-' + workspace">
     <ThreadRecurse v-for="path in paths" :path="path" :key="path" :workspace="workspace" />
-  </div>
+  </section>
 </template>
 <script>
 import ThreadRecurse from '@/components/thread_recurse';
