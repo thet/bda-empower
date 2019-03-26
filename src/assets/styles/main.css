@@ -62,6 +62,9 @@ html {
 .em-contribution-action     { @apply border-em-action; }
 .em-contribution-evaluation { @apply border-em-evaluation; }
 
+.article_wrapper .article_wrapper {
+    @apply -mt-1;
+}
 .article_wrapper.em-workspace-root > div > .article_wrapper {
     @apply mt-8;
 }
