@@ -36,42 +36,39 @@
  * @import "components/forms";
  */
 
-.em-btn-case       { @apply em-bg-case em-fg-lighter; }
-.em-btn-analysis   { @apply em-bg-analysis em-fg-lighter; }
-.em-btn-strategy   { @apply em-bg-strategy em-fg-lighter; }
-.em-btn-action     { @apply em-bg-action em-fg-lighter; }
-.em-btn-evaluation { @apply em-bg-evaluation em-fg-lighter; }
-
-.em-txt-light { @apply em-fg-lighter; }
-.em-txt-dark  { @apply em-fg-darker; }
+.em-btn { @apply text-em-lighter; }
+.em-btn-case       { @apply bg-em-case; }
+.em-btn-analysis   { @apply bg-em-analysis; }
+.em-btn-strategy   { @apply bg-em-strategy; }
+.em-btn-action     { @apply bg-em-action; }
+.em-btn-evaluation { @apply bg-em-evaluation; }
 
 .em-contribution {
-    border: 4px solid;
-    @apply em-bd-light;
+    @apply border-4 border-solid border-em-lighter;
 }
-.em-contribution-case       { @apply em-bd-case; }
-.em-contribution-analysis   { @apply em-bd-analysis; }
-.em-contribution-strategy   { @apply em-bd-strategy; }
-.em-contribution-action     { @apply em-bd-action; }
-.em-contribution-evaluation { @apply em-bd-evaluation; }
+.em-contribution-case       { @apply border-em-case; }
+.em-contribution-analysis   { @apply border-em-analysis; }
+.em-contribution-strategy   { @apply border-em-strategy; }
+.em-contribution-action     { @apply border-em-action; }
+.em-contribution-evaluation { @apply border-em-evaluation; }
 
 .em-contribution-header {
-    @apply em-fg-lighter;
+    @apply text-em-lighter;
 }
 .em-contribution-footer {
-    border-top: 1px solid;
-    @apply em-bd-light;
+    @apply border-t border-solid border-em-light;
 }
-.em-contribution-case .em-contribution-header { @apply em-bg-case; }
-.em-contribution-case .em-contribution-footer { @apply em-bd-case; }
-.em-contribution-analysis .em-contribution-header { @apply em-bg-analysis; }
-.em-contribution-analysis .em-contribution-footer { @apply em-bd-analysis; }
-.em-contribution-strategy .em-contribution-header { @apply em-bg-strategy; }
-.em-contribution-strategy .em-contribution-footer { @apply em-bd-strategy; }
-.em-contribution-action .em-contribution-header { @apply em-bg-action; }
-.em-contribution-action .em-contribution-footer { @apply em-bd-action; }
-.em-contribution-evaluation .em-contribution-header { @apply em-bg-evaluation; }
-.em-contribution-evaluation .em-contribution-footer { @apply em-bd-evaluation; }
+.em-contribution-case .em-contribution-header { @apply bg-em-case; }
+.em-contribution-case .em-contribution-footer { @apply border-em-case; }
+.em-contribution-analysis .em-contribution-header { @apply bg-em-analysis; }
+.em-contribution-analysis .em-contribution-footer { @apply border-em-analysis; }
+.em-contribution-strategy .em-contribution-header { @apply bg-em-strategy; }
+.em-contribution-strategy .em-contribution-footer { @apply border-em-strategy; }
+.em-contribution-action .em-contribution-header { @apply bg-em-action; }
+.em-contribution-action .em-contribution-footer { @apply border-em-action; }
+.em-contribution-evaluation .em-contribution-header { @apply bg-em-evaluation; }
+.em-contribution-evaluation .em-contribution-footer { @apply border-em-evaluation; }
+
 
 /**
  * This injects all of Tailwind's utility classes, generated based on your
@@ -100,45 +97,5 @@
 
 /* empower-net base colors */
 
-.em-fg-darker  { color: config('colors.em-darker'); }
-.em-fg-dark    { color: config('colors.em-dark'); }
-.em-fg-base    { color: config('colors.em-base'); }
-.em-fg-light   { color: config('colors.em-light'); }
-.em-fg-lighter { color: config('colors.em-lighter'); }
-
-.em-bg-darker  { background-color: config('colors.em-darker'); }
-.em-bg-dark    { background-color: config('colors.em-dark'); }
-.em-bg-base    { background-color: config('colors.em-base'); }
-.em-bg-light   { background-color: config('colors.em-light'); }
-.em-bg-lighter { background-color: config('colors.em-lighter'); }
-
-.em-bd-darker  { border-color: config('colors.em-darker'); }
-.em-bd-dark    { border-color: config('colors.em-dark'); }
-.em-bd-base    { border-color: config('colors.em-base'); }
-.em-bd-light   { border-color: config('colors.em-light'); }
-.em-bd-lighter { border-color: config('colors.em-lighter'); }
-
-/* empower-net functional colors */
-
-.em-fg-case         { color: config('colors.em-case'); }
-.em-fg-analysis     { color: config('colors.em-analysis'); }
-.em-fg-strategy     { color: config('colors.em-strategy'); }
-.em-fg-action       { color: config('colors.em-action'); }
-.em-fg-evaluation   { color: config('colors.em-evaluation'); }
-.em-fg-notification { color: config('colors.em-notification'); }
-
-.em-bg-case         { background-color: config('colors.em-case'); }
-.em-bg-analysis     { background-color: config('colors.em-analysis'); }
-.em-bg-strategy     { background-color: config('colors.em-strategy'); }
-.em-bg-action       { background-color: config('colors.em-action'); }
-.em-bg-evaluation   { background-color: config('colors.em-evaluation'); }
-.em-bg-notification { background-color: config('colors.em-notification'); }
-
-.em-bd-case         { border-color: config('colors.em-case'); }
-.em-bd-analysis     { border-color: config('colors.em-analysis'); }
-.em-bd-strategy     { border-color: config('colors.em-strategy'); }
-.em-bd-action       { border-color: config('colors.em-action'); }
-.em-bd-evaluation   { border-color: config('colors.em-evaluation'); }
-.em-bd-notification { border-color: config('colors.em-notification'); }
 
 /* end of transmission */
