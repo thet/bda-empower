@@ -6,7 +6,7 @@ import Vuetify from 'vuetify';
 import 'intersection-observer'; // W3C Polyfill
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import 'vuetify/dist/vuetify.min.css';
-
+import '@/assets/styles/main.css'
 
 Vue.config.productionTip = false;
 

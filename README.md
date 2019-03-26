@@ -1,6 +1,14 @@
 # bda-empower
 
 ## Project setup
+https://tailwindcss.com/docs/spacing
+
+https://www.jerriepelser.com/blog/using-tailwindcss-with-vuejs
+https://medium.com/@marienfeldtom/using-vue-3-with-tailwind-css-f5294ffa6285
+https://github.com/marienfeldtom/vue3-tailwind-starter/
+
+https://stefanzweifel.io/posts/how-to-use-tailwind-css-in-vue-together-with-css-modules/
+
 ```
 yarn install
 ```
