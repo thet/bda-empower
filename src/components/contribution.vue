@@ -12,12 +12,27 @@
       <!--ContributionEdit v-if="edit" :context="context" /-->
 
       <header class="em-contribution-header">
-        <h3><TextLine v-if="available_field('title')" v-model="context.title" :label="'Title'" :edit="edit" /></h3>
+
+        <div v-if="context">
+        <AccountIcon
+          v-for="(account, cnt) in context.creators || []"
+          :key="cnt"
+          :account="account"
+          :role="'Autor*in'" />
+        </div>
+        <h3 class="em-contribution-title"><TextLine v-if="available_field('title')" v-model="context.title" :label="'Title'" :edit="edit" /></h3>
+
+        <div v-if="context && context.client">
+          Kient*in
+          <AccountIcon
+            v-for="(account, cnt) in context.client || []"
+            :key="cnt"
+            :account="account"
+            :role="'Klient*in'" />
+        </div>
+
+
         <ul v-if="context">
-          <li>
-            <strong>Autor*in:</strong>
-            <span>{{ context.creators }}</span>
-          </li>
           <li>
             <strong>Erstellt:</strong>
             <time :datetime="context.created">{{ context.created }}</time>
@@ -35,24 +50,52 @@
       </div>
 
       <footer class="em-contribution-footer">
+
+        <div v-if="context && context.coordinators">
+          Koordinator*in
+          <AccountIcon
+            v-for="(account, cnt) in context.coordinators || []"
+            :key="cnt"
+            :account="account"
+            :role="'Koordinator*in'" />
+        </div>
+
+        <div v-if="context && context.expert_pool">
+          Expert*innen Pool:
+          <AccountIcon
+            v-for="(account, cnt) in context.expert_pool || []"
+            :key="cnt"
+            :account="account"
+            :role="'Expert*in'" />
+        </div>
+
+        <div v-if="context && context.experts_assigned">
+          Leseberechtigung
+          <AccountIcon
+            v-for="(account, cnt) in context.experts_assigned || []"
+            :key="cnt"
+            :account="account"
+            :role="'Account'" />
+        </div>
+
         <ul v-if="context">
           <li v-if="context.workspace">
             <strong>Workspace:</strong>
             <span>{{ context.workspace }}</span>
           </li>
-          <li v-if="available_field('client')">
+          <li v-if="edit && available_field('client')">
             <strong>Klient*in:</strong>
             <Autocomplete v-model="context.client" :label="'Klient*in'" :edit="edit" :multiple="true" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
           </li>
-          <li v-if="available_field('coordinators')">
+          <li v-if="edit && available_field('coordinators')">
             <strong>Koordinator*in:</strong>
             <Autocomplete v-model="context.coordinators" :label="'Koordinator*in'" :edit="edit" :multiple="true" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
           </li>
-          <li v-if="available_field('expert_pool')">
+          <li v-if="edit && available_field('expert_pool')">
             <strong>Expert*innen Pool:</strong>
             <Autocomplete v-model="context.expert_pool" :label="'Expert*innen Pool'" :edit="edit" :multiple="true" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
           </li>
-          <li v-if="available_field('experts_assigned')">
+          <li v-if="edit && available_field('experts_assigned')">
             <strong>Zugewiesene Expert*innen:</strong>
             <Autocomplete v-model="context.experts_assigned" :label="'Zugewiesene Expert*innen'" :edit="edit" :multiple="true" :store_getter="'users/parent_allowed'" :store_loader="'users/LOAD_PARENT_ALLOWED'" :options_loader="{ url: context['@id'] }"/>
           </li>
@@ -111,6 +154,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import AccountIcon from '@/components/account_icon';
 import Autocomplete from '@/elements/Autocomplete';
 import ContributionEdit from '@/components/contribution_edit';
 import TextLine from '@/elements/TextLine';
@@ -124,6 +168,7 @@ import config from '@/config';
 export default {
 
   components: {
+    AccountIcon,
     Autocomplete,
     ContributionEdit,
     Intersect,

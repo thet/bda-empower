@@ -95,6 +95,12 @@ html {
 .em-workspace-action     { @apply border-em-action; }
 .em-workspace-evaluation { @apply border-em-evaluation; }
 
+.em-person.em-person {
+    @apply text-em-lighter bg-em-darker;
+    padding: 0.2em;
+    border-radius: 50%;
+}
+
 /**
  * This injects all of Tailwind's utility classes, generated based on your
  * config file.
