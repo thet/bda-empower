@@ -52,7 +52,7 @@ html {
     height: 50vh;
 }
 .em-contribution {
-    @apply border-4 border-l-16 border-solid border-em-lighter;
+    @apply border-4 border-l-16 border-solid border-em-lighter bg-em-lighter;
     max-width: 60em;
 }
 .em-contribution > * { @apply p-4; }
@@ -62,12 +62,16 @@ html {
 .em-contribution-action     { @apply border-em-action; }
 .em-contribution-evaluation { @apply border-em-evaluation; }
 
+.article_wrapper.em-workspace-root > div > .article_wrapper {
+    @apply mt-8;
+}
+
 .em-contribution.em-workspace-root {
     @apply border-l-0 border-r-0;
     width: 100%;
     max-width: 100%;
 }
-.em-workspace-root .em-contribution-header {
+.em-contribution.em-workspace-root .em-contribution-header {
     @apply text-em-lighter;
 }
 .em-contribution-footer {
@@ -84,13 +88,12 @@ html {
 .em-contribution-evaluation.em-workspace-root .em-contribution-header { @apply bg-em-evaluation; }
 .em-contribution-evaluation .em-contribution-footer { @apply border-em-evaluation; }
 
-.em-workspace { @apply border-6 border-solid; }
+.em-workspace { @apply border-6 border-solid bg-em-light; }
 .em-workspace-case { @apply border-em-case; }
 .em-workspace-analysis   { @apply border-em-analysis; }
 .em-workspace-strategy   { @apply border-em-strategy; }
 .em-workspace-action     { @apply border-em-action; }
 .em-workspace-evaluation { @apply border-em-evaluation; }
-
 
 /**
  * This injects all of Tailwind's utility classes, generated based on your

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="article_wrapper" v-for="item in items" :key="`thread-${workspace}-${item['@id']}`">
+    <div class="article_wrapper" :class="item.is_workspace_root ? 'em-workspace-root' : null" v-for="item in items" :key="`thread-${workspace}-${item['@id']}`">
       <Contribution :item="item" @addcontribution="addContribution" />
       <div v-if="add" class="article_wrapper">
         <Contribution :item="{ '@type': 'Contribution', 'parent': item }" @addcontribution="addContribution" />
