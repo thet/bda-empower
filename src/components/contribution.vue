@@ -13,16 +13,16 @@
 
       <header class="em-contribution-header">
 
-        <div v-if="context">
-        <AccountIcon
-          v-for="(account, cnt) in context.creators || []"
-          :key="cnt"
-          :account="account"
-          :role="'Autor*in'" />
+        <div v-if="available_field('creators')">
+          <AccountIcon
+            v-for="(account, cnt) in context.creators || []"
+            :key="cnt"
+            :account="account"
+            :role="'Autor*in'" />
         </div>
         <h3 class="em-contribution-title"><TextLine v-if="available_field('title')" v-model="context.title" :label="'Title'" :edit="edit" /></h3>
 
-        <div v-if="context && context.client">
+        <div v-if="available_field('client')">
           Kient*in
           <AccountIcon
             v-for="(account, cnt) in context.client || []"
@@ -51,63 +51,65 @@
 
       <footer class="em-contribution-footer">
 
-        <div v-if="context && context.coordinators">
-          Koordinator*in
-          <AccountIcon
-            v-for="(account, cnt) in context.coordinators || []"
-            :key="cnt"
-            :account="account"
-            :role="'Koordinator*in'" />
+        <div class="em-contribution-meta" v-if="!edit">
+          <div v-if="available_field('coordinators')">
+            Koordinator*in
+            <AccountIcon
+              v-for="(account, cnt) in context.coordinators || []"
+              :key="cnt"
+              :account="account"
+              :role="'Koordinator*in'" />
+          </div>
+
+          <div v-if="available_field('expert_pool')">
+            Expert*innen Pool:
+            <AccountIcon
+              v-for="(account, cnt) in context.expert_pool || []"
+              :key="cnt"
+              :account="account"
+              :role="'Expert*in'" />
+          </div>
+
+          <div v-if="available_field('experts_assigned')">
+            Leseberechtigung
+            <AccountIcon
+              v-for="(account, cnt) in context.experts_assigned || []"
+              :key="cnt"
+              :account="account"
+              :role="'Account'" />
+          </div>
         </div>
 
-        <div v-if="context && context.expert_pool">
-          Expert*innen Pool:
-          <AccountIcon
-            v-for="(account, cnt) in context.expert_pool || []"
-            :key="cnt"
-            :account="account"
-            :role="'Expert*in'" />
-        </div>
-
-        <div v-if="context && context.experts_assigned">
-          Leseberechtigung
-          <AccountIcon
-            v-for="(account, cnt) in context.experts_assigned || []"
-            :key="cnt"
-            :account="account"
-            :role="'Account'" />
-        </div>
-
-        <ul v-if="context">
-          <li v-if="context.workspace">
+        <div class="em-editarea" v-if="context">
+          <div v-if="context.workspace">
             <strong>Workspace:</strong>
             <span>{{ context.workspace }}</span>
-          </li>
-          <li v-if="edit && available_field('client')">
+          </div>
+          <div v-if="edit && available_field('client')">
             <strong>Klient*in:</strong>
             <Autocomplete v-model="context.client" :label="'Klient*in'" :edit="edit" :multiple="true" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
-          </li>
-          <li v-if="edit && available_field('coordinators')">
+          </div>
+          <div v-if="edit && available_field('coordinators')">
             <strong>Koordinator*in:</strong>
             <Autocomplete v-model="context.coordinators" :label="'Koordinator*in'" :edit="edit" :multiple="true" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
-          </li>
-          <li v-if="edit && available_field('expert_pool')">
+          </div>
+          <div v-if="edit && available_field('expert_pool')">
             <strong>Expert*innen Pool:</strong>
             <Autocomplete v-model="context.expert_pool" :label="'Expert*innen Pool'" :edit="edit" :multiple="true" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
-          </li>
-          <li v-if="edit && available_field('experts_assigned')">
+          </div>
+          <div v-if="edit && available_field('experts_assigned')">
             <strong>Zugewiesene Expert*innen:</strong>
             <Autocomplete v-model="context.experts_assigned" :label="'Zugewiesene Expert*innen'" :edit="edit" :multiple="true" :store_getter="'users/parent_allowed'" :store_loader="'users/LOAD_PARENT_ALLOWED'" :options_loader="{ url: context['@id'] }"/>
-          </li>
-          <li v-if="item['@id']">
+          </div>
+          <div v-if="item['@id']">
             <strong>URL:</strong>
             <router-link :to="{ path: makePath(item['@id']) }">{{ item.title }}</router-link>
-          </li>
-          <li v-if="item.previous_workspace">
+          </div>
+          <div v-if="item.previous_workspace">
             <strong>Zum vorherigen Workspace:</strong>
             <router-link :to="{ path: makePath(item.previous_workspace.path) }">{{ item.previous_workspace.title }}</router-link>
-          </li>
-          <li v-if="item.next_workspaces && item.next_workspaces.length">
+          </div>
+          <div v-if="item.next_workspaces && item.next_workspaces.length">
             <strong>Zum nächsten Workspace:</strong>
             <ul>
               <li
@@ -116,37 +118,35 @@
                 <router-link :to="{ path: makePath(ws.path) }">{{ ws.title }}</router-link>
               </li>
             </ul>
-          </li>
-        </ul>
-
-        <v-card-actions>
-          <div v-if="editable">
-            <v-btn fab dark small color="red"
-                title="Cancel"
-                @click="cancel"
-                v-if="edit">
-              <v-icon dark>cancel</v-icon>
-              </v-btn>
-              <v-btn fab dark small color="green"
-                title="Save"
-                @click="save"
-                v-if="edit">
-              <v-icon dark>save</v-icon>
-            </v-btn>
-            <v-btn fab dark small color="cyan" :class="{ editing: edit }"
-                title="Edit"
-                @click="toggle_edit"
-                v-if="!edit">
-              <v-icon dark>edit</v-icon>
-            </v-btn>
-            <v-btn fab dark small color="green" :class="{ editing: edit }"
-                title="Add"
-                @click="do_add"
-                v-if="!edit">
-              <v-icon dark>add</v-icon>
-            </v-btn>
           </div>
-        </v-card-actions>
+        </div>
+
+        <div class="em-actions" v-if="editable">
+          <v-btn fab dark small color="red"
+              title="Cancel"
+              @click="cancel"
+              v-if="edit">
+            <v-icon dark>cancel</v-icon>
+            </v-btn>
+            <v-btn fab dark small color="green"
+              title="Save"
+              @click="save"
+              v-if="edit">
+            <v-icon dark>save</v-icon>
+          </v-btn>
+          <v-btn fab dark small color="cyan" :class="{ editing: edit }"
+              title="Edit"
+              @click="toggle_edit"
+              v-if="!edit">
+            <v-icon dark>edit</v-icon>
+          </v-btn>
+          <v-btn fab dark small color="green" :class="{ editing: edit }"
+              title="Add"
+              @click="do_add"
+              v-if="!edit">
+            <v-icon dark>add</v-icon>
+          </v-btn>
+        </div>
       </footer>
 
     </article>
