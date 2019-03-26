@@ -52,11 +52,6 @@
     "htmlWhitespaceSensitivity": "ignore",
     "trailingComma": "es5"
   },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",

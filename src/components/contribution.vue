@@ -1,10 +1,10 @@
 <template>
   <intersect @enter="load">
-    <v-card :class="[ 'uid-' + item.UID || '', 'state-' + item.review_state || 'private']">
+    <article class="em-contribution" :class="[ 'em-contribution-' + (context && context.workspace) || '', 'uid-' + item.UID || '', 'state-' + item.review_state || 'private']">
 
       <!--ContributionEdit v-if="edit" :context="context" /-->
 
-      <v-card-title>
+      <header class="em-contribution-header">
         <h3><TextLine v-if="available_field('title')" v-model="context.title" :label="'Title'" :edit="edit" /></h3>
         <ul v-if="context">
           <li>
@@ -20,13 +20,14 @@
             <time :datetime="context.modified">{{ context.modified }}</time>
           </li>
         </ul>
-      </v-card-title>
+      </header>
 
-      <TextArea v-if="available_field('description')" v-model="context.description" :label="'Description'" :edit="edit"></TextArea>
+      <div class="em-contribution-body">
+        <TextArea v-if="available_field('description')" v-model="context.description" :label="'Description'" :edit="edit"></TextArea>
+        <TextEditor v-if="available_field('text')" v-model="context.text.data" :label="'Text'" :edit="edit"></TextEditor>
+      </div>
 
-      <TextEditor v-if="available_field('text')" v-model="context.text.data" :label="'Text'" :edit="edit"></TextEditor>
-
-      <footer>
+      <footer class="em-contribution-footer">
         <ul v-if="context">
           <li v-if="context.workspace">
             <strong>Workspace:</strong>
@@ -96,10 +97,9 @@
             </v-btn>
           </div>
         </v-card-actions>
-
       </footer>
 
-    </v-card>
+    </article>
   </intersect>
 </template>
 <script>
