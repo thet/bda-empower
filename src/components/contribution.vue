@@ -85,19 +85,19 @@
             <strong>Workspace:</strong>
             <span>{{ context.workspace }}</span>
           </div>
-          <div v-if="edit && available_field('client')">
+          <div v-if="available_field('client')">
             <strong>Klient*in:</strong>
             <Autocomplete v-model="context.client" :label="'Klient*in'" :edit="edit" :multiple="true" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
           </div>
-          <div v-if="edit && available_field('coordinators')">
+          <div v-if="available_field('coordinators')">
             <strong>Koordinator*in:</strong>
             <Autocomplete v-model="context.coordinators" :label="'Koordinator*in'" :edit="edit" :multiple="true" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
           </div>
-          <div v-if="edit && available_field('expert_pool')">
+          <div v-if="available_field('expert_pool')">
             <strong>Expert*innen Pool:</strong>
             <Autocomplete v-model="context.expert_pool" :label="'Expert*innen Pool'" :edit="edit" :multiple="true" :store_getter="'users/users'" :store_loader="'users/LOAD_USERS'"/>
           </div>
-          <div v-if="edit && available_field('experts_assigned')">
+          <div v-if="available_field('experts_assigned')">
             <strong>Zugewiesene Expert*innen:</strong>
             <Autocomplete v-model="context.experts_assigned" :label="'Zugewiesene Expert*innen'" :edit="edit" :multiple="true" :store_getter="'users/parent_allowed'" :store_loader="'users/LOAD_PARENT_ALLOWED'" :options_loader="{ url: context['@id'] }"/>
           </div>
