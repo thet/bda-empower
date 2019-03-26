@@ -104,6 +104,7 @@ html {
     border-radius: 50%;
 }
 
+.em-date time { @apply pl-2; }
 /**
  * This injects all of Tailwind's utility classes, generated based on your
  * config file.

@@ -31,17 +31,15 @@
             :role="'Klient*in'" />
         </div>
 
+        <div class="em-date" v-if="available_field('created')">
+          <strong>Erstellt:</strong>
+          <time :datetime="context.created">{{ context.created | format_date }}</time>
+        </div>
+        <div class="em-date" v-if="available_field('modified')">
+          <strong>Verändert:</strong>
+          <time :datetime="context.modified">{{ context.modified | format_date }}</time>
+        </div>
 
-        <ul v-if="context">
-          <li>
-            <strong>Erstellt:</strong>
-            <time :datetime="context.created">{{ context.created }}</time>
-          </li>
-          <li v-if="context.modified">
-            <strong>Verändert:</strong>
-            <time :datetime="context.modified">{{ context.modified }}</time>
-          </li>
-        </ul>
       </header>
 
       <div class="em-contribution-body">
