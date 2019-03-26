@@ -43,6 +43,10 @@
 .em-btn-action     { @apply bg-em-action; }
 .em-btn-evaluation { @apply bg-em-evaluation; }
 
+.em-contribution-init {
+    /* initially set the contribution height pretty high to not lazy-load too many of them. */
+    height: 50vh;
+}
 .em-contribution {
     @apply border-4 border-solid border-em-lighter;
 }
