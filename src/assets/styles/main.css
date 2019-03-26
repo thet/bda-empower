@@ -65,6 +65,9 @@ html {
 .article_wrapper.em-workspace-root > div > .article_wrapper {
     @apply mt-8;
 }
+.article_wrapper.em-workspace-root + .article_wrapper.em-workspace-root {
+    @apply mt-32;
+}
 
 .em-contribution.em-workspace-root {
     @apply border-l-0 border-r-0;
