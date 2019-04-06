@@ -112,9 +112,7 @@ export default {
     LOAD_THREAD: ({ commit, state }, { url, workspace=undefined }) => {
       commit(
         'CLEAR_THREAD',
-        {
-          workspace: workspace
-        });
+        { workspace: workspace });
       axios
         .get(
           url,

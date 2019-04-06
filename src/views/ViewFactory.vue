@@ -5,11 +5,13 @@
 </template>
 <script>
 import CasesView from '@/views/CasesView';
+import CaseView from '@/views/CaseView';
 import ContributionView from '@/views/ContributionView';
 import DefaultView from '@/views/DefaultView';
 export default {
   components: {
     CasesView,
+    CaseView,
     ContributionView,
     DefaultView
   },
@@ -26,10 +28,6 @@ export default {
 
       // Get component name = type
       let component = this.context['@type'];
-
-      if (component === 'Case') {
-        component = 'Contribution';
-      }
 
       // Fallback component
       if (Object.keys(this.$options.components).indexOf(component + 'View') === -1) {
