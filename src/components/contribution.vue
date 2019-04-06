@@ -1,6 +1,6 @@
 <template>
   <intersect @enter="load">
-    <article class="em-contribution"
+    <article v-if="mode_normal" class="em-contribution"
       :class="[
         'em-contribution-' + (context && context.workspace) || '',
         'uid-' + item.UID || '',
@@ -148,6 +148,45 @@
       </footer>
 
     </article>
+
+
+    <article v-if="mode_small" class="em-contribution"
+        :class="[
+        'em-contribution--mode_small',
+        'em-contribution-' + (context && context.workspace) || '',
+        'uid-' + item.UID || '',
+        'state-' + item.review_state || 'private',
+        item.is_workspace_root ? 'em-workspace-root' : null,
+        context ? null : 'em-contribution-init'
+    ]">
+      <header class="em-contribution-header">
+        <h3 class="em-contribution-title"><TextLine v-if="available_field('title')" v-model="context.title" :label="'Title'" :edit="edit" /></h3>
+        <div class="em-date" v-if="available_field('created')">
+          <strong>Erstellt:</strong>
+          <time :datetime="context.created">{{ context.created | format_date }}</time>
+        </div>
+        <div class="em-date" v-if="available_field('modified')">
+          <strong>Verändert:</strong>
+          <time :datetime="context.modified">{{ context.modified | format_date }}</time>
+        </div>
+      </header>
+    </article>
+
+
+    <article v-if="mode_smaller" class="em-contribution"
+        :class="[
+        'em-contribution--mode_smaller',
+        'em-contribution-' + (context && context.workspace) || '',
+        'uid-' + item.UID || '',
+        'state-' + item.review_state || 'private',
+        item.is_workspace_root ? 'em-workspace-root' : null,
+        context ? null : 'em-contribution-init'
+    ]">
+      <header class="em-contribution-header">
+        <h3 class="em-contribution-title"><TextLine v-if="available_field('title')" v-model="context.title" :label="'Title'" :edit="edit" /></h3>
+      </header>
+    </article>
+
   </intersect>
 </template>
 <script>
@@ -175,9 +214,13 @@ export default {
     TextEditor
   },
 
-  props: [
-    'item'
-  ],
+  props: {
+    item: Object,
+    mode: {
+      type: String,
+      default: 'normal'
+    }
+  },
 
   data: function() {
     return {
@@ -186,6 +229,19 @@ export default {
   },
 
   computed: {
+
+    mode_normal() {
+      return this.mode === 'normal';
+    },
+
+    mode_small() {
+      return this.mode === 'small';
+    },
+
+    mode_smaller() {
+      return this.mode === 'smaller';
+    },
+
     context: function() {
       if (this.item['@id']) {
         return this.contexttree[this.item['@id']];
