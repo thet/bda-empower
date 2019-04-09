@@ -17,6 +17,7 @@
   </section>
 </template>
 <script>
+import axios from 'axios';
 import Contribution from '@/components/contribution';
 import utils from '@/utils';
 
@@ -30,34 +31,25 @@ export default {
     'workspace'
   ],
 
-  computed: {
-    items() {
-      let tree = this.tree[this.workspace];
-      if (!tree || !tree.items) {
-        return [];
-      }
-      let items = Object.values(tree.items).filter(it => {
-        let path = it['@id'].split('/');
-        let parent_path = path.slice(0, path.length - 2).join('/');
-        return ! tree.items[parent_path];
-      });
-      return items;
-    },
-    tree() {
-      let tree = this.$store.state.context.workspace_threads;
-      return tree || {};
-    }
+  data: function() {
+    return {
+      items: []
+    };
   },
 
   methods: {
     load() {
-      this.$store.dispatch(
-        'context/LOAD_THREAD',
-        {
-          url: this.context['@components']['thread']['@id'],
-          workspace: this.workspace
-        }
-      );
+      let url = this.context['@components']['workspace_overview']['@id'];
+      axios
+        .get(url, { params: { workspace: this.workspace }})
+        .then(response => {
+          console.log(`load workspace items: ${url}, workspace ${this.workspace}`);
+          this.items = response.data.items;
+        })
+        .catch(error => {
+          console.log(`Error while loading workspace items at: ${url}`);
+          console.log(error);
+        });
     }
   },
 

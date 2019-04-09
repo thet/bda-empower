@@ -105,7 +105,7 @@
           </div>
           <div v-if="item.previous_workspace">
             <strong>Zum vorherigen Workspace:</strong>
-            <router-link :to="{ path: makePath(item.previous_workspace.path) }">{{ item.previous_workspace.title }}</router-link>
+            <router-link :to="{ path: makePath(item.previous_workspace['@id']) }">{{ item.previous_workspace.title }}</router-link>
           </div>
           <div v-if="item.next_workspaces && item.next_workspaces.length">
             <strong>Zum nächsten Workspace:</strong>
@@ -113,7 +113,7 @@
               <li
                   v-for="ws in item.next_workspaces"
                   :key="ws.path">
-                <router-link :to="{ path: makePath(ws.path) }">{{ ws.title }}</router-link>
+                <router-link :to="{ path: makePath(ws['@id']) }">{{ ws.title }}</router-link>
               </li>
             </ul>
           </div>
@@ -190,7 +190,6 @@
   </intersect>
 </template>
 <script>
-import { mapGetters } from 'vuex';
 import AccountIcon from '@/components/account_icon';
 import Autocomplete from '@/elements/Autocomplete';
 import ContributionEdit from '@/components/contribution_edit';
@@ -244,7 +243,7 @@ export default {
 
     context: function() {
       if (this.item['@id']) {
-        return this.contexttree[this.item['@id']];
+        return this.$store.state.context.items[utils.makePath(this.item['@id'])];
       } else {
         // no id? we're adding content.
         let addModel;
@@ -262,10 +261,7 @@ export default {
     },
     editable: function() {
       return this.context && this.context.can_edit || ! this.item['@id'];
-    },
-    ...mapGetters({
-      contexttree: 'context/contexttree'
-    })
+    }
   },
 
   methods: {
