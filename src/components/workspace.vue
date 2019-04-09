@@ -5,25 +5,27 @@
         v-for="item in items"
         :key="`thread-${workspace}-${item['@id']}`">
       <section class="em-workspace--previous-item">
-        <Contribution :item="item.previous_workspace" :mode="'smaller'" v-if="item.previous_workspace" />
+        <ContributionSmaller :item="item.previous_workspace" v-if="item.previous_workspace" />
       </section>
       <section class="em-workspace--item">
-        <Contribution :item="item" :mode="'small'" />
+        <ContributionSmall :item="item" />
       </section>
       <section class="em-workspace--next-items" v-if="item.next_workspaces">
-        <Contribution :item="next" :mode="'smaller'" v-for="(next, cnt) in item.next_workspaces" :key="cnt" />
+        <ContributionSmaller :item="next" v-for="(next, cnt) in item.next_workspaces" :key="cnt" />
       </section>
     </div>
   </section>
 </template>
 <script>
 import axios from 'axios';
-import Contribution from '@/components/contribution';
+import ContributionSmall from '@/components/contribution_small';
+import ContributionSmaller from '@/components/contribution_smaller';
 import utils from '@/utils';
 
 export default {
   components: {
-    Contribution
+    ContributionSmall,
+    ContributionSmaller
   },
 
   props: [
@@ -35,6 +37,15 @@ export default {
     return {
       items: []
     };
+  },
+
+  computed: {
+    next() {
+
+    },
+    previous() {
+
+    },
   },
 
   methods: {
