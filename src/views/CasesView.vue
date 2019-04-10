@@ -1,42 +1,44 @@
 <template>
   <div class="viewWrapper">
-    <Contribution v-for="item in items" :key="item['@id']" :item="item" />
+    <section class="em-cases-overview" v-if="items">
+      <ContributionSmall v-for="item in items" :key="item['@id']" :item="item" />
+    </section>
   </div>
 </template>
 <script>
-import Contribution from '@/components/contribution';
+import axios from 'axios';
+import ContributionSmall from '@/components/contribution_small';
 import utils from '@/utils';
 
 export default {
 
   components: {
-    Contribution
+    ContributionSmall
   },
 
   props: [
     'context'
   ],
 
-  computed: {
-    items() {
-      let workspace_threads = this.$store.state.context.workspace_threads;
-      let path = utils.makePath(this.context['@id']);
-      return workspace_threads[this.workspace] && workspace_threads[this.workspace].items[path] || [];
-    },
-    tree() {
-      return this.$store.state.context.workspace_threads[this.workspace];
-    }
+  data: function() {
+    return {
+      items: []
+    };
   },
 
   methods: {
     load() {
-      this.$store.dispatch(
-        'context/LOAD_THREAD',
-        {
-          url: this.context['@components']['thread']['@id'],
-          workspace: 'case'
-        }
-      );
+      let url = this.context['@components']['cases_overview']['@id'];
+      axios
+        .get(url)
+        .then(response => {
+          console.log(`load cases: ${url}`);
+          this.items = response.data.items;
+        })
+        .catch(error => {
+          console.log(`Error while loading cases at: ${url}`);
+          console.log(error);
+        });
     }
   },
 
