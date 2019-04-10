@@ -1,5 +1,5 @@
 <template>
-    <article class="em-contribution em-contribution--mode_small"
+    <article class="em-contribution em-contribution--mode_smaller"
       :class="[
         `em-contribution-${item.workspace}`,
         `uid-${item.UID}`,
@@ -7,10 +7,9 @@
         item.is_workspace_root ? 'em-workspace-root' : null
     ]">
       <header class="em-contribution-header">
-        <h3 class="em-contribution-title">{{ item.title }}</h3>
+        <p class="em-contribution-title">{{ item.title }}</p>
       </header>
     </article>
-
 </template>
 <script>
 import utils from '@/utils';
