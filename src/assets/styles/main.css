@@ -51,9 +51,13 @@ html {
     /* initially set the contribution height pretty high to not lazy-load too many of them. */
     height: 50vh;
 }
+
 .em-contribution {
-    @apply border-4 border-l-16 border-solid border-em-lighter bg-em-lighter;
+    @apply border-4 border-solid border-em-lighter bg-em-lighter;
     max-width: 60em;
+}
+.em-contribution--mode_normal.em-contribution {
+    @apply border-l-16;
 }
 .em-contribution > * { @apply p-4; }
 .em-contribution-case       { @apply border-em-case; }
@@ -72,27 +76,23 @@ html {
     @apply mt-32;
 }
 
-.em-contribution.em-workspace-root {
+.em-contribution--mode_normal.em-contribution.em-workspace-root {
     @apply border-l-0 border-r-0;
     width: 100%;
     max-width: 100%;
 }
-.em-contribution.em-workspace-root .em-contribution-header {
-    @apply text-em-lighter;
-}
-.em-contribution-footer {
-    @apply border-t border-solid border-em-light;
-}
-.em-contribution-case.em-workspace-root .em-contribution-header { @apply bg-em-case; }
-.em-contribution-case .em-contribution-footer { @apply border-em-case; }
-.em-contribution-analysis.em-workspace-root .em-contribution-header { @apply bg-em-analysis; }
-.em-contribution-analysis .em-contribution-footer { @apply border-em-analysis; }
-.em-contribution-strategy.em-workspace-root .em-contribution-header { @apply bg-em-strategy; }
-.em-contribution-strategy .em-contribution-footer { @apply border-em-strategy; }
-.em-contribution-action.em-workspace-root .em-contribution-header { @apply bg-em-action; }
-.em-contribution-action .em-contribution-footer { @apply border-em-action; }
-.em-contribution-evaluation.em-workspace-root .em-contribution-header { @apply bg-em-evaluation; }
-.em-contribution-evaluation .em-contribution-footer { @apply border-em-evaluation; }
+.em-contribution--mode_normal.em-contribution.em-workspace-root .em-contribution-header { @apply text-em-lighter; }
+.em-contribution--mode_normal.em-contribution-footer { @apply border-t border-solid border-em-light; }
+.em-contribution--mode_normal.em-contribution-case.em-workspace-root .em-contribution-header { @apply bg-em-case; }
+.em-contribution--mode_normal.em-contribution-case .em-contribution-footer { @apply border-em-case; }
+.em-contribution--mode_normal.em-contribution-analysis.em-workspace-root .em-contribution-header { @apply bg-em-analysis; }
+.em-contribution--mode_normal.em-contribution-analysis .em-contribution-footer { @apply border-em-analysis; }
+.em-contribution--mode_normal.em-contribution-strategy.em-workspace-root .em-contribution-header { @apply bg-em-strategy; }
+.em-contribution--mode_normal.em-contribution--mode_normal.em-contribution-strategy .em-contribution-footer { @apply border-em-strategy; }
+.em-contribution--mode_normal.em-contribution-action.em-workspace-root .em-contribution-header { @apply bg-em-action; }
+.em-contribution--mode_normal.em-contribution-action .em-contribution-footer { @apply border-em-action; }
+.em-contribution--mode_normal.em-contribution-evaluation.em-workspace-root .em-contribution-header { @apply bg-em-evaluation; }
+.em-contribution--mode_normal.em-contribution-evaluation .em-contribution-footer { @apply border-em-evaluation; }
 
 .em-workspace { @apply border-6 border-solid bg-em-light; }
 .em-workspace-case { @apply border-em-case; }
@@ -108,6 +108,11 @@ html {
 }
 
 .em-date time { @apply pl-2; }
+
+.em-workspace--group {
+    @apply flex;
+}
+
 /**
  * This injects all of Tailwind's utility classes, generated based on your
  * config file.

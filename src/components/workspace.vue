@@ -1,7 +1,6 @@
 <template>
-  <section class="em-workspace" :class="'em-workspace-' + workspace" v-if="items">
-    <div class="workspace_overview"
-        :class="item.is_workspace_root ? 'em-workspace-root' : null"
+  <section class="em-workspace-overview" :class="'em-workspace-' + workspace" v-if="items">
+    <div class="em-workspace--group"
         v-for="item in items"
         :key="`thread-${workspace}-${item['@id']}`">
       <section class="em-workspace--previous-item">

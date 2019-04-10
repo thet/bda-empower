@@ -1,6 +1,6 @@
 <template>
   <intersect @enter="load">
-    <article class="em-contribution"
+    <article class="em-contribution em-contribution--mode_normal"
       :class="[
         'em-contribution-' + (context && context.workspace) || '',
         'uid-' + item.UID || '',
