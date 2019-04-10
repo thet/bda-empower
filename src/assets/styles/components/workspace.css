@@ -1,0 +1,8 @@
+
+.em-workspace--next-items {
+    & > * {
+        display: inline-block;
+    }
+
+}
+

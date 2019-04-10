@@ -1,0 +1,65 @@
+.em-contribution-init {
+    /* initially set the contribution height pretty high to not lazy-load too many of them. */
+    height: 50vh;
+}
+
+.em-contribution {
+    @apply border-4 border-solid border-em-lighter bg-em-lighter;
+    max-width: 60em;
+}
+.em-contribution > * { @apply p-4; }
+.em-contribution-case       { @apply border-em-case; }
+.em-contribution-analysis   { @apply border-em-analysis; }
+.em-contribution-strategy   { @apply border-em-strategy; }
+.em-contribution-action     { @apply border-em-action; }
+.em-contribution-evaluation { @apply border-em-evaluation; }
+
+
+.em-contribution--mode_normal {
+
+    &.em-contribution {
+        @apply border-l-16;
+    }
+
+    &.em-workspace-root {
+        @apply border-l-0 border-r-0;
+        width: 100%;
+        max-width: 100%;
+
+        .em-contribution-header { @apply text-em-lighter; }
+        &.em-contribution-case .em-contribution-header { @apply bg-em-case; }
+        &.em-contribution-analysis .em-contribution-header { @apply bg-em-analysis; }
+        &.em-contribution-strategy .em-contribution-header { @apply bg-em-strategy; }
+        &.em-contribution-action .em-contribution-header { @apply bg-em-action; }
+        &.em-contribution-evaluation .em-contribution-header { @apply bg-em-evaluation; }
+    }
+
+    .em-contribution-footer { @apply border-t border-solid border-em-light; }
+    &.em-contribution-case .em-contribution-footer { @apply border-em-case; }
+    &.em-contribution-analysis .em-contribution-footer { @apply border-em-analysis; }
+    &.em-contribution-strategy .em-contribution-footer { @apply border-em-strategy; }
+    &.em-contribution-action .em-contribution-footer { @apply border-em-action; }
+    &.em-contribution-evaluation .em-contribution-footer { @apply border-em-evaluation; }
+}
+
+.em-contribution--mode_small {
+    height: 8em;
+    min-width: 25em;
+    max-width: 40em;
+    @apply m-4;
+}
+.em-contribution--mode_smaller {
+    width: 8em;
+    height: 8em;
+    @apply m-4;
+
+    overflow: hidden;
+
+    &:first-child, &:last-child {
+    }
+}
+
+
+
+
+/* end */
