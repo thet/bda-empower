@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <div class="article_wrapper" :class="item.is_workspace_root ? 'em-workspace-root' : null" v-for="item in items" :key="`thread-${workspace}-${item['@id']}`">
+  <div v-if="item">
+    <div class="article_wrapper" :class="item.is_workspace_root ? 'em-workspace-root' : null">
       <Contribution :item="item" @addcontribution="addContribution" />
       <div v-if="add" class="article_wrapper">
         <Contribution :item="{ '@type': 'Contribution', 'parent': item }" @addcontribution="addContribution" />
       </div>
-      <ThreadRecurse v-if="item['@id']" :path="newPath(item)" :workspace="workspace" />
+      <ThreadRecurse v-for="(path, cnt) of subpaths" :path="path" :tree="tree" :key="cnt" />
     </div>
   </div>
 </template>
@@ -22,10 +22,16 @@ export default {
     ThreadRecurse
   },
 
-  props: [
-    'path',
-    'workspace'
-  ],
+  props: {
+    tree: {
+      type: Object,
+      required: true
+    },
+    path: {
+      type: String,
+      required: true
+    }
+  },
 
   data: function() {
     return {
@@ -34,18 +40,23 @@ export default {
   },
 
   computed: {
-    items() {
-      let tree = this.$store.state.context.workspace_threads[this.workspace];
-      return tree.items[this.path];
+    item() {
+      return this.tree.items[this.path];
+    },
+    subpaths() {
+      const path_length = this.path.split('/').length;
+      return Object.keys(this.tree.items).filter(it => {
+        // narrow down to only those in current path
+        if (it.indexOf(this.path) !== -1) {
+          // narrow down to only direct children of current item
+          return it.split('/').length === path_length + 1;
+        }
+        return false;
+      });
     }
   },
 
   methods: {
-    newPath(item) {
-      let id = item['@id'].split('/').splice(-1); // get last element
-      let newPath = this.path + '/' + id[0];
-      return newPath;
-    },
     addContribution() {
       this.add = true;
     }

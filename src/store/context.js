@@ -32,13 +32,6 @@ export default {
       'title': '',
       'version': '',
       'workspace': ''
-    },
-    workspace_threads: {
-      'case': {}, //new config.ThreadModel(),
-      'analysis': {}, //new config.ThreadModel(),
-      'strategy': {}, //new config.ThreadModel(),
-      'action': {}, //new config.ThreadModel(),
-      'evaluation': {} // new config.ThreadModel()
     }
   },
 
@@ -96,30 +89,6 @@ export default {
         })
         .catch(error => {
           console.log(`Error while LOAD_CONTEXT for context: ${url}`);
-          console.log(error);
-        });
-    },
-
-    LOAD_THREAD: ({ commit, state }, { url, workspace=undefined }) => {
-      commit(
-        'CLEAR_THREAD',
-        { workspace: workspace });
-      axios
-        .get(
-          url,
-          { params: { workspace: workspace }}
-        )
-        .then(response => {
-          console.log(`LOAD_THREAD: ${url}, workspace ${workspace}`);
-          commit(
-            'SET_THREAD',
-            {
-              thread: response.data,
-              workspace: workspace
-            });
-        })
-        .catch(error => {
-          console.log(`Error while LOAD_THREAD at: ${url}`);
           console.log(error);
         });
     },
@@ -196,21 +165,6 @@ export default {
     SET_CURRENT_CONTEXT: (state, { context }) => {
       state.current_context = context;
       console.log(`SET_CURRENT_CONTEXT: ${context['@id']}`);
-    },
-
-    SET_THREAD: (state, { thread, workspace }) => {
-      Vue.set(state.workspace_threads, workspace, thread);
-      console.log(`SET_THREAD - workspace ${workspace}`);
-    },
-
-    CLEAR_THREAD: (state, { workspace=undefined }) => {
-      if (! workspace) {
-        state.workspace_threads = {};
-        console.log('CLEAR_THREAD - all threads');
-      } else {
-        Vue.set(state.workspace_threads, workspace, {})
-        console.log(`CLEAR_THREAD - workspace ${workspace}`);
-      }
     }
 
   }

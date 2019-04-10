@@ -7,7 +7,11 @@
         item.is_workspace_root ? 'em-workspace-root' : null
     ]">
       <header class="em-contribution-header">
-        <h3 class="em-contribution-title">{{ item.title }}</h3>
+        <h3 class="em-contribution-title">
+          <router-link :to="{ path: makePath(item['@id']) }">
+            {{ item.title }}
+          </router-link>
+        </h3>
         <div class="em-date" v-if="item.created">
           <strong>Erstellt:</strong>
           <time :datetime="item.created">{{ item.created | format_date }}</time>
@@ -27,6 +31,11 @@ import config from '@/config';
 export default {
   props: {
     item: Object
+  },
+  methods: {
+    makePath(url) {
+      return utils.makePath(url);
+    }
   }
 };
 </script>

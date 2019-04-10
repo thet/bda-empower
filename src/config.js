@@ -41,11 +41,9 @@ class ThreadModel {
   constructor({
     id = '',
     items = [],
-    start_path = ''
   }) {
     this['@id'] = id;
     this.items = items;
-    this.start_path = start_path;
   }
 }
 

@@ -7,7 +7,11 @@
         item.is_workspace_root ? 'em-workspace-root' : null
     ]">
       <header class="em-contribution-header">
-        <p class="em-contribution-title">{{ item.title }}</p>
+        <p class="em-contribution-title">
+          <router-link :to="{ path: makePath(item['@id']) }">
+            {{ item.title }}
+          </router-link>
+        </p>
       </header>
     </article>
 </template>
@@ -19,6 +23,11 @@ import config from '@/config';
 export default {
   props: {
     item: Object
+  },
+  methods: {
+    makePath(url) {
+      return utils.makePath(url);
+    }
   }
 };
 </script>
