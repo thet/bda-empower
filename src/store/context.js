@@ -7,7 +7,7 @@ export default {
   namespaced: true,
 
   state: {
-    items: [],
+    items: {},
     current_context: {
       '@components': {},
       '@id': '',
@@ -42,16 +42,6 @@ export default {
     }
   },
 
-  getters: {
-    contexttree: state => {
-      let tree = {};
-      for (let item of state.items) {
-        tree[item['@id']] = item;
-      }
-      return tree;
-    }
-  },
-
   actions: {
     LOAD_CONTEXT: ({ commit, state }, {
       path='',
@@ -63,11 +53,12 @@ export default {
 
       url = url || utils.makeURL(path);
       url = workspace ? `${url}?workspace=${workspace}` : url;
+      path = path || utils.makePath(url);
 
-      if (!force && state.items[url]) {
-        console.log(`LOAD_CONTEXT - using cache: ${url}`);
+      if (!force && state.items[path]) {
+        console.log(`LOAD_CONTEXT - using cache: ${path}`);
         if (set_current) {
-          commit('SET_CURRENT_CONTEXT', { context: state.items[url] });
+          commit('SET_CURRENT_CONTEXT', { context: state.items[path] });
         }
         return;
       }
@@ -197,20 +188,8 @@ export default {
   mutations: {
 
     ADD_CONTEXT: (state, { context }) => {
-      let upd = false;
       context._loaded = new Date();
-      for (let i = 0; i < state.items.length; i++) {
-        if (state.items[i]['@id'] === context['@id']) {
-          console.log('ADD_CONTEXT - update');
-          state.items[i] = context;
-          upd = true;
-          break;
-        }
-      }
-      if (! upd) {
-        console.log('ADD_CONTEXT - add');
-        state.items.push(context);
-      }
+      Vue.set(state.items, utils.makePath(context['@id']), context);
       console.log(`ADD_CONTEXT: ${context['@id']}`);
     },
 
