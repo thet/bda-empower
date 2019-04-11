@@ -19,7 +19,7 @@
 import axios from 'axios';
 import ContributionSmall from '@/components/contribution_small';
 import ContributionSmaller from '@/components/contribution_smaller';
-import utils from '@/utils';
+
 
 export default {
   components: {
@@ -36,15 +36,6 @@ export default {
     return {
       items: []
     };
-  },
-
-  computed: {
-    next() {
-
-    },
-    previous() {
-
-    },
   },
 
   methods: {

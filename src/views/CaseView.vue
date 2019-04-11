@@ -4,6 +4,7 @@
       color="cyan"
       dark
       slider-color="yellow"
+      v-model="active_tab"
     >
 
       <v-tab ripple class="em-btn-case">
@@ -13,7 +14,7 @@
         <Workspace :context="context" :workspace="'case'" />
       </v-tab-item>
 
-      <v-tab ripple class="em-btn-analysis em-bg-analysis">
+      <v-tab ripple class="em-btn-analysis">
         Analyse
       </v-tab>
       <v-tab-item lazy>
@@ -56,7 +57,30 @@ export default {
 
   props: [
     'context'
-  ]
+  ],
+
+  computed: {
+    active_tab: {
+      get: function() {
+        switch (this.context.workspace) {
+          case 'analysis':
+            return 1;
+          case 'strategy':
+            return 2;
+          case 'action':
+            return 3;
+          case 'evaluation':
+            return 4;
+          default:
+            return 0;
+        }
+      },
+      set: function(val) {
+        return;
+      }
+
+    }
+  }
 
 };
 </script>
