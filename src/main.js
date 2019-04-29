@@ -9,6 +9,9 @@ import 'vuetify/dist/vuetify.min.css';
 import '@/assets/styles/main.css'
 import utils from '@/utils';
 
+import axios_setup from '@/axios_setup';
+axios_setup();
+
 Vue.config.productionTip = false;
 
 Vue.filter('format_date', function (value) {
