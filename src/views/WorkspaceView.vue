@@ -1,18 +1,24 @@
 <template>
-  <div class="viewWrapper">
-    <Thread v-if="context['@components']" :context="context" />
+  <div class="viewWrapper" v-if="context['@id']">
+    <WorkspaceTabs />
+    <Workspace :context="context" :workspace="workspace" />
   </div>
 </template>
 <script>
-import Thread from '@/components/thread';
+import Workspace from '@/components/workspace';
+import WorkspaceTabs from '@/components/workspace_tabs';
 
 export default {
 
   components: {
-    Thread
+    Workspace,
+    WorkspaceTabs
   },
 
   computed: {
+    workspace() {
+      return this.$route.params.workspace;
+    },
     context() {
       return this.$store.state.context.current_context;
     }
@@ -21,7 +27,7 @@ export default {
   methods: {
     load() {
       let path = this.$route.path.split('+ws')[0];
-      this.$store.dispatch('context/LOAD_CONTEXT', { path: path, workspace: this.$route.params.id, set_current: true });
+      this.$store.dispatch('context/LOAD_CONTEXT', { path: path, set_current: true });
     }
   },
 

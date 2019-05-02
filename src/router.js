@@ -15,7 +15,7 @@ export default new Router({
       component: LoginView
     },
     {
-      path: '**/+ws/:id',
+      path: '**/+ws/:workspace',
       name: 'ws-view',
       component: WorkspaceView
     },

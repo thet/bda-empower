@@ -43,9 +43,13 @@ html {
 
 @import 'components/contribution.css';
 @import 'components/workspace.css';
+@import 'components/workspace_tabs.css';
 
 
-.em-btn { @apply text-em-lighter; }
+.em-btn {
+    @apply text-em-lighter;
+    display: inline-block;
+}
 .em-btn-case       { @apply bg-em-case; }
 .em-btn-analysis   { @apply bg-em-analysis; }
 .em-btn-strategy   { @apply bg-em-strategy; }

@@ -8,44 +8,18 @@ export default {
 
   state: {
     items: {},
-    current_context: {
-      '@components': {},
-      '@id': '',
-      '@type': '',
-      'UID': '',
-      '_loaded': null,
-      'allow_discussion': false,
-      'contributors': [],
-      'created': null,
-      'creators': [],
-      'experts_assigned': '',
-      'id': '',
-      'is_folderish': true,
-      'items': '',
-      'items_total': 0,
-      'layout': '',
-      'modified': null,
-      'parent': '',
-      'review_state': '',
-      'rights': '',
-      'text': '',
-      'title': '',
-      'version': '',
-      'workspace': ''
-    }
+    current_context: new config.GenericContextModel({}),
+    current_case: new config.GenericContextModel({})
   },
 
   actions: {
     LOAD_CONTEXT: ({ commit, state }, {
       path='',
       url='',
-      workspace=undefined,
       set_current=false,
       force=false
     }) => {
-
       url = url || utils.makeURL(path);
-      url = workspace ? `${url}?workspace=${workspace}` : url;
       path = path || utils.makePath(url);
 
       if (!force && state.items[path]) {
@@ -165,6 +139,10 @@ export default {
     SET_CURRENT_CONTEXT: (state, { context }) => {
       state.current_context = context;
       console.log(`SET_CURRENT_CONTEXT: ${context['@id']}`);
+      if (context['@type'] == 'Case') {
+        state.current_case = context;
+        console.log(`SET_CURRENT_CONTEXT - Case: ${context['@id']}`);
+      }
     }
 
   }

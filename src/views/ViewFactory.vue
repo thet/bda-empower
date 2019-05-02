@@ -29,6 +29,11 @@ export default {
       // Get component name = type
       let component = this.context['@type'];
 
+      // Use contribution View for "Case"
+      if (component === 'Case') {
+        component = 'Contribution';
+      }
+
       // Fallback component
       if (Object.keys(this.$options.components).indexOf(component + 'View') === -1) {
         component = 'Default';

@@ -1,0 +1,6 @@
+.em-workspace-tabs {
+    .em-btn {
+        @apply px-20 py-2;
+        @apply text-2xl font-bold no-underline;
+    }
+}
