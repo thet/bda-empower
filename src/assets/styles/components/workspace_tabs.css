@@ -1,6 +1,13 @@
 .em-workspace-tabs {
+    @apply border-b-6 border-solid bg-em-light;
     .em-btn {
         @apply px-20 py-2;
         @apply text-2xl font-bold no-underline;
     }
 }
+.em-workspace-tabs-case       { @apply border-em-case; }
+.em-workspace-tabs-analysis   { @apply border-em-analysis; }
+.em-workspace-tabs-strategy   { @apply border-em-strategy; }
+.em-workspace-tabs-action     { @apply border-em-action; }
+.em-workspace-tabs-evaluation { @apply border-em-evaluation; }
+

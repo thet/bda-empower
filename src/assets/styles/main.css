@@ -49,6 +49,9 @@ html {
 .em-btn {
     @apply text-em-lighter;
     display: inline-block;
+    &.active {
+        @apply underline;
+    }
 }
 .em-btn-case       { @apply bg-em-case; }
 .em-btn-analysis   { @apply bg-em-analysis; }
