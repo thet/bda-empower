@@ -6,8 +6,8 @@ export default {
 
   state: {
     auth_status: '',
-    auth_token: localStorage.getItem('auth_token') || undefined,
-    user_fullname: localStorage.getItem('user_fullname') || undefined,
+    auth_token: sessionStorage.getItem('auth_token') || undefined,
+    user_fullname: sessionStorage.getItem('user_fullname') || undefined,
   },
 
   getters: {
@@ -87,19 +87,19 @@ export default {
     AUTH_SUCCESS: (state, token) => {
       state.auth_status = 'success';
       state.auth_token = token;
-      localStorage.setItem('auth_token', token);
+      sessionStorage.setItem('auth_token', token);
     },
 
     AUTH_ERROR: state => {
       state.auth_status = 'error';
       state.auth_token = undefined;
-      localStorage.removeItem('auth_token');
+      sessionStorage.removeItem('auth_token');
     },
 
     AUTH_LOGOUT: state => {
       state.auth_status = '';
       state.auth_token = undefined;
-      localStorage.removeItem('auth_token');
+      sessionStorage.removeItem('auth_token');
     }
   }
 };
