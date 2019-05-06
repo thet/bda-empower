@@ -3,7 +3,12 @@
     <div class="article_wrapper" :class="item.is_workspace_root ? 'em-workspace-root' : null">
       <Contribution :item="item" @addcontribution="addContribution" />
       <div v-if="add" class="article_wrapper">
-        <Contribution :item="{ '@type': 'Contribution', 'parent': item }" @addcontribution="addContribution" />
+        <Contribution
+            :item="{ '@type': 'Contribution', 'parent': item }"
+            @addcontribution="addContribution"
+            @addsavecontribution="addSaveContribution"
+            @addcancelcontribution="addCancelContribution"
+            />
       </div>
       <ThreadRecurse v-for="(path, cnt) of subpaths" :path="path" :tree="tree" :key="cnt" />
     </div>
@@ -59,6 +64,13 @@ export default {
   methods: {
     addContribution() {
       this.add = true;
+    },
+    addSaveContribution() {
+      this.add = false;
+      this.$vnode.key = new Date();
+    },
+    addCancelContribution() {
+      this.add = false;
     }
   }
 

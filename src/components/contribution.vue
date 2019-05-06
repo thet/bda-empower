@@ -238,6 +238,8 @@ export default {
       this.edit = false;
       if (this.item['@id']) {
         this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'], force: true });
+      } else {
+        this.$emit('addcancelcontribution');
       }
     },
 
@@ -245,7 +247,12 @@ export default {
       if (this.item['@id']) {
         this.$store.dispatch('context/PATCH', { context: this.context });
       } else {
-        this.$store.dispatch('context/POST', { url: this.item.parent['@id'], context: this.context });
+        this.$store.dispatch('context/POST', {
+          parent_url: this.item.parent['@id'],
+          context: this.context
+        }).then(() => {
+          this.$emit('addsavecontribution');
+        });
       }
       this.edit = false;
     }

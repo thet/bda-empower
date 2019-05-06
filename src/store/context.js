@@ -126,7 +126,7 @@ export default {
           .then(response => {
             console.log(`POST at: ${parent_url}`);
             dispatch('LOAD_CONTEXT', { url: parent_url, force: true });
-            // commit('ADD_CONTEXT', { context: response.data });
+            commit('ADD_CONTEXT', { context: response.data });
             resolve(response);
           })
           .catch(error => {
