@@ -76,7 +76,8 @@ class CaseModel {
     text = { data: '' },
     client = [],
     coordinators = [],
-    expert_pool = []
+    expert_pool = [],
+    workspace = 'case'
   }) {
     this['@type'] = type;
     this.title = title;
@@ -85,6 +86,7 @@ class CaseModel {
     this.client = client;
     this.coordinators = coordinators;
     this.expert_pool = expert_pool;
+    this.workspace = workspace;
   }
 }
 

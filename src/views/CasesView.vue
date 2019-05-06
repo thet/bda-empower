@@ -1,14 +1,7 @@
 <template>
   <div class="viewWrapper">
 
-  <button class="em-btn em-btn-case" @click="addContribution">Add Case</button>
-    <div v-if="add" class="article_wrapper">
-      <Contribution
-          :item="{ '@type': 'Case', parent: context }"
-          @addsavecontribution="addSaveContribution"
-          @addcancelcontribution="addCancelContribution"
-          />
-    </div>
+    <AddButton :parent="context" :ctype="'Case'" :workspace="'case'" />
 
     <section class="em-cases-overview" v-if="items">
       <ContributionSmall v-for="item in items" :key="item['@id']" :item="item" />
@@ -17,14 +10,14 @@
 </template>
 <script>
 import axios from 'axios';
-import Contribution from '@/components/contribution';
+import AddButton from '@/components/add_button';
 import ContributionSmall from '@/components/contribution_small';
 import utils from '@/utils';
 
 export default {
 
   components: {
-    Contribution,
+    AddButton,
     ContributionSmall
   },
 
@@ -34,22 +27,11 @@ export default {
 
   data: function() {
     return {
-      add: false,
       items: []
     };
   },
 
   methods: {
-    addContribution() {
-      this.add = true;
-    },
-    addSaveContribution() {
-      this.add = false;
-      this.$vnode.key = new Date();
-    },
-    addCancelContribution() {
-      this.add = false;
-    },
     load() {
       let url = this.context['@components']['cases_overview']['@id'];
       axios

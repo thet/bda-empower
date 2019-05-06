@@ -197,9 +197,8 @@ export default {
           addModel = new config.CaseModel({});
         } else {
           addModel = new config.ContributionModel({
-            workspace: this.item.parent.workspace
+            workspace: this.item.workspace || this.item.parent.workspace
           });
-
         }
         addModel['@type'] = this.item['@type'];
         return addModel;
