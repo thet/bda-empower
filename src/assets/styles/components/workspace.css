@@ -1,3 +1,6 @@
+.em-workspace-root {
+    margin-bottom: 4em;
+}
 
 .em-workspace--next-items {
     & > * {

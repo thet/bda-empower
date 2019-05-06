@@ -73,7 +73,7 @@ class CaseModel {
     type = '',
     title = '',
     description = '',
-    text = '',
+    text = { data: '' },
     client = [],
     coordinators = [],
     expert_pool = []

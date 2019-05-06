@@ -194,7 +194,7 @@ export default {
         // no id? we're adding content.
         let addModel;
         if (this.item['@type'] === 'Case') {
-          addModel = new config.CaseModel();
+          addModel = new config.CaseModel({});
         } else {
           addModel = new config.ContributionModel({
             workspace: this.item.parent.workspace
