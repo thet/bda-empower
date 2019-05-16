@@ -5,9 +5,13 @@
         :key="`thread-${workspace}-${item['@id']}`">
       <section class="em-workspace--previous-item">
         <ContributionSmaller :item="item.previous_workspace" v-if="item.previous_workspace" />
+        <AddButton :parent="item.previous_workspace" :workspace="workspace" />
       </section>
       <section class="em-workspace--item">
         <ContributionSmall :item="item" />
+        <nav class="em-editui">
+          <AddButton v-for="ws of next_ws" :key='`add-${ws}`' :parent="item" :workspace="ws" />
+        </nav>
       </section>
       <section class="em-workspace--next-items" v-if="item.next_workspaces">
         <ContributionSmaller :item="next" v-for="(next, cnt) in item.next_workspaces" :key="cnt" />
@@ -17,12 +21,14 @@
 </template>
 <script>
 import axios from 'axios';
+import AddButton from '@/components/buttons/add';
 import ContributionSmall from '@/components/contribution_small';
 import ContributionSmaller from '@/components/contribution_smaller';
 
 
 export default {
   components: {
+    AddButton,
     ContributionSmall,
     ContributionSmaller
   },
@@ -36,6 +42,16 @@ export default {
     return {
       items: []
     };
+  },
+
+  computed: {
+
+    next_ws() {
+      let ws = this.$store.state.workspace.specification;
+      return ws[this.workspace].next;
+    }
+
+
   },
 
   methods: {

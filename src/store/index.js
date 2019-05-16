@@ -4,6 +4,7 @@ import Login from './login';
 import Context from './context';
 import Types from './types';
 import Users from './users';
+import Workspace from './workspace';
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     login: Login,
     context: Context,
     types: Types,
-    users: Users
+    users: Users,
+    workspace: Workspace
   }
 });
