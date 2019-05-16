@@ -15,6 +15,7 @@
 </template>
 <script>
 export default {
+
   props: {
     edit: Boolean,
     label: String,
@@ -24,7 +25,15 @@ export default {
     store_getter: String,
     options_loader: Object
   },
+
+  data: function() {
+    return {
+      items_: []
+    };
+  },
+
   computed: {
+
     _value: {
       get() {
         let val_default = this.multiple ? [] : '';
@@ -34,16 +43,17 @@ export default {
         this.$emit('input', val);
       }
     },
+
     items() {
-      return this.$store.getters[this.store_getter];
-    }
-  },
-  watch: {
-    edit(newEdit) {
-      if (newEdit) {
-        this.$store.dispatch(this.store_loader, this.options_loader || {});
+      if (! this.items_.length) {
+        this.$store.dispatch(this.store_loader, this.options_loader || {}).then(() => {
+          this.items_ = this.$store.getters[this.store_getter];
+        });
       }
+      return this.items_;
     }
+
   }
+
 };
 </script>
