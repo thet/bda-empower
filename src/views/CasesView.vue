@@ -10,7 +10,7 @@
 </template>
 <script>
 import axios from 'axios';
-import AddButton from '@/components/add_button';
+import AddButton from '@/components/buttons/add';
 import ContributionSmall from '@/components/contribution_small';
 import utils from '@/utils';
 
