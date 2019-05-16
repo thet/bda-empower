@@ -5,7 +5,7 @@
     <v-text-field required v-model="username" placeholder="User name" />
     <label>Password</label>
     <v-text-field required v-model="password" type="password" placeholder="Password" />
-    <v-btn @click="login">Login</v-btn>
+    <v-btn type="submit">Login</v-btn>
   </v-form>
 </template>
 <script>
