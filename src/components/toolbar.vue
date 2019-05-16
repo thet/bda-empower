@@ -26,41 +26,19 @@
 
     <v-divider></v-divider>
 
-    <v-list class="pt-0" dense>
-      <v-list-tile v-if="!isLoggedIn">
-        <v-list-tile-action>
-          <v-icon>person</v-icon>
-        </v-list-tile-action>
-
-        <v-list-tile-content>
-          <v-list-tile-title>
-            <router-link v-if="!isLoggedIn" to="login">Login</router-link>
-          </v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-
-      <v-list-tile v-if="isLoggedIn">
-        <v-list-tile-action>
-          <v-icon>person_outline</v-icon>
-        </v-list-tile-action>
-
-        <v-list-tile-content>
-          <v-list-tile-title>
-            <a @click="logout">Logout</a>
-          </v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-    </v-list>
+    <LoginButton />
 
   </v-navigation-drawer>
 </template>
 <script>
 import FolderNavigation from '@/components/foldernavigation';
+import LoginButton from '@/components/buttons/login';
 
 export default {
 
   components: {
-    FolderNavigation
+    FolderNavigation,
+    LoginButton
   },
 
   computed: {
