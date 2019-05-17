@@ -1,5 +1,5 @@
 <template>
-    <article class="em-contribution em-contribution--mode_small"
+    <article class="em-contribution em-contribution--mode_small relative"
       :class="[
         `em-contribution-${item.workspace}`,
         `uid-${item.UID}`,
@@ -20,17 +20,29 @@
           <strong>Verändert:</strong>
           <time :datetime="item.modified">{{ item.modified | format_date }}</time>
         </div>
+        <footer class="em-editui--over">
+          <AddButton v-for="ws of next_ws" :key='`add-${ws}`' :parent="item" :workspace="ws" />
+        </footer>
       </header>
     </article>
 </template>
 <script>
+import AddButton from '@/components/buttons/add';
 import utils from '@/utils';
-import config from '@/config';
 
 
 export default {
+  components: {
+    AddButton,
+  },
   props: {
     item: Object
+  },
+  computed: {
+    next_ws() {
+      let ws = this.$store.state.workspace.specification;
+      return ws[this.item.workspace].next;
+    }
   },
   methods: {
     makePath(url) {

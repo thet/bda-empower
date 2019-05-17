@@ -44,6 +44,7 @@ html {
 @import 'components/contribution.css';
 @import 'components/workspace.css';
 @import 'components/workspace_tabs.css';
+@import 'components/editui.css';
 
 
 .em-btn {
@@ -57,7 +58,14 @@ html {
 .em-btn-analysis   { @apply bg-em-analysis; }
 .em-btn-strategy   { @apply bg-em-strategy; }
 .em-btn-action     { @apply bg-em-action; }
-.em-btn-evaluation { @apply bg-em-evaluation; }
+
+.em-btn-evaluation--i { @apply bg-em-evaluation !important; }
+.em-btn-case--i       { @apply bg-em-case !important; }
+.em-btn-analysis--i   { @apply bg-em-analysis !important; }
+.em-btn-strategy--i   { @apply bg-em-strategy !important; }
+.em-btn-action--i     { @apply bg-em-action !important; }
+.em-btn-evaluation--i { @apply bg-em-evaluation !important; }
+
 
 .article_wrapper .article_wrapper {
     @apply -mt-1;
