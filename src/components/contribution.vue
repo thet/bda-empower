@@ -1,5 +1,6 @@
 <template>
   <intersect @enter="load">
+    <form @submit.prevent.stop="save">
     <article class="em-contribution em-contribution--mode_normal"
       :class="[
         'em-contribution-' + (context && context.workspace) || '',
@@ -123,12 +124,12 @@
           <v-btn fab dark small color="red"
               title="Cancel"
               @click="cancel"
-              v-if="edit">
-            <v-icon dark>cancel</v-icon>
+               v-if="edit">
+              <v-icon dark>cancel</v-icon>
             </v-btn>
             <v-btn fab dark small color="green"
               title="Save"
-              @click="save"
+              type="submit"
               v-if="edit">
             <v-icon dark>save</v-icon>
           </v-btn>
@@ -148,6 +149,7 @@
       </footer>
 
     </article>
+    </form>
 
   </intersect>
 </template>
@@ -181,32 +183,36 @@ export default {
 
   data: function() {
     return {
-      edit: !this.item['@id'] // when no id we're adding content and want to present the edit mode immediately.
+      edit: !this.item['@id'], // when no id we're adding content and want to present the edit mode immediately.
+      context_: undefined
     };
   },
 
   computed: {
 
     context: function() {
-      if (this.item['@id']) {
-        return this.$store.state.context.items[utils.makePath(this.item['@id'])];
-      } else {
-        // no id? we're adding content.
-        let addModel;
-        if (this.item['@type'] === 'Case') {
-          addModel = new config.CaseModel({});
-        } else {
-          addModel = new config.ContributionModel({
-            workspace: this.item.workspace || this.item.parent.workspace
-          });
-        }
-        addModel['@type'] = this.item['@type'];
-        return addModel;
+      if (this.context_) {
+        return this.context_;
       }
+      let context;
+      if (this.item['@id']) {
+        context = this.$store.state.context.items[utils.makePath(this.item['@id'])];
+      } else {
+        // Adding
+        context = new config[`${this.item['@type']}Model`]({
+          '@type': this.item['@type'],
+          workspace: this.item.workspace || this.item.parent.workspace
+        })
+      }
+
+      this.$set(this, 'context_', context);
+      return this.context_;
     },
+
     editable: function() {
       return this.context && this.context.can_edit || ! this.item['@id'];
     }
+
   },
 
   methods: {

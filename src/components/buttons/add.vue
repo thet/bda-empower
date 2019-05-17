@@ -1,6 +1,11 @@
 <template>
   <div>
-    <button class="em-btn" :class="`em-btn-${workspace}`" @click="addContribution">Add {{ workspace || 'Comment' }}</button>
+    <v-btn fab dark small
+        :class="`em-btn-${workspace}--i`"
+        :title="workspace || 'Comment'"
+        @click="addContribution">
+      <v-icon dark>add</v-icon>
+    </v-btn>
     <div v-if="add" class="add-form overlay">
       <Contribution
           :item="{ '@type': ctype, parent: parent, workspace: workspace }"
@@ -14,7 +19,6 @@
 import Contribution from '@/components/contribution';
 
 export default {
-
   components: {
     Contribution,
   },
@@ -48,7 +52,8 @@ export default {
     },
     addSaveContribution() {
       this.add = false;
-      this.$vnode.parent.key = new Date();
+      // TODO: check, if necessary
+      this.$parent.$vnode.key = new Date(); // Force re-render
     },
     addCancelContribution() {
       this.add = false;
