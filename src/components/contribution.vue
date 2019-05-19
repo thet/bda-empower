@@ -1,5 +1,6 @@
 <template>
   <intersect @enter="load">
+    <ModalWrapper :active="edit">
     <form @submit.prevent.stop="save">
     <article class="em-contribution em-contribution--mode_normal"
       :class="[
@@ -150,7 +151,7 @@
 
     </article>
     </form>
-
+    </ModalWrapper>
   </intersect>
 </template>
 <script>
@@ -160,6 +161,7 @@ import ContributionEdit from '@/components/contribution_edit';
 import TextLine from '@/elements/TextLine';
 import TextArea from '@/elements/TextArea';
 import TextEditor from '@/elements/TextEditor';
+import ModalWrapper from '@/components/modal_wrapper';
 import Intersect from 'vue-intersect'
 import utils from '@/utils';
 import config from '@/config';
@@ -174,7 +176,8 @@ export default {
     Intersect,
     TextLine,
     TextArea,
-    TextEditor
+    TextEditor,
+    ModalWrapper,
   },
 
   props: {

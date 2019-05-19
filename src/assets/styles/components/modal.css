@@ -1,0 +1,25 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 2s;
+  animation: blend_in 0.5s;
+  z-index: 10;
+}
+.modal > * {
+  position: relative;
+  background: white;
+  max-width: 80%;
+  width: 60em;
+  max-height: 90%;
+  overflow-y: auto;
+  border-radius: 0.2em;
+  box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.6);
+  animation: grow 0.2s;
+}
