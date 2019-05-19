@@ -58,6 +58,7 @@ html {
 .em-btn-analysis   { @apply bg-em-analysis; }
 .em-btn-strategy   { @apply bg-em-strategy; }
 .em-btn-action     { @apply bg-em-action; }
+.em-btn-evaluation { @apply bg-em-evaluation; }
 
 .em-btn-evaluation--i { @apply bg-em-evaluation !important; }
 .em-btn-case--i       { @apply bg-em-case !important; }
