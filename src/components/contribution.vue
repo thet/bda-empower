@@ -186,17 +186,13 @@ export default {
 
   data: function() {
     return {
-      edit: !this.item['@id'], // when no id we're adding content and want to present the edit mode immediately.
-      context_: undefined
+      edit: !this.item['@id'] // when no id we're adding content and want to present the edit mode immediately.
     };
   },
 
   computed: {
 
     context: function() {
-      if (this.context_) {
-        return this.context_;
-      }
       let context;
       if (this.item['@id']) {
         context = this.$store.state.context.items[utils.makePath(this.item['@id'])];
@@ -207,9 +203,7 @@ export default {
           workspace: this.item.workspace || this.item.parent.workspace
         })
       }
-
-      this.$set(this, 'context_', context);
-      return this.context_;
+      return context;
     },
 
     editable: function() {
