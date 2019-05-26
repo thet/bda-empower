@@ -50,7 +50,7 @@
     "singleQuote": true,
     "jsxBracketSameLine": true,
     "htmlWhitespaceSensitivity": "ignore",
-    "trailingComma": "es5"
+    "trailingComma": "none"
   },
   "browserslist": [
     "> 1%",
