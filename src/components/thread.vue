@@ -38,11 +38,11 @@ export default {
       const url = this.context['@components']['thread']['@id'];
       axios
         .get(
-          this.context['@components']['thread']['@id'],
+          url,
           { params: { workspace: this.context.workspace }}
         )
         .then(response => {
-          console.log(`loading thread: ${url}, workspace ${this.context.workspace}`);
+          console.log(`loading thread: ${url}, workspace ${this.context.workspace}, context id: ${this.context['@id']}`);
           this.tree = response.data;
         })
         .catch(error => {

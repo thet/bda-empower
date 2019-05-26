@@ -25,22 +25,30 @@ import config from '@/config';
 
 
 export default {
+
   components: {
-    AddButton,
+    AddButton
   },
+
   props: {
-    item: Object
+    item: {
+      type: Object,
+      required: true
+    }
   },
+
   computed: {
     next_ws() {
       let ws = this.$store.state.workspace.specification;
       return ws[this.item.workspace].next;
     }
   },
+
   methods: {
     makePath(url) {
       return utils.makePath(url);
     }
   }
+
 };
 </script>

@@ -181,7 +181,10 @@ export default {
   },
 
   props: {
-    item: Object
+    item: {
+      type: Object,
+      required: true
+    }
   },
 
   data: function() {

@@ -21,9 +21,12 @@ export default {
     ContributionSmall
   },
 
-  props: [
-    'context'
-  ],
+  props: {
+    context: {
+      type: Object,
+      required: true
+    }
+  },
 
   data: function() {
     return {

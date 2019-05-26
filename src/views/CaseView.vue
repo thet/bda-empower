@@ -9,12 +9,18 @@ import Workspace from '@/components/workspace';
 import WorkspaceTabs from '@/components/workspace_tabs';
 
 export default {
+
   components: {
     Workspace,
     WorkspaceTabs
   },
-  props: [
-    'context'
-  ]
+
+  props: {
+    context: {
+      type: Object,
+      required: true
+    }
+  }
+
 };
 </script>

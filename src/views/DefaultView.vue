@@ -5,6 +5,13 @@
 </template>
 <script>
 export default {
-  props: ['context']
+
+  props: {
+    context: {
+      type: Object,
+      required: true
+    }
+  }
+
 };
 </script>

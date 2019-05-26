@@ -28,10 +28,16 @@ export default {
     ContributionSmaller
   },
 
-  props: [
-    'context',
-    'workspace'
-  ],
+  props: {
+    context: {
+      type: Object,
+      required: true
+    },
+    workspace: {
+      type: String,
+      required: true
+    }
+  },
 
   data: function() {
     return {

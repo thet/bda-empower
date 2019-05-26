@@ -5,7 +5,6 @@
   </div>
 </template>
 <script>
-import utils from '@/utils';
 import Thread from '@/components/thread';
 import WorkspaceTabs from '@/components/workspace_tabs';
 
@@ -16,38 +15,16 @@ export default {
     WorkspaceTabs
   },
 
-  props: [
-    'context'
-  ],
-
-  computed: {
-    active_tab: {
-      get: function() {
-        switch (this.context.workspace) {
-          case 'analysis':
-            return 1;
-          case 'strategy':
-            return 2;
-          case 'action':
-            return 3;
-          case 'evaluation':
-            return 4;
-          default:
-            return 0;
-        }
-      },
-      set: function(val) {
-        return;
-      }
-
+  props: {
+    context: {
+      type: Object,
+      required: true
     }
   },
 
-  methods: {
-    makePath(url) {
-      return utils.makePath(url);
-    }
-  }
+  mounted() {
+    console.log(`ContributionView context id: ${this.context['@id']}`);
+  },
 
 };
 </script>

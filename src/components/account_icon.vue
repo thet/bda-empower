@@ -3,9 +3,15 @@
 </template>
 <script>
 export default {
-  props: [
-    'account',
-    'role'
-  ]
-}
+  props: {
+    account: {
+      type: String,
+      required: true
+    },
+    role: {
+      type: String,
+      required: true
+    }
+  }
+};
 </script>

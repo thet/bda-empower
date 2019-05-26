@@ -25,9 +25,12 @@ export default {
     FormSchema
   },
 
-  props: [
-    'context'
-  ],
+  props: {
+    context: {
+      type: Object,
+      required: true
+    }
+  },
 
   data: function() {
     return {
