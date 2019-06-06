@@ -22,9 +22,20 @@ export default {
   },
 
   props: {
-    edit: Boolean,
-    label: String,
-    value: String
+    value: {
+      type: String,
+      required: true
+    },
+    edit: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    label: {
+      type: String,
+      required: false,
+      default: ''
+    }
   },
 
   data: function() {

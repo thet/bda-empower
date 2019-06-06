@@ -17,13 +17,41 @@
 export default {
 
   props: {
-    edit: Boolean,
-    label: String,
-    value: [String, Array],
-    multiple: Boolean,
-    store_loader: String,
-    store_getter: String,
-    options_loader: Object
+    value: {
+      type: [String, Array],
+      required: true
+    },
+    // from here on, only required if edit is true.
+    edit: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    label: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    multiple: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    store_loader: {
+      type: String,
+      required: false,
+      default: null
+    },
+    store_getter: {
+      type: String,
+      required: false,
+      default: null
+    },
+    options_loader: {
+      type: Object,
+      required: false,
+      default: () => {}
+    }
   },
 
   data: function() {
