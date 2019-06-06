@@ -7,7 +7,7 @@
 
       <v-list-tile-content>
         <v-list-tile-title>
-          <router-link v-if="!isLoggedIn" to="login" replace="true" append="false">Login</router-link>
+          <router-link v-if="!isLoggedIn" :to="'login'" :replace="true" :append="false">Login</router-link>
         </v-list-tile-title>
       </v-list-tile-content>
     </v-list-tile>
