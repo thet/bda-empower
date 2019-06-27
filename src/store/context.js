@@ -37,6 +37,7 @@ export default {
             console.log(`LOAD_CONTEXT: ${url}`);
 
             let context = response.data;
+            context.workspace = utils.getattr(context.workspace, 'token', '');
             context.items = context.items.map(it => {
               switch (it['@type']) {
                 case 'Folder':
@@ -54,7 +55,6 @@ export default {
                 default:
                   it.icon = 'chat_bubble';
               }
-              it.workspace = getattr(utils.getattr(it.workspace, 'token', '');
               return it;
             });
 

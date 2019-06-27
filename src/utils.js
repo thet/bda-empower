@@ -16,11 +16,11 @@ export default {
     while (ret.length < len) { ret = `0${ret}`; }
     return ret;
   },
-  getattr(object, attribute, default=null) {
+  getattr(object, attribute, default_=null) {
     try {
       return object[attribute];
     } catch {
-      return default;
+      return default_;
     }
   }
 };
