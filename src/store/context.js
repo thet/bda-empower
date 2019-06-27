@@ -54,6 +54,7 @@ export default {
                 default:
                   it.icon = 'chat_bubble';
               }
+              it.workspace = getattr(utils.getattr(it.workspace, 'token', '');
               return it;
             });
 

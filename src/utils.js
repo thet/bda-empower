@@ -15,5 +15,12 @@ export default {
     let ret = val.toString();
     while (ret.length < len) { ret = `0${ret}`; }
     return ret;
+  },
+  getattr(object, attribute, default=null) {
+    try {
+      return object[attribute];
+    } catch {
+      return default;
+    }
   }
 };
