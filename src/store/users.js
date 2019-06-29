@@ -7,20 +7,20 @@ export default {
   state: {
     users: {
       '@id': '',
-      'terms': []
+      'items': []
     },
     parent_allowed: {
       '@id': '',
-      'terms': []
+      'items': []
     }
   },
 
   getters: {
     users: state => {
-      return state.users.terms.map(it => { return { 'text': it.title, 'value': it.token }; });
+      return state.users.items.map(it => { return { 'text': it.title, 'value': it.token }; });
     },
     parent_allowed: state => {
-      return state.parent_allowed.terms.map(it => { return { 'text': it.title, 'value': it.token }; });
+      return state.parent_allowed.items.map(it => { return { 'text': it.title, 'value': it.token }; });
     }
   },
 
@@ -28,7 +28,7 @@ export default {
 
     LOAD_USERS: ({ commit, state }, { force=false }) => {
       return new Promise((resolve, reject) => {
-        if (!force && state.users.terms.length) {
+        if (!force && state.users.items.length) {
           console.log('LOAD_USERS - use cache');
           return;
         }
