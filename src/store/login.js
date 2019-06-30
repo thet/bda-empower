@@ -7,7 +7,7 @@ export default {
   state: {
     auth_status: '',
     auth_token: sessionStorage.getItem('auth_token') || undefined,
-    user_fullname: sessionStorage.getItem('user_fullname') || undefined,
+    user: {},
   },
 
   getters: {
@@ -28,7 +28,19 @@ export default {
             if (token) {
               commit('AUTH_SUCCESS', token);
               console.log(`LOGIN ${username}`);
-              resolve(response);
+
+              // Get current user details
+              axios
+                .get(`${config.baseURI}/@users/${username}`)
+                .then(response => {
+                  commit('SET_CURRENT_USER', response.data);
+                  resolve(response);
+                })
+                .catch(error => {
+                  commit('AUTH_ERROR');
+                  reject(error);
+                });
+
             } else {
               commit('AUTH_ERROR');
               reject(error);
@@ -99,7 +111,13 @@ export default {
     AUTH_LOGOUT: state => {
       state.auth_status = '';
       state.auth_token = undefined;
+      state.user = {};
       sessionStorage.removeItem('auth_token');
-    }
+    },
+
+    SET_CURRENT_USER: (state, user) => {
+      state.user = user;
+    },
+
   }
 };
