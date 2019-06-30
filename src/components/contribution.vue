@@ -46,7 +46,7 @@
 
       <div class="em-contribution-body">
         <TextArea v-if="available_field('description')" v-model="context.description" :label="'Description'" :edit="edit"></TextArea>
-        <TextEditor v-if="available_field('text')" v-model="context.text.data" :label="'Text'" :edit="edit"></TextEditor>
+        <TextEditor v-if="available_field('text')" v-model="context.text" :label="'Text'" :edit="edit"></TextEditor>
       </div>
 
       <footer class="em-contribution-footer">

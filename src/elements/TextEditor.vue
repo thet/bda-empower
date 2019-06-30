@@ -7,7 +7,7 @@
       v-on:edit="editor_edit"
       custom-tag="div"
     ></TextEditor>
-    <div v-if="!edit && value" v-html="value"></div>
+    <div v-if="!edit && _value" v-html="_value"></div>
   </div>
 </template>
 <script>
@@ -23,7 +23,7 @@ export default {
 
   props: {
     value: {
-      type: String,
+      type: Object,
       required: true
     },
     edit: {
@@ -58,10 +58,16 @@ export default {
   computed: {
     _value: {
       get: function() {
-        return this.value;
+        return this.value ? this.value.data : '';
       },
       set: function(val) {
-        this.$emit('input', val);
+        // plone.app.textfield value
+        const _val = {
+          'content-type': 'text/html',
+          data: val,
+          encoding: 'utf8'
+        }
+        this.$emit('input', _val);
       }
     }
   },
