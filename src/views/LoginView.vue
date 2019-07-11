@@ -9,6 +9,7 @@
   </v-form>
 </template>
 <script>
+import config from '@/config';
 export default {
   data() {
     return {
@@ -23,8 +24,25 @@ export default {
       let password = this.password;
       this.$store
         .dispatch('login/LOGIN', { username, password })
-        .then(() => this.$router.push('/'))
-        .catch(error => console.log(error));
+        .then(() => {
+          this.$router.push({ path: '/' })
+        })
+        .catch(error => {
+          let title = config.portal_messages.LOGIN_ERROR_TITLE;
+          let text = config.portal_messages.LOGIN_ERROR_TEXT;
+          try {
+            title = error.response.data.error.type || `${error.response.status} - ${error.response.statusText}`;
+            text = error.response.data.error.message;
+          } catch {
+            title = `${error.response.status} - ${error.response.statusText}`;
+          }
+          this.$store.commit('portal_message/ADD_MESSAGE', {
+            title: title,
+            text: text,
+            type: 'error'
+          });
+          console.log(error);
+        });
     }
   }
 };

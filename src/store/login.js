@@ -40,7 +40,6 @@ export default {
                   commit('AUTH_ERROR');
                   reject(error);
                 });
-
             } else {
               commit('AUTH_ERROR');
               reject(error);

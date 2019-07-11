@@ -104,5 +104,9 @@ export default {
   basePath: '/Plone',
   GenericContextModel: GenericContextModel,
   ContributionModel: ContributionModel,
-  CaseModel: CaseModel
+  CaseModel: CaseModel,
+  portal_messages: {
+    LOGIN_ERROR_TITLE: 'Login Error',
+    LOGIN_ERROR_TEXT: 'Could not login'
+  }
 };
