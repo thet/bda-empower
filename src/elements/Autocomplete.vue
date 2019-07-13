@@ -6,6 +6,7 @@
         :items="items"
         :label="label"
         :multiple="multiple"
+        :menu-props="{ closeOnContentClick: true }"
         chips
         deletable-chips
         dense
