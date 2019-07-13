@@ -4,7 +4,7 @@
       <Contribution :item="item" @addcontribution="addContribution" />
       <div v-if="add" class="article_wrapper">
         <Contribution
-            :item="{ '@type': 'Contribution', 'parent': item }"
+            :item="{ '@type': 'Contribution', parent: item }"
             @addcontribution="addContribution"
             @addsavecontribution="addSaveContribution"
             @addcancelcontribution="addCancelContribution"

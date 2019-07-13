@@ -100,7 +100,7 @@
           </div>
           <div v-if="available_field('experts_assigned')">
             <strong>Zugewiesene Expert*innen:</strong>
-            <Autocomplete v-model="context.experts_assigned" :label="'Zugewiesene Expert*innen'" :edit="edit" :multiple="true" :store_getter="'users/allowed_users'" :store_loader="'users/LOAD_ALLOWED_USERS'" :options_loader="{ url: item.parent['@id'] }"/>
+            <Autocomplete v-model="context.experts_assigned" :label="'Zugewiesene Expert*innen'" :edit="edit" :multiple="true" :store_getter="'users/allowed_users'" :store_loader="'users/LOAD_ALLOWED_USERS'" :options_loader="{ url: parent_url }"/>
           </div>
           <div v-if="item['@id']">
             <strong>URL:</strong>
@@ -196,7 +196,7 @@ export default {
 
   computed: {
 
-    context: function() {
+    context() {
       let context;
       if (this.item['@id']) {
         context = this.$store.state.context.items[utils.makePath(this.item['@id'])];
@@ -210,7 +210,14 @@ export default {
       return context;
     },
 
-    editable: function() {
+    parent_url() {
+      if (this.item.parent) {
+        return this.item.parent['@id'];
+      }
+      return utils.parentURL(this.item['@id']);
+    },
+
+    editable() {
       return this.context && this.context.can_edit || ! this.item['@id'];
     }
 
