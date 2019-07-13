@@ -31,7 +31,7 @@ export default {
 
               // Get current user details
               axios
-                .get(`${config.baseURI}/@users/${username}`)
+                .get(`${config.baseURI}/@userinfo`)
                 .then(response => {
                   commit('SET_CURRENT_USER', response.data);
                   resolve(response);
