@@ -22,6 +22,7 @@
             :account="account"
             :role="'Autor*in'" />
         </div>
+
         <h3 class="em-contribution-title"><TextLine v-if="available_field('title')" v-model="context.title" :label="'Title'" :edit="edit" /></h3>
 
         <div v-if="available_field('client')">
@@ -99,7 +100,7 @@
           </div>
           <div v-if="available_field('experts_assigned')">
             <strong>Zugewiesene Expert*innen:</strong>
-            <Autocomplete v-model="context.experts_assigned" :label="'Zugewiesene Expert*innen'" :edit="edit" :multiple="true" :store_getter="'users/parent_allowed'" :store_loader="'users/LOAD_PARENT_ALLOWED'" :options_loader="{ url: context['@id'] || item.parent['@id'] }"/>
+            <Autocomplete v-model="context.experts_assigned" :label="'Zugewiesene Expert*innen'" :edit="edit" :multiple="true" :store_getter="'users/allowed_users'" :store_loader="'users/LOAD_ALLOWED_USERS'" :options_loader="{ url: item.parent['@id'] }"/>
           </div>
           <div v-if="item['@id']">
             <strong>URL:</strong>

@@ -9,7 +9,7 @@ export default {
       '@id': '',
       'items': []
     },
-    parent_allowed: {
+    allowed_users: {
       '@id': '',
       'items': []
     }
@@ -19,8 +19,8 @@ export default {
     users: state => {
       return state.users.items.map(it => { return { 'text': it.title, 'value': it.token }; });
     },
-    parent_allowed: state => {
-      return state.parent_allowed.items.map(it => { return { 'text': it.title, 'value': it.token }; });
+    allowed_users: state => {
+      return state.allowed_users.items.map(it => { return { 'text': it.title, 'value': it.token }; });
     }
   },
 
@@ -49,18 +49,18 @@ export default {
       });
     },
 
-    LOAD_PARENT_ALLOWED: async ({ commit, state }, { url }) => {
+    LOAD_ALLOWED_USERS: async ({ commit, state }, { url }) => {
       return new Promise((resolve, reject) => {
-        url = `${url}/@vocabularies/empower.parent_allowed_users`;
+        url = `${url}/@vocabularies/empower.allowed_users`;
         axios
           .get(url)
           .then(response => {
-            console.log(`LOAD_PARENT_ALLOWED: ${url}`);
-            commit('ADD_PARENT_ALLOWED', { parent_allowed: response.data });
+            console.log(`LOAD_ALLOWED_USERS: ${url}`);
+            commit('ADD_ALLOWED_USERS', { allowed_users: response.data });
             resolve(response);
           })
           .catch(error => {
-            console.log('Error while PARENT_ALLOWED');
+            console.log('Error while LOAD_ALLOWED_USERS');
             console.log(error);
             reject(error);
           });
@@ -76,11 +76,10 @@ export default {
       console.log('ADD_USERS');
     },
 
-    ADD_PARENT_ALLOWED: (state, { parent_allowed }) => {
-      state.parent_allowed = parent_allowed;
-      console.log('ADD_PARENT_ALLOWED');
+    ADD_ALLOWED_USERS: (state, { allowed_users }) => {
+      state.allowed_users = allowed_users;
+      console.log(`ADD_ALLOWED_USERS ${allowed_users}`);
     }
 
   }
 };
-
