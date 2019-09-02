@@ -1,13 +1,12 @@
+import '@/assets/styles/main.css'
+import 'intersection-observer'; // W3C Polyfill
 import App from './App.vue';
+import Vue from 'vue';
 import router from './router';
 import store from './store';
-import Vue from 'vue';
-import Vuetify from 'vuetify';
-import 'intersection-observer'; // W3C Polyfill
-import 'material-design-icons-iconfont/dist/material-design-icons.css';
-import 'vuetify/dist/vuetify.min.css';
-import '@/assets/styles/main.css'
 import utils from '@/utils';
+import vuetify from '@/plugins/vuetify';
+
 
 import axios_setup from '@/axios_setup';
 axios_setup();
@@ -24,13 +23,10 @@ Vue.filter('format_date', function (value) {
   return `${date_string}, ${time_string}`;
 })
 
-Vue.use(Vuetify, {
-  iconfont: 'md'
-})
-
 
 new Vue({
   router,
   store,
+  vuetify,
   render: h => h(App)
 }).$mount('#app');

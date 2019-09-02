@@ -1,3 +1,10 @@
+import {
+  mdiFolder,
+  mdiViewList,
+  mdiViewDashboard,
+  mdiComment,
+  mdiForum
+} from '@mdi/js';
 import Vue from 'vue';
 import axios from 'axios';
 import config from '@/config';
@@ -41,19 +48,19 @@ export default {
             context.items = context.items.map(it => {
               switch (it['@type']) {
                 case 'Folder':
-                  it.icon = 'folder';
+                  it.icon = mdiFolder;
                   break;
                 case 'Cases':
-                  it.icon = 'view_list';
+                  it.icon = mdiViewList;
                   break;
                 case 'Case':
-                  it.icon = 'dashboard';
+                  it.icon = mdiViewDashboard;
                   break;
                 case 'Contribution':
-                  it.icon = 'comment';
+                  it.icon = mdiComment;
                   break;
                 default:
-                  it.icon = 'chat_bubble';
+                  it.icon = mdiForum;
               }
               return it;
             });

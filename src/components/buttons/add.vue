@@ -4,7 +4,7 @@
         :class="`em-btn-${workspace}--i`"
         :title="workspace || 'Comment'"
         @click="addContribution">
-      <v-icon dark>add</v-icon>
+      <v-icon dark>{{ icon_add }}</v-icon>
     </v-btn>
     <div v-if="add" class="add-form overlay">
       <Contribution
@@ -16,6 +16,7 @@
   </div>
 </template>
 <script>
+import { mdiPlus } from '@mdi/js';
 import Contribution from '@/components/contribution';
 
 export default {
@@ -42,7 +43,8 @@ export default {
 
   data: function() {
     return {
-      add: false
+      add: false,
+      icon_add: mdiPlus,
     };
   },
 

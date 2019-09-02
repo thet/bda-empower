@@ -1,32 +1,39 @@
 <template>
   <v-list class="pt-0" dense>
-    <v-list-tile v-if="!isLoggedIn">
-      <v-list-tile-action>
-        <v-icon>person</v-icon>
-      </v-list-tile-action>
+    <v-list-item v-if="!isLoggedIn">
+      <v-list-item-action>
+        <v-icon>{{ icon_account }}</v-icon>
+      </v-list-item-action>
 
-      <v-list-tile-content>
-        <v-list-tile-title>
+      <v-list-item-content>
+        <v-list-item-title>
           <router-link v-if="!isLoggedIn" :to="'login'" :replace="true" :append="false">Login</router-link>
-        </v-list-tile-title>
-      </v-list-tile-content>
-    </v-list-tile>
+        </v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
 
-    <v-list-tile v-if="isLoggedIn">
-      <v-list-tile-action>
-        <v-icon>person_outline</v-icon>
-      </v-list-tile-action>
+    <v-list-item v-if="isLoggedIn">
+      <v-list-item-action>
+        <v-icon>{{ icon_account_outline }}</v-icon>
+      </v-list-item-action>
 
-      <v-list-tile-content>
-        <v-list-tile-title>
+      <v-list-item-content>
+        <v-list-item-title>
           <button class="btn btn-link" @click="logout">Logout</button>
-        </v-list-tile-title>
-      </v-list-tile-content>
-    </v-list-tile>
+        </v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
   </v-list>
 </template>
 <script>
+import { mdiAccount, mdiAccountOutline } from '@mdi/js';
+
 export default {
+
+  data: () => ({
+    icon_account: mdiAccount,
+    icon_account_outline: mdiAccountOutline
+  }),
 
   computed: {
     isLoggedIn() {

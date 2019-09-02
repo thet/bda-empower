@@ -6,8 +6,8 @@
           <FormSchema :schema="schema" v-model="model" @submit="save">
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" flat @click="dialog=false">Close</v-btn>
-              <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+              <v-btn color="blue darken-1" text @click="dialog=false">Close</v-btn>
+              <v-btn color="blue darken-1" text @click="save">Save</v-btn>
             </v-card-actions>
           </FormSchema>
         </v-card-text>

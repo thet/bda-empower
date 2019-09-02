@@ -11,27 +11,29 @@
     "@formschema/native": "^2.0.0-alpha.2",
     "axios": "^0.18.0",
     "intersection-observer": "^0.5.1",
-    "material-design-icons-iconfont": "^4.0.4",
     "vue": "^2.5.17",
     "vue-intersect": "^1.1.2",
     "vue-router": "^3.0.2",
     "vue2-medium-editor": "^1.1.6",
-    "vuetify": "^1.4.4",
+    "vuetify": "^2.0.11",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@mdi/js": "^4.2.95",
     "@vue/cli-plugin-babel": "^3.1.1",
     "@vue/cli-plugin-eslint": "^3.1.5",
     "@vue/cli-service": "^3.1.4",
     "@vue/eslint-config-prettier": "^4.0.0",
+    "add": "^2.0.6",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-vue": "^5.0.0-0",
-    "node-sass": "^4.9.0",
+    "sass": "^1.22.10",
     "sass-loader": "^7.0.1",
     "tailwindcss": "^0.7.4",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.17",
+    "yarn": "^1.17.3"
   },
   "eslintConfig": {
     "root": true,

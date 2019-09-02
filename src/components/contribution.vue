@@ -127,25 +127,25 @@
               title="Cancel"
               @click="cancel"
                v-if="edit">
-              <v-icon dark>cancel</v-icon>
+              <v-icon dark>{{ icon_cancel }}</v-icon>
             </v-btn>
             <v-btn fab dark small color="green"
               title="Save"
               type="submit"
               v-if="edit">
-            <v-icon dark>save</v-icon>
+            <v-icon dark>{{ icon_save }}</v-icon>
           </v-btn>
           <v-btn fab dark small color="cyan" :class="{ editing: edit }"
               title="Edit"
               @click="toggle_edit"
               v-if="!edit">
-            <v-icon dark>edit</v-icon>
+            <v-icon dark>{{ icon_edit }}</v-icon>
           </v-btn>
           <v-btn fab dark small color="green" :class="{ editing: edit }"
               title="Add"
               @click="do_add"
               v-if="!edit">
-            <v-icon dark>add</v-icon>
+            <v-icon dark>{{ icon_add }}</v-icon>
           </v-btn>
         </div>
       </footer>
@@ -156,6 +156,7 @@
   </intersect>
 </template>
 <script>
+import { mdiPencil, mdiPlus, mdiCancel, mdiContentSave } from '@mdi/js';
 import AccountIcon from '@/components/account_icon';
 import Autocomplete from '@/elements/Autocomplete';
 import ContributionEdit from '@/components/contribution_edit';
@@ -190,7 +191,11 @@ export default {
 
   data: function() {
     return {
-      edit: !this.item['@id'] // when no id we're adding content and want to present the edit mode immediately.
+      edit: !this.item['@id'], // when no id we're adding content and want to present the edit mode immediately.
+      icon_add: mdiPlus,
+      icon_edit: mdiPencil,
+      icon_save: mdiContentSave,
+      icon_cancel: mdiCancel
     };
   },
 
