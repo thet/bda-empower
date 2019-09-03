@@ -10,7 +10,6 @@ export default function setup() {
   axios.interceptors.request.use(
     function(config) {
       const auth_token = store.state.login.auth_token;
-      console.log(`auth token: ${auth_token}`);
       if(auth_token) {
         config.headers.Authorization = `Bearer ${auth_token}`;
       }

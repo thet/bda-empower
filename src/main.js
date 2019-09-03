@@ -8,7 +8,7 @@ import utils from '@/utils';
 import vuetify from '@/plugins/vuetify';
 
 
-import axios_setup from '@/axios_setup';
+import axios_setup from '@/plugins/axios';
 axios_setup();
 
 Vue.config.productionTip = false;
