@@ -40,12 +40,12 @@ export default {
       axios
         .get(url)
         .then(response => {
-          console.log(`load cases: ${url}`);
+          utils.logger.debug(`load cases: ${url}`);
           this.items = response.data.items;
         })
         .catch(error => {
-          console.log(`Error while loading cases at: ${url}`);
-          console.log(error);
+          utils.logger.error(`Error while loading cases at: ${url}`);
+          utils.logger.error(error);
         });
     }
   },

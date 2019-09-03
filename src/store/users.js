@@ -1,5 +1,6 @@
 import axios from 'axios';
 import config from '@/config';
+import utils from '@/utils';
 
 export default {
   namespaced: true,
@@ -29,7 +30,7 @@ export default {
     LOAD_USERS: ({ commit, state }, { force=false }) => {
       return new Promise((resolve, reject) => {
         if (!force && state.users.items.length) {
-          console.log('LOAD_USERS - use cache');
+          utils.logger.debug('LOAD_USERS - use cache');
           return;
         }
 
@@ -37,13 +38,13 @@ export default {
         axios
           .get(url)
           .then(response => {
-            console.log(`LOAD_USERS: ${url}`);
+            utils.logger.debug(`LOAD_USERS: ${url}`);
             commit('ADD_USERS', { users: response.data });
             resolve(response);
           })
           .catch(error => {
-            console.log('Error while LOAD_USERS');
-            console.log(error);
+            utils.logger.error('Error while LOAD_USERS');
+            utils.logger.error(error);
             reject(error);
           });
       });
@@ -55,13 +56,13 @@ export default {
         axios
           .get(url)
           .then(response => {
-            console.log(`LOAD_ALLOWED_USERS: ${url}`);
+            utils.logger.debug(`LOAD_ALLOWED_USERS: ${url}`);
             commit('ADD_ALLOWED_USERS', { allowed_users: response.data });
             resolve(response);
           })
           .catch(error => {
-            console.log('Error while LOAD_ALLOWED_USERS');
-            console.log(error);
+            utils.logger.error('Error while LOAD_ALLOWED_USERS');
+            utils.logger.error(error);
             reject(error);
           });
       });
@@ -73,12 +74,12 @@ export default {
 
     ADD_USERS: (state, { users }) => {
       state.users = users;
-      console.log('ADD_USERS');
+      utils.logger.debug('ADD_USERS');
     },
 
     ADD_ALLOWED_USERS: (state, { allowed_users }) => {
       state.allowed_users = allowed_users;
-      console.log(`ADD_ALLOWED_USERS ${allowed_users}`);
+      utils.logger.debug(`ADD_ALLOWED_USERS ${allowed_users}`);
     }
 
   }

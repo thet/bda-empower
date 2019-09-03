@@ -1,3 +1,4 @@
+import Vue from "vue";
 import config from '@/config';
 
 export default {
@@ -26,6 +27,28 @@ export default {
       return object[attribute];
     } catch {
       return default_;
+    }
+  },
+  logger: {
+    log(msg) {
+      if (!Vue.config.silent) {
+        console.log(msg);
+      }
+    },
+    debug(msg) {
+      if (!Vue.config.silent) {
+        console.debug(msg);
+      }
+    },
+    warn(msg) {
+      if (!Vue.config.silent) {
+        console.warn(msg);
+      }
+    },
+    error(msg) {
+      if (!Vue.config.silent) {
+        console.error(msg);
+      }
     }
   }
 };

@@ -20,6 +20,7 @@ import axios from 'axios';
 import AddButton from '@/components/buttons/add';
 import ContributionSmall from '@/components/contribution_small';
 import ContributionSmaller from '@/components/contribution_smaller';
+import utils from '@/utils';
 
 
 export default {
@@ -51,12 +52,12 @@ export default {
       axios
         .get(url, { params: { workspace: this.workspace }})
         .then(response => {
-          console.log(`load workspace items: ${url}, workspace ${this.workspace}`);
+          utils.logger.debug(`load workspace items: ${url}, workspace ${this.workspace}`);
           this.items = response.data.items;
         })
         .catch(error => {
-          console.log(`Error while loading workspace items at: ${url}`);
-          console.log(error);
+          utils.logger.error(`Error while loading workspace items at: ${url}`);
+          utils.logger.error(error);
         });
     }
   },

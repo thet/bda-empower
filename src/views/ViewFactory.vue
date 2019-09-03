@@ -8,6 +8,8 @@ import CasesView from '@/views/CasesView';
 import CaseView from '@/views/CaseView';
 import ContributionView from '@/views/ContributionView';
 import DefaultView from '@/views/DefaultView';
+import utils from '@/utils';
+
 export default {
   components: {
     CasesView,
@@ -40,7 +42,7 @@ export default {
       }
 
       let view_name = component + 'View';
-      console.log(`Using view ${view_name}`);
+      utils.logger.debug(`Using view ${view_name}`);
       return view_name;
     }
   },

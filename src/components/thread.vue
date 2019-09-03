@@ -42,12 +42,12 @@ export default {
           { params: { workspace: this.context.workspace }}
         )
         .then(response => {
-          console.log(`loading thread: ${url}, workspace ${this.context.workspace}, context id: ${this.context['@id']}`);
+          utils.logger.debug(`loading thread: ${url}, workspace ${this.context.workspace}, context id: ${this.context['@id']}`);
           this.tree = response.data;
         })
         .catch(error => {
-          console.log(`Error while loading thread at: ${url}`);
-          console.log(error);
+          utils.logger.error(`Error while loading thread at: ${url}`);
+          utils.logger.error(error);
         });
     }
   },

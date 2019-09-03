@@ -10,6 +10,8 @@
 </template>
 <script>
 import config from '@/config';
+import utils from '@/utils';
+
 export default {
   data() {
     return {
@@ -41,7 +43,7 @@ export default {
             text: text,
             type: 'error'
           });
-          console.log(error);
+          utils.logger.error(error);
         });
     }
   }

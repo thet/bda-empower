@@ -1,5 +1,6 @@
 import axios from 'axios';
 import config from '@/config';
+import utils from '@/utils';
 
 export default {
   namespaced: true,
@@ -27,7 +28,7 @@ export default {
             const token = response.data.token;
             if (token) {
               commit('AUTH_SUCCESS', token);
-              console.log(`LOGIN ${username}`);
+              utils.logger.debug(`LOGIN ${username}`);
 
               // Get current user details
               axios
@@ -61,7 +62,7 @@ export default {
             const token = response.data.token;
             if (token) {
               commit('AUTH_SUCCESS', token);
-              console.log('LOGIN_RENEW');
+              utils.logger.debug('LOGIN_RENEW');
               resolve(response);
             } else {
               commit('AUTH_ERROR');
@@ -79,7 +80,7 @@ export default {
       return new Promise((resolve, reject) => {
         try {
           commit('AUTH_LOGOUT');
-          console.log(`LOGOUT ${username}`);
+          utils.logger.debug(`LOGOUT ${username}`);
           resolve();
         } catch {
           reject();

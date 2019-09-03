@@ -1,4 +1,5 @@
 import axios from 'axios';
+import utils from '@/utils';
 
 export default {
   namespaced: true,
@@ -23,19 +24,19 @@ export default {
       url = `${url}/@types/${type}`;
 
       if (!force && state.types[type]) {
-        console.log(`LOAD_TYPE - using cache: ${type}`);
+        utils.logger.debug(`LOAD_TYPE - using cache: ${type}`);
         return;
       }
 
       axios
         .get(url)
         .then(response => {
-          console.log(`LOAD_TYPE: ${type}, ${url}`);
+          utils.logger.debug(`LOAD_TYPE: ${type}, ${url}`);
           commit('ADD_TYPE', { type: type, schema: response.data });
         })
         .catch(error => {
-          console.log(`Error while LOAD_TYPE ${url}`);
-          console.log(error);
+          utils.logger.error(`Error while LOAD_TYPE ${url}`);
+          utils.logger.error(error);
         });
     }
 
@@ -49,12 +50,12 @@ export default {
         schema: schema,
         _loaded: new Date()
       });
-      console.log(`ADD_TYPE ${type}`);
+      utils.logger.debug(`ADD_TYPE ${type}`);
     },
 
     CLEAR_TYPES: (state) => {
       state.types = [];
-      console.log(`CLEAR_TYPE ${type}`);
+      utils.logger.debug(`CLEAR_TYPE ${type}`);
     }
 
   }

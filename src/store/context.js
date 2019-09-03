@@ -31,7 +31,7 @@ export default {
         path = path || utils.makePath(url);
 
         if (!force && state.items[path]) {
-          console.log(`LOAD_CONTEXT - using cache: ${path}`);
+          utils.logger.debug(`LOAD_CONTEXT - using cache: ${path}`);
           if (set_current) {
             commit('SET_CURRENT_CONTEXT', { context: state.items[path] });
           }
@@ -41,7 +41,7 @@ export default {
         axios
           .get(url)
           .then(response => {
-            console.log(`LOAD_CONTEXT: ${url}`);
+            utils.logger.debug(`LOAD_CONTEXT: ${url}`);
 
             let context = response.data;
             context.workspace = utils.getattr(context.workspace, 'token', '');
@@ -72,8 +72,8 @@ export default {
             resolve(response);
           })
           .catch(error => {
-            console.log(`Error while LOAD_CONTEXT for context: ${url}`);
-            console.log(error);
+            utils.logger.error(`Error while LOAD_CONTEXT for context: ${url}`);
+            utils.logger.error(error);
             reject(error);
           });
       });
@@ -101,14 +101,14 @@ export default {
             // {headers: {'Prefer': 'return=representation'}},  // return the updated context from server.
           )
           .then(response => {
-            console.log(`PATCH: ${url}`);
+            utils.logger.debug(`PATCH: ${url}`);
             dispatch('LOAD_CONTEXT', { url: url, force: true });
             // commit('ADD_CONTEXT', { context: response.data });
             resolve(response);
           })
           .catch(error => {
-            console.log(`Error while PATCH for context: ${url}`);
-            console.log(error);
+            utils.logger.error(`Error while PATCH for context: ${url}`);
+            utils.logger.error(error);
             reject(error);
           });
       });
@@ -132,14 +132,14 @@ export default {
             // {headers: {'Prefer': 'return=representation'}},  // return the updated context from server.
           )
           .then(response => {
-            console.log(`POST at: ${parent_url}`);
+            utils.logger.debug(`POST at: ${parent_url}`);
             dispatch('LOAD_CONTEXT', { url: parent_url, force: true });
             commit('ADD_CONTEXT', { context: response.data });
             resolve(response);
           })
           .catch(error => {
-            console.log(`Error while POST at context: ${parent_url}`);
-            console.log(error);
+            utils.logger.error(`Error while POST at context: ${parent_url}`);
+            utils.logger.error(error);
             reject(error);
           });
       });
@@ -152,15 +152,15 @@ export default {
     ADD_CONTEXT: (state, { context }) => {
       context._loaded = new Date();
       Vue.set(state.items, utils.makePath(context['@id']), context);
-      console.log(`ADD_CONTEXT: ${context['@id']}`);
+      utils.logger.debug(`ADD_CONTEXT: ${context['@id']}`);
     },
 
     SET_CURRENT_CONTEXT: (state, { context }) => {
       state.current_context = context;
-      console.log(`SET_CURRENT_CONTEXT: ${context['@id']}`);
+      utils.logger.debug(`SET_CURRENT_CONTEXT: ${context['@id']}`);
       if (context['@type'] == 'Case') {
         state.current_case = context;
-        console.log(`SET_CURRENT_CONTEXT - Case: ${context['@id']}`);
+        utils.logger.debug(`SET_CURRENT_CONTEXT - Case: ${context['@id']}`);
       }
     }
 

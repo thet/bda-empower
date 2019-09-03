@@ -7,6 +7,7 @@
 <script>
 import Thread from '@/components/thread';
 import WorkspaceTabs from '@/components/workspace_tabs';
+import utils from '@/utils';
 
 export default {
 
@@ -23,7 +24,7 @@ export default {
   },
 
   mounted() {
-    console.log(`ContributionView context id: ${this.context['@id']}`);
+    utils.logger.debug(`ContributionView context id: ${this.context['@id']}`);
   },
 
 };
