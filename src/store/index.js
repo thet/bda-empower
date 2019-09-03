@@ -1,11 +1,11 @@
-import Context from './context';
-import Login from './login';
-import PortalMessage  from './portal_message';
-import Types from './types';
-import Users from './users';
+import Context from '@/store/context';
+import Login from '@/store/login';
+import PortalMessage  from '@/store/portal_message';
+import Types from '@/store/types';
+import Users from '@/store/users';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Workspace from './workspace';
+import Workspace from '@/store/workspace';
 
 Vue.use(Vuex);
 
