@@ -1,17 +1,21 @@
 import '@/assets/styles/main.css'
 import 'intersection-observer'; // W3C Polyfill
-import App from './App.vue';
+import App from '@/App.vue';
 import Vue from 'vue';
-import router from './router';
-import store from './store';
+import axios_setup from '@/plugins/axios';
+import config from '@/config';
+import router from '@/router';
+import store from '@/store';
 import utils from '@/utils';
 import vuetify from '@/plugins/vuetify';
 
 
-import axios_setup from '@/plugins/axios';
 axios_setup();
 
-Vue.config.productionTip = false;
+
+Vue.config.productionTip = !config.DEVELOPMENT;
+Vue.config.silent = !config.DEVELOPMENT;
+//Vue.config.devtools = config.DEVELOPMENT;
 
 Vue.filter('format_date', function (value) {
   if (!value) {

@@ -1,3 +1,5 @@
+const DEVELOPMENT = process.env.NODE_ENV === 'development';
+
 class GenericContextModel {
   constructor({
     components_ = {},
@@ -99,6 +101,7 @@ class ThreadModel {
 }
 
 export default {
+  DEVELOPMENT: DEVELOPMENT,
   // baseURI: 'http://matt.zoplo.com:35180/Plone',
   // baseURI: 'http://localhost:8080/Plone',
   baseURI: 'http://localhost:8080/p',
