@@ -1,12 +1,12 @@
-import '@/assets/styles/main.css'
+import '@/assets/styles/main.css';
 import 'intersection-observer'; // W3C Polyfill
 import App from '@/App.vue';
-import Vue from 'vue';
 import axios_setup from '@/plugins/axios';
 import config from '@/config';
 import router from '@/router';
 import store from '@/store';
 import utils from '@/utils';
+import Vue from 'vue';
 import vuetify from '@/plugins/vuetify';
 
 

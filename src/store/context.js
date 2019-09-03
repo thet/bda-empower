@@ -5,10 +5,10 @@ import {
   mdiComment,
   mdiForum
 } from '@mdi/js';
-import Vue from 'vue';
 import axios from 'axios';
 import config from '@/config';
 import utils from '@/utils';
+import Vue from 'vue';
 
 export default {
   namespaced: true,

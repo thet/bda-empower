@@ -1,7 +1,7 @@
-import Vue from 'vue';
-import Router from 'vue-router';
 import LoginView from '@/views/LoginView';
+import Router from 'vue-router';
 import ViewFactory from '@/views/ViewFactory';
+import Vue from 'vue';
 import WorkspaceView from '@/views/WorkspaceView';
 
 Vue.use(Router);

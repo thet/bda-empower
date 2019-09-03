@@ -6,8 +6,8 @@
 </template>
 <script>
 import Thread from '@/components/thread';
-import WorkspaceTabs from '@/components/workspace_tabs';
 import utils from '@/utils';
+import WorkspaceTabs from '@/components/workspace_tabs';
 
 export default {
 

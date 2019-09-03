@@ -24,7 +24,6 @@ import AccountInfo from '@/components/account_info';
 import FolderNavigation from '@/components/foldernavigation';
 import LoginButton from '@/components/buttons/login';
 
-
 export default {
 
   components: {

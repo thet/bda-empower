@@ -11,9 +11,9 @@
   </div>
 </template>
 <script>
-import TextEditor from 'vue2-medium-editor';
 import 'medium-editor/dist/css/medium-editor.css';
 import 'medium-editor/dist/css/themes/default.css';
+import TextEditor from 'vue2-medium-editor';
 
 export default {
 

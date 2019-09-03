@@ -30,7 +30,6 @@
 import AddButton from '@/components/buttons/add';
 import utils from '@/utils';
 
-
 export default {
 
   components: {

@@ -156,17 +156,22 @@
   </intersect>
 </template>
 <script>
-import { mdiPencil, mdiPlus, mdiCancel, mdiContentSave } from '@mdi/js';
+import {
+  mdiCancel,
+  mdiContentSave,
+  mdiPencil,
+  mdiPlus,
+} from '@mdi/js';
 import AccountIcon from '@/components/account_icon';
 import Autocomplete from '@/elements/Autocomplete';
+import config from '@/config';
 import ContributionEdit from '@/components/contribution_edit';
-import TextLine from '@/elements/TextLine';
+import Intersect from 'vue-intersect'
+import ModalWrapper from '@/components/modal_wrapper';
 import TextArea from '@/elements/TextArea';
 import TextEditor from '@/elements/TextEditor';
-import ModalWrapper from '@/components/modal_wrapper';
-import Intersect from 'vue-intersect'
+import TextLine from '@/elements/TextLine';
 import utils from '@/utils';
-import config from '@/config';
 
 
 export default {

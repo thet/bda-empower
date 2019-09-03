@@ -26,7 +26,10 @@
   </v-list>
 </template>
 <script>
-import { mdiAccount, mdiAccountOutline } from '@mdi/js';
+import {
+  mdiAccount,
+  mdiAccountOutline,
+} from '@mdi/js';
 
 export default {
 

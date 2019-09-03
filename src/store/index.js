@@ -1,10 +1,10 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import Login from './login';
 import Context from './context';
+import Login from './login';
 import PortalMessage  from './portal_message';
 import Types from './types';
 import Users from './users';
+import Vue from 'vue';
+import Vuex from 'vuex';
 import Workspace from './workspace';
 
 Vue.use(Vuex);

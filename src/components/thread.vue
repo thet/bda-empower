@@ -4,9 +4,9 @@
   </section>
 </template>
 <script>
+import axios from 'axios';
 import ThreadRecurse from '@/components/thread_recurse';
 import utils from '@/utils';
-import axios from 'axios';
 
 
 export default {

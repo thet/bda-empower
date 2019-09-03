@@ -9,8 +9,8 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 import AddButton from '@/components/buttons/add';
+import axios from 'axios';
 import ContributionSmall from '@/components/contribution_small';
 import utils from '@/utils';
 

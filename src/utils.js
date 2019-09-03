@@ -1,5 +1,5 @@
-import Vue from "vue";
 import config from '@/config';
+import Vue from "vue";
 
 export default {
   makePath: url => {

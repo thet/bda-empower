@@ -20,9 +20,8 @@
 </template>
 <script>
 import AddButton from '@/components/buttons/add';
-import utils from '@/utils';
 import config from '@/config';
-
+import utils from '@/utils';
 
 export default {
 
