@@ -20,25 +20,21 @@ export default {
 
   actions: {
 
-    LOAD_TYPE: ({ commit, state }, { url, type, force=false }) => {
+    async LOAD_TYPE({ commit, state }, { url, type, force=false }) {
       url = `${url}/@types/${type}`;
-
       if (!force && state.types[type]) {
         utils.logger.debug(`LOAD_TYPE - using cache: ${type}`);
         return;
       }
-
-      axios
-        .get(url)
-        .then(response => {
-          utils.logger.debug(`LOAD_TYPE: ${type}, ${url}`);
-          commit('ADD_TYPE', { type: type, schema: response.data });
-        })
-        .catch(error => {
-          utils.logger.error(`Error while LOAD_TYPE ${url}`);
-          utils.logger.error(error);
-        });
-    }
+      try {
+        utils.logger.debug(`LOAD_TYPE: ${type}, ${url}`);
+        const response = await axios.get(url);
+        commit('ADD_TYPE', { type: type, schema: response.data });
+      } catch (error) {
+        utils.logger.error(`Error while LOAD_TYPE ${url}`);
+        utils.logger.error(error);
+      }
+    },
 
  },
 

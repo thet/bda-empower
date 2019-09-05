@@ -1,4 +1,3 @@
-import axios from 'axios';
 import utils from '@/utils';
 
 export default {
@@ -7,30 +6,6 @@ export default {
   state: {
     messages: []
   },
-
-  actions: {
-
-    ADD_MESSAGE: ({ commit, state }, { title, text, type }) => {
-      url = `${url}/@types/${type}`;
-
-      if (!force && state.types[type]) {
-        utils.logger.debug(`LOAD_TYPE - using cache: ${type}`);
-        return;
-      }
-
-      axios
-        .get(url)
-        .then(response => {
-          utils.logger.debug(`LOAD_TYPE: ${type}, ${url}`);
-          commit('ADD_TYPE', { type: type, schema: response.data });
-        })
-        .catch(error => {
-          utils.logger.error(`Error while LOAD_TYPE ${url}`);
-          utils.logger.error(error);
-        });
-    }
-
- },
 
   mutations: {
 

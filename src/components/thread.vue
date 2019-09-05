@@ -34,21 +34,19 @@ export default {
   },
 
   methods: {
-    load() {
+    async load() {
       const url = this.context['@components']['thread']['@id'];
-      axios
-        .get(
+      try {
+        utils.logger.debug(`loading thread: ${url}, workspace ${this.context.workspace}, context id: ${this.context['@id']}`);
+        const response = await axios.get(
           url,
           { params: { workspace: this.context.workspace }}
-        )
-        .then(response => {
-          utils.logger.debug(`loading thread: ${url}, workspace ${this.context.workspace}, context id: ${this.context['@id']}`);
-          this.tree = response.data;
-        })
-        .catch(error => {
-          utils.logger.error(`Error while loading thread at: ${url}`);
-          utils.logger.error(error);
-        });
+        );
+        this.tree = response.data;
+      } catch (error) {
+        utils.logger.error(`Error while loading thread at: ${url}`);
+        utils.logger.error(error);
+      }
     }
   },
 

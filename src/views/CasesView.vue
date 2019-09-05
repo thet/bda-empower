@@ -35,19 +35,17 @@ export default {
   },
 
   methods: {
-    load() {
+    async load() {
       let url = this.context['@components']['cases_overview']['@id'];
-      axios
-        .get(url)
-        .then(response => {
-          utils.logger.debug(`load cases: ${url}`);
-          this.items = response.data.items;
-        })
-        .catch(error => {
-          utils.logger.error(`Error while loading cases at: ${url}`);
-          utils.logger.error(error);
-        });
-    }
+      try {
+        utils.logger.debug(`load cases: ${url}`);
+        const response = await axios.get(url);
+        this.items = response.data.items;
+      } catch (error) {
+        utils.logger.error(`Error while loading cases at: ${url}`);
+        utils.logger.error(error);
+      }
+    },
   },
 
   created() {

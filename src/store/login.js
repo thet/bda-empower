@@ -16,77 +16,51 @@ export default {
   },
 
   actions: {
-    LOGIN: ({ commit }, { username, password }) => {
-      return new Promise((resolve, reject) => {
-        commit('AUTH_REQUEST');
-        axios
-          .post(config.baseURI + '/@login', {
+    async LOGIN({ commit }, { username, password }) {
+      commit('AUTH_REQUEST');
+      try {
+        utils.logger.debug(`LOGIN ${username}`);
+        const response = await axios.post(
+          config.baseURI + '/@login',
+          {
             login: username,
             password: password
-          })
-          .then(response => {
-            const token = response.data.token;
-            if (token) {
-              commit('AUTH_SUCCESS', token);
-              utils.logger.debug(`LOGIN ${username}`);
-
-              // Get current user details
-              axios
-                .get(`${config.baseURI}/@userinfo`)
-                .then(response => {
-                  commit('SET_CURRENT_USER', response.data);
-                  resolve(response);
-                })
-                .catch(error => {
-                  commit('AUTH_ERROR');
-                  reject(error);
-                });
-            } else {
-              commit('AUTH_ERROR');
-              reject(error);
-            }
-          })
-          .catch(error => {
-            commit('AUTH_ERROR');
-            reject(error);
-          });
-      });
-    },
-
-    LOGIN_RENEW: ({ commit }) => {
-      return new Promise((resolve, reject) => {
-        commit('AUTH_REQUEST');
-        axios
-          .post(config.baseURI + '/@login-renew')
-          .then(response => {
-            const token = response.data.token;
-            if (token) {
-              commit('AUTH_SUCCESS', token);
-              utils.logger.debug('LOGIN_RENEW');
-              resolve(response);
-            } else {
-              commit('AUTH_ERROR');
-              reject(error);
-            }
-          })
-          .catch(error => {
-            commit('AUTH_ERROR');
-            reject(error);
-          });
-      });
-    },
-
-    LOGOUT: ({ commit }) => {
-      return new Promise((resolve, reject) => {
-        try {
-          commit('AUTH_LOGOUT');
-          utils.logger.debug(`LOGOUT ${username}`);
-          resolve();
-        } catch {
-          reject();
+          }
+        );
+        const token = response.data.token;
+        if (! token) {
+          throw 'Could not log in.';
         }
-      });
-    }
+
+        commit('AUTH_SUCCESS', token);
+
+        // Get current user details
+        const response2 = await axios.get(`${config.baseURI}/@userinfo`);
+        commit('SET_CURRENT_USER', response2.data);
+      } catch (error) {
+        commit('AUTH_ERROR');
+      }
+    },
+
+    async LOGIN_RENEW({ commit }) {
+      commit('AUTH_REQUEST');
+      try {
+        utils.logger.debug('LOGIN_RENEW');
+        const response = await axios.post(config.baseURI + '/@login-renew');
+        const token = response.data.token;
+        if (! token) {
+          throw 'Could not renew log in.';
+        }
+        commit('AUTH_SUCCESS', token);
+      } catch (error) {
+        commit('AUTH_ERROR');
+      }
+    },
+
+    async LOGOUT({ commit }) {
+      commit('AUTH_LOGOUT');
+      utils.logger.debug(`LOGOUT ${username}`);
+    },
 
   },
 

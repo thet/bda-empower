@@ -47,18 +47,16 @@ export default {
   },
 
   methods: {
-    load() {
+    async load() {
       let url = this.context['@components']['workspace_overview']['@id'];
-      axios
-        .get(url, { params: { workspace: this.workspace }})
-        .then(response => {
-          utils.logger.debug(`load workspace items: ${url}, workspace ${this.workspace}`);
-          this.items = response.data.items;
-        })
-        .catch(error => {
-          utils.logger.error(`Error while loading workspace items at: ${url}`);
-          utils.logger.error(error);
-        });
+      try {
+        utils.logger.debug(`load workspace items: ${url}, workspace ${this.workspace}`);
+        const response = await axios.get(url, { params: { workspace: this.workspace }});
+        this.items = response.data.items;
+      } catch (error) {
+        utils.logger.error(`Error while loading workspace items at: ${url}`);
+        utils.logger.error(error);
+      }
     }
   },
 
