@@ -5,7 +5,7 @@ export default {
   props: {
     active: {
       type: Boolean,
-      default: false
+      default: true  // active per default. allows for v-if="false"
     }
   },
 

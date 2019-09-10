@@ -1,15 +1,7 @@
 <template>
   <div v-if="item">
     <div class="article_wrapper" :class="item.is_workspace_root ? 'em-workspace-root' : null">
-      <Contribution :item="item" @addcontribution="addContribution" />
-      <div v-if="add" class="article_wrapper">
-        <Contribution
-            :item="{ '@type': 'Contribution', parent: item }"
-            @addcontribution="addContribution"
-            @addsavecontribution="addSaveContribution"
-            @addcancelcontribution="addCancelContribution"
-            />
-      </div>
+      <Contribution :item="item" />
       <ThreadRecurse v-for="(path, cnt) of subpaths" :path="path" :tree="tree" :key="cnt" />
     </div>
   </div>
@@ -19,7 +11,6 @@ import Contribution from '@/components/contribution';
 import ThreadRecurse from '@/components/thread_recurse';
 
 export default {
-
   name: 'ThreadRecurse', // ``name`` is necessary for recursive calls.
 
   components: {
@@ -35,12 +26,6 @@ export default {
     path: {
       type: String,
       required: true
-    }
-  },
-
-  data: function() {
-    return {
-      add: false
     }
   },
 
@@ -60,20 +45,6 @@ export default {
       });
     }
   },
-
-  methods: {
-    addContribution() {
-      this.add = true;
-    },
-    addSaveContribution() {
-      this.add = false;
-      this.$vnode.key = new Date();
-    },
-    addCancelContribution() {
-      this.add = false;
-    }
-  }
-
 };
 </script>
 <style type="scss">

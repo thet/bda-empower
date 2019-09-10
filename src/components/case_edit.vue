@@ -9,24 +9,46 @@
           v-model="context.title"
           :label="'Title'"
           :edit="true"
-          />
+        />
+
+        <TextArea
+          v-model="context.description"
+          :label="'Description'"
+          :edit="true"
+        />
 
         <TextEditor
           v-model="context.text"
           :label="'Text'"
           :edit="true"
-          />
+        />
 
         <Autocomplete
-          v-if="false"
-          v-model="context.experts_assigned"
-          :label="'Zugewiesene Expert*innen'"
+          v-model="context.client"
+          :label="'Klient*in'"
           :edit="true"
           :multiple="true"
-          :store_getter="'users/allowed_users'"
-          :store_loader="'users/LOAD_ALLOWED_USERS'"
-          :options_loader="{ url: parent_url }"
-          />
+          :store_getter="'users/users'"
+          :store_loader="'users/LOAD_USERS'"
+        />
+
+        <Autocomplete
+          v-model="context.coordinators"
+          :label="'Koordinator*in'"
+          :edit="true"
+          :multiple="true"
+          :store_getter="'users/users'"
+          :store_loader="'users/LOAD_USERS'"
+        />
+
+        <Autocomplete
+          v-model="context.expert_pool"
+          :label="'Expert*innen Pool'"
+          :edit="true"
+          :multiple="true"
+          :store_getter="'users/users'"
+          :store_loader="'users/LOAD_USERS'"
+        />
 
       </v-form>
     </v-card-text>

@@ -14,7 +14,7 @@
         </p>
       </header>
       <footer class="em-editui--over">
-        <AddButton v-for="ws of next_ws" :key='`add-${ws}`' :parent="item" :workspace="ws" />
+        <AddButton v-for="ws of next_ws" :key='`add-${ws}`' :parent="item" :content_type="'Contribution'" :workspace="ws" />
       </footer>
     </article>
 </template>

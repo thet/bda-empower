@@ -21,7 +21,7 @@
           <time :datetime="item.modified">{{ item.modified | format_date }}</time>
         </div>
         <footer class="em-editui--over">
-          <AddButton v-for="ws of next_ws" :key='`add-${ws}`' :parent="item" :workspace="ws" />
+          <AddButton v-for="ws of next_ws" :key='`add-${ws}`' :parent="item" :content_type="'Contribution'" :workspace="ws" />
         </footer>
       </header>
     </article>

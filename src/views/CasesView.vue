@@ -1,7 +1,11 @@
 <template>
   <div class="viewWrapper">
 
-    <AddButton :parent="context" :ctype="'Case'" :workspace="'case'" />
+    <AddButton
+      :parent="context"
+      :content_type="'Case'"
+      :workspace="'case'"
+    />
 
     <section class="em-cases-overview" v-if="items">
       <ContributionSmall v-for="item in items" :key="item['@id']" :item="item" />

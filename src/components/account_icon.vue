@@ -1,5 +1,11 @@
 <template>
-  <v-icon class="em-person" :title="`${role} ${account}`">{{ icon_account }}</v-icon>
+  <v-icon
+    dark
+    class="em-person"
+    :title="`${role} ${account}`"
+  >
+    {{ icon_account }}
+  </v-icon>
 </template>
 <script>
 import { mdiAccount } from '@mdi/js';
