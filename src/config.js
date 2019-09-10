@@ -58,13 +58,15 @@ class ContributionModel {
     title = '',
     text = { data: '' },
     experts_assigned = [],
-    workspace = ''
+    workspace = '',
+    parent = null
   }) {
     this['@type'] = 'Contribution';
     this.title = title;
     this.text = text;
     this.experts_assigned = experts_assigned;
     this.workspace = workspace;
+    this.parent = parent;
   }
 }
 
@@ -77,7 +79,8 @@ class CaseModel {
     client = [],
     coordinators = [],
     expert_pool = [],
-    workspace = 'case'
+    workspace = 'case',
+    parent = null
   }) {
     this['@type'] = 'Case';
     this.title = title;
@@ -87,6 +90,7 @@ class CaseModel {
     this.coordinators = coordinators;
     this.expert_pool = expert_pool;
     this.workspace = workspace;
+    this.parent = parent;
   }
 }
 

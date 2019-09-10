@@ -11,7 +11,7 @@
         context ? null : 'em-contribution-init'
     ]">
 
-      <!--ContributionEdit v-if="edit" :context="context" /-->
+      <ContributionEdit v-if="edit" :context="context" />
 
       <header class="em-contribution-header">
 
@@ -214,7 +214,8 @@ export default {
         // Adding
         context = new config[`${this.item['@type']}Model`]({
           '@type': this.item['@type'],
-          workspace: this.item.workspace || this.item.parent.workspace
+          workspace: this.item.workspace || this.item.parent.workspace,
+          parent: this.item.parent
         })
       }
       return context;

@@ -80,7 +80,8 @@ export default {
       return utils.makePath(url);
     },
     load() {
-      this.$store.dispatch('types/LOAD_TYPE', { url: this.context['@id'], type: this.context['@type'] });
+      const url = this.context['@id'] || utils.parent['@id'];
+      this.$store.dispatch('types/LOAD_TYPE', { url: url, type: this.context['@type'] });
     },
     save() {
       this.$store.dispatch('context/PATCH', { url: this.context['@id'], model: this.model });
