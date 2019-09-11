@@ -29,18 +29,21 @@ export default {
       url = url || utils.makeURL(path);
       path = path || utils.makePath(url);
 
+      let context = null;
+
       if (!force && state.items[path]) {
         utils.logger.debug(`LOAD_CONTEXT - using cache: ${path}`);
+        context = state.items[path];
         if (set_current) {
-          commit('SET_CURRENT_CONTEXT', { context: state.items[path] });
+          commit('SET_CURRENT_CONTEXT', { context: context });
         }
-        return;
+        return context;
       }
 
       try {
         utils.logger.debug(`LOAD_CONTEXT: ${url}`);
         const response = await axios.get(url);
-        let context = response.data;
+        context = response.data;
         context.workspace = utils.getattr(context.workspace, 'token', '');
         context.items = context.items.map(it => {
           switch (it['@type']) {
@@ -70,6 +73,7 @@ export default {
         utils.logger.error(`Error while LOAD_CONTEXT for: ${url}`);
         utils.logger.error(error);
       }
+      return context;
     },
 
     async PATCH({ dispatch, commit, state }, { url=null, context=null, model=null }) {
