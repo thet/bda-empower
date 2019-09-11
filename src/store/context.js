@@ -9,6 +9,8 @@ import axios from 'axios';
 import config from '@/config';
 import utils from '@/utils';
 import Vue from 'vue';
+import qs from 'qs';
+
 
 export default {
   namespaced: true,
@@ -42,7 +44,18 @@ export default {
 
       try {
         utils.logger.debug(`LOAD_CONTEXT: ${url}`);
-        const response = await axios.get(url);
+        const response = await axios.get(url, {
+          params: {
+            metadata_fields: [
+              'workspace',
+              'workspace_root'
+            ]
+          },
+          paramsSerializer: params => {
+            // serialzie arrays for Zope to recognize them as such.
+            return qs.stringify(params, { arrayFormat: 'repeat' })
+          }
+        });
         context = response.data;
         context.workspace = utils.getattr(context.workspace, 'token', '');
         context.items = context.items.map(it => {
