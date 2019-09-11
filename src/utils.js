@@ -2,6 +2,9 @@ import config from '@/config';
 import Vue from "vue";
 
 export default {
+  timeout: ms => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  },
   makePath: url => {
     let path = url.replace(config.baseURI, '').replace(config.basePath, '');
     if (path.endsWith('/')) {
