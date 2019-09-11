@@ -3,7 +3,8 @@
     <div>
     <div v-if="context" class="article_wrapper" :class="context.is_workspace_root ? 'em-workspace-root' : null">
       <Contribution :context="context" />
-      <Thread v-for="(item, cnt) of context.items" :key="cnt" :item="item" />
+      <ContributionSmall v-for="(item, cnt) of next_ws_items" :key="cnt" :item="item" />
+      <Thread v-for="(item, cnt) of thread_items" :key="cnt" :item="item" />
     </div>
     </div>
   </Intersect>
@@ -11,6 +12,7 @@
 <script>
 import Intersect from 'vue-intersect'
 import Contribution from '@/components/contribution';
+import ContributionSmall from '@/components/contribution_small';
 import Thread from '@/components/thread';
 
 export default {
@@ -19,6 +21,7 @@ export default {
   components: {
     Intersect,
     Contribution,
+    ContributionSmall,
     Thread
   },
   props: {
@@ -30,6 +33,16 @@ export default {
   data: () => ({
     context: null
   }),
+  computed: {
+    next_ws_items() {
+      let ws = this.context.workspace;
+      return this.context.items.filter(it => it.workspace !== ws);
+    },
+    thread_items() {
+      let ws = this.context.workspace;
+      return this.context.items.filter(it => it.workspace === ws);
+    }
+  },
   methods: {
     async load() {
       this.context = await this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'] });
