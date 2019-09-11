@@ -1,20 +1,47 @@
 <template>
-  <section class="em-workspace" :class="'em-workspace-' + context.workspace">
-    <ThreadRecurse :context="context" />
-  </section>
+  <Intersect @enter="load">
+    <div>
+    <div v-if="context" class="article_wrapper" :class="context.is_workspace_root ? 'em-workspace-root' : null">
+      <Contribution :context="context" />
+      <Thread v-for="(item, cnt) of context.items" :key="cnt" :item="item" />
+    </div>
+    </div>
+  </Intersect>
 </template>
 <script>
-import ThreadRecurse from '@/components/thread_recurse';
+import Intersect from 'vue-intersect'
+import Contribution from '@/components/contribution';
+import Thread from '@/components/thread';
 
 export default {
+  name: 'Thread', // ``name`` is necessary for recursive calls.
+
   components: {
-    ThreadRecurse
+    Intersect,
+    Contribution,
+    Thread
   },
   props: {
-    context: {
+    item: {
       type: Object,
-      required: true
+      required: false
     }
+  },
+  data: () => ({
+    context: null
+  }),
+  methods: {
+    async load() {
+      this.context = await this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'] });
+    }
+  },
+  watch: {
+    item: 'load' // reload thread when item changes
   }
 };
 </script>
+<style type="scss">
+  .article_wrapper .article_wrapper {
+    margin-left: 2em;
+  }
+</style>

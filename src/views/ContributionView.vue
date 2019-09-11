@@ -1,7 +1,9 @@
 <template>
   <div class="viewWrapper">
     <WorkspaceTabs />
-    <Thread :context="context" />
+    <section class="em-workspace" :class="'em-workspace-' + context.workspace">
+      <Thread :item="context" />
+    </section>
   </div>
 </template>
 <script>
