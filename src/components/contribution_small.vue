@@ -4,7 +4,7 @@
         `em-contribution-${item.workspace}`,
         `uid-${item.UID}`,
         `state-${item.review_state || 'private'}`,
-        item.is_workspace_root ? 'em-workspace-root' : null
+        item.workspace_root ? 'em-workspace-root' : null
     ]">
       <header class="em-contribution-header">
         <h3 class="em-contribution-title">

@@ -1,11 +1,10 @@
 <template>
   <article class="em-contribution em-contribution--mode_normal"
     :class="[
-      'em-contribution-' + (context && context.workspace) || '',
-      'uid-' + context.UID || '',
-      'state-' + context.review_state || 'private',
-      'item.is_workspace_root' ? 'em-workspace-root' : null,
-      context ? null : 'em-contribution-init'
+      `em-contribution-${context.workspace}`,
+      `uid-${context.UID}`,
+      `state-${context.review_state}`,
+      context.workspace_root ? 'em-workspace-root' : null
   ]">
 
     <header class="em-contribution-header">

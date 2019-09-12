@@ -53,7 +53,10 @@ export default {
           params: {
             metadata_fields: [
               'workspace',
-              'workspace_root'
+              'workspace_root',
+              'UID',
+              'created',
+              'modified'
             ]
           },
           paramsSerializer: params => {
