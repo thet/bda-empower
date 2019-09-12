@@ -22,10 +22,11 @@ export default {
   },
 
   actions: {
-    async LOAD_CONTEXT({ commit, state }, {
+    async LOAD_CONTEXT({ dispatch, commit, state }, {
       path='',
       url='',
       set_current=false,
+      set_case=false,
       force=false
     }) {
       url = url || utils.makeURL(path);
@@ -38,6 +39,10 @@ export default {
         context = state.items[path];
         if (set_current) {
           commit('SET_CURRENT_CONTEXT', { context: context });
+          dispatch('LOAD_CONTEXT', { url: context.current_case, set_case: true });
+        }
+        if (set_case) {
+          commit('SET_CURRENT_CASE', { context: context });
         }
         return context;
       }
@@ -82,6 +87,10 @@ export default {
         commit('ADD_CONTEXT', { context: context });
         if (set_current) {
           commit('SET_CURRENT_CONTEXT', { context: context });
+          dispatch('LOAD_CONTEXT', { url: context.current_case, set_case: true });
+        }
+        if (set_case) {
+          commit('SET_CURRENT_CASE', { context: context });
         }
       } catch (error) {
         utils.logger.error(`Error while LOAD_CONTEXT for: ${url}`);
@@ -155,10 +164,11 @@ export default {
     SET_CURRENT_CONTEXT: (state, { context }) => {
       state.current_context = context;
       utils.logger.debug(`SET_CURRENT_CONTEXT: ${context['@id']}`);
-      if (context['@type'] == 'Case') {
-        state.current_case = context;
-        utils.logger.debug(`SET_CURRENT_CONTEXT - Case: ${context['@id']}`);
-      }
+    },
+
+    SET_CURRENT_CASE: (state, { context }) => {
+      state.current_case = context;
+      utils.logger.debug(`SET_CURRENT_CASE: ${context['@id']}`);
     }
 
   }
