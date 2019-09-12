@@ -27,6 +27,7 @@
   </v-list>
 </template>
 <script>
+import { mapState } from 'vuex';
 import { mdiArrowLeft } from '@mdi/js';
 import utils from '@/utils';
 
@@ -36,10 +37,6 @@ export default {
   }),
 
   computed: {
-    context() {
-      return this.$store.state.context.current_context;
-    },
-
     parentPath() {
       // Create path to parent directory
       let path = this.$route.path.split('/');
@@ -48,7 +45,11 @@ export default {
       }
       path.splice(-1, 1);
       return path.join('/') || '/';
-    }
+    },
+
+    ...mapState({
+      context: state => state.context.current_context
+    })
   },
 
   methods: {

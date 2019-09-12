@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex';
 import CasesView from '@/views/CasesView';
 import CaseView from '@/views/CaseView';
 import ContributionView from '@/views/ContributionView';
@@ -17,12 +18,7 @@ export default {
     ContributionView,
     DefaultView
   },
-
   computed: {
-    context() {
-      return this.$store.state.context.current_context;
-    },
-
     component() {
       if (!this.context) {
         return;
@@ -44,23 +40,11 @@ export default {
       let view_name = component + 'View';
       utils.logger.debug(`Using view ${view_name}`);
       return view_name;
-    }
-  },
+    },
 
-  methods: {
-    load() {
-      this.$store.dispatch('context/LOAD_CONTEXT', { path: this.$route.path, set_current: true });
-    }
-  },
-
-  created() {
-    this.load();
-  },
-
-  watch: {
-    // call again the method if the route changes
-    $route: 'load'
+    ...mapState({
+      context: state => state.context.current_context
+    })
   }
-
 };
 </script>
