@@ -60,7 +60,7 @@ export default {
       return this.content_type ? this.content_type : this.parent['@type'];
     },
     context() {
-      const _workspace = this.workspace ? this.workspace : this.parent['workspace'];
+      const _workspace = this.workspace ? this.workspace : this.parent.workspace;
       const context = new config[`${this._content_type}Model`]({
         parent: this.parent,
         workspace: _workspace

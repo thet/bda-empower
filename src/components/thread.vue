@@ -3,8 +3,8 @@
     <div>
     <div v-if="context" class="article_wrapper" :class="context.workspace_root ? 'em-workspace-root' : null">
       <Contribution :context="context" />
-      <ContributionSmall v-for="(item, cnt) of next_ws_items" :key="cnt" :item="item" />
-      <Thread v-for="(item, cnt) of thread_items" :key="cnt" :item="item" />
+      <ContributionSmall v-for="(item, cnt) of next_ws_items" :key="item.UID" :item="item" />
+      <Thread v-for="(item, cnt) of thread_items" :key="item.UID" :item="item" />
     </div>
     </div>
   </Intersect>
