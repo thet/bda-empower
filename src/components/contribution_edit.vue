@@ -102,17 +102,16 @@ export default {
     cancel() {
       this.$emit('cancel');
     },
-    save() {
+    async save() {
       if (!this.mode_add) {
-        this.$store.dispatch('context/PATCH', { context: this.context });
+        await this.$store.dispatch('context/PATCH', { context: this.context });
       } else {
-        this.$store.dispatch('context/POST', {
+        await this.$store.dispatch('context/POST', {
           parent_url: this.parent_url,
           context: this.context
-        }).then(() => {
-          this.$emit('save');
         });
       }
+      this.$emit('save');
     }
   }
 

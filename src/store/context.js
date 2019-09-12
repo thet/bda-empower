@@ -146,7 +146,6 @@ export default {
           model
           // {headers: {'Prefer': 'return=representation'}},  // return the updated context from server.
         );
-        dispatch('LOAD_CONTEXT', { url: parent_url, force: true });
         commit('ADD_CONTEXT', { context: response.data });
       } catch (error) {
         utils.logger.error(`Error while POST at context: ${parent_url}`);

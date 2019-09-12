@@ -110,7 +110,7 @@
 
       <div class="em-actions" v-if="editable">
         <EditButton :context="context" />
-        <AddButton :parent="context" :content_type="'Contribution'" />
+        <AddButton :parent="context" :content_type="'Contribution'" @context_saved="context_saved" />
 
         <AddButton v-for="ws of next_ws" :key='`add-${ws}`' :parent="context" :content_type="'Contribution'" :workspace="ws" />
       </div>
@@ -160,6 +160,9 @@ export default {
     },
     makePath(url) {
       return utils.makePath(url);
+    },
+    context_saved() {
+      this.$emit('context_saved');
     }
   }
 };

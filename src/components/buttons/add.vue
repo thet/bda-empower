@@ -14,7 +14,7 @@
       <component
         :is="component"
         :context="context"
-        @save="close"
+        @save="context_saved"
         @cancel="close"
       />
     </ModalWrapper>
@@ -77,6 +77,10 @@ export default {
     },
     close() {
       this.active = false;
+    },
+    context_saved() {
+      this.active = false;
+      this.$emit('context_saved');
     }
   }
 };

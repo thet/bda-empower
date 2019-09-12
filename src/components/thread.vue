@@ -2,7 +2,7 @@
   <Intersect @enter="load">
     <div>
     <div v-if="context" class="article_wrapper" :class="context.workspace_root ? 'em-workspace-root' : null">
-      <Contribution :context="context" />
+      <Contribution :context="context" @context_saved="reload" />
       <ContributionSmall v-for="(item, cnt) of next_ws_items" :key="item.UID" :item="item" />
       <Thread v-for="(item, cnt) of thread_items" :key="item.UID" :item="item" />
     </div>
@@ -44,8 +44,11 @@ export default {
     }
   },
   methods: {
-    async load() {
-      this.context = await this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'] });
+    reload() {
+      this.load({ force: true });
+    },
+    async load(force=false) {
+      this.context = await this.$store.dispatch('context/LOAD_CONTEXT', { url: this.item['@id'], force: force });
     }
   },
   watch: {
