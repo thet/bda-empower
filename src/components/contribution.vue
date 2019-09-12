@@ -112,6 +112,8 @@
       <div class="em-actions" v-if="editable">
         <EditButton :context="context" />
         <AddButton :parent="context" :content_type="'Contribution'" />
+
+        <AddButton v-for="ws of next_ws" :key='`add-${ws}`' :parent="context" :content_type="'Contribution'" :workspace="ws" />
       </div>
 
     </footer>
@@ -147,6 +149,10 @@ export default {
   computed: {
     editable() {
       return this.context.can_edit;
+    },
+    next_ws() {
+      let ws = this.$store.state.workspace.specification;
+      return ws[this.context.workspace].next;
     }
   },
   methods: {
