@@ -77,6 +77,7 @@ export default {
           }
           return it;
         });
+        context['@id'] = utils.cleanURL(context['@id']);
 
         commit('ADD_CONTEXT', { context: context });
         if (set_current) {

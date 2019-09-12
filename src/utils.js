@@ -5,6 +5,9 @@ export default {
   timeout: ms => {
     return new Promise(resolve => setTimeout(resolve, ms));
   },
+  cleanURL: url => {
+    return url.split('?')[0].split('+')[0].split('#')[0].split('&')[0];
+  },
   makePath: url => {
     let path = url.replace(config.baseURI, '').replace(config.basePath, '');
     if (path.endsWith('/')) {
