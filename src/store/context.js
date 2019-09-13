@@ -122,8 +122,7 @@ export default {
           model
           // {headers: {'Prefer': 'return=representation'}},  // return the updated context from server.
         );
-        dispatch('LOAD_CONTEXT', { url: url, force: true });
-        // commit('ADD_CONTEXT', { context: response.data });
+        //dispatch('LOAD_CONTEXT', { url: url, force: true });
       } catch (error) {
         utils.logger.error(`Error while PATCH for context: ${url}`);
         utils.logger.error(error);
@@ -147,7 +146,7 @@ export default {
           model
           // {headers: {'Prefer': 'return=representation'}},  // return the updated context from server.
         );
-        commit('ADD_CONTEXT', { context: response.data });
+        //dispatch('LOAD_CONTEXT', { url: response.data['@id'], force: true });
       } catch (error) {
         utils.logger.error(`Error while POST at context: ${parent_url}`);
         utils.logger.error(error);
