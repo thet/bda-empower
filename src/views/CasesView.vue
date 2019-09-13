@@ -1,22 +1,22 @@
 <template>
-  <div class="viewWrapper">
+  <div v-if="_context" class="viewWrapper">
+
+    <section class="em-cases-overview">
+      <ContributionSmall v-for="item in _context.items" :key="item['@id']" :item="item" />
+    </section>
 
     <AddButton
       :parent="context"
       :content_type="'Case'"
       :workspace="'case'"
+      @save="() => load({ force: true })"
     />
 
-    <section class="em-cases-overview" v-if="items">
-      <ContributionSmall v-for="item in items" :key="item['@id']" :item="item" />
-    </section>
   </div>
 </template>
 <script>
 import AddButton from '@/components/buttons/add';
-import axios from 'axios';
 import ContributionSmall from '@/components/contribution_small';
-import utils from '@/utils';
 
 export default {
 
@@ -32,28 +32,25 @@ export default {
     }
   },
 
-  data: function() {
-    return {
-      items: []
-    };
-  },
+  data: () => ({
+    _context: null
+  }),
 
   methods: {
-    async load() {
-      let url = this.context['@components']['cases_overview']['@id'];
-      try {
-        utils.logger.debug(`load cases: ${url}`);
-        const response = await axios.get(url);
-        this.items = response.data.items;
-      } catch (error) {
-        utils.logger.error(`Error while loading cases at: ${url}`);
-        utils.logger.error(error);
+    async load(force=false) {
+      this._context = this.context;
+      if (force) {
+        this._context = await this.$store.dispatch('context/LOAD_CONTEXT', { url: this.context['@id'], force: force });
       }
-    },
+    }
   },
 
   created() {
     this.load();
+  },
+
+  watch: {
+    context: 'load' // reload thread when item changes
   }
 
 };

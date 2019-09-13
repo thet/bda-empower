@@ -61,6 +61,7 @@ export default {
           },
           paramsSerializer: params => {
             // serialzie arrays for Zope to recognize them as such.
+            // See: https://stackoverflow.com/a/51444749/1337474
             return qs.stringify(params, { arrayFormat: 'repeat' })
           }
         });

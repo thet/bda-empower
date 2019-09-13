@@ -111,7 +111,7 @@ export default {
           context: this.context
         });
       }
-      this.$emit('save');
+      this.$bubble('save');
     }
   }
 

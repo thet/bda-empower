@@ -2,6 +2,7 @@ import '@/assets/styles/main.css';
 import 'intersection-observer'; // W3C Polyfill
 import App from '@/App.vue';
 import axios_setup from '@/plugins/axios';
+import bubble from '@/plugins/bubble';
 import config from '@/config';
 import router from '@/router';
 import store from '@/store';
@@ -32,5 +33,6 @@ new Vue({
   router,
   store,
   vuetify,
+  bubble,
   render: h => h(App)
 }).$mount('#app');
