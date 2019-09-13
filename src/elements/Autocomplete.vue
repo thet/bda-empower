@@ -3,7 +3,7 @@
     <v-autocomplete
         v-if="edit"
         v-model="_value"
-        :items="items"
+        :items="items_"
         :label="label"
         :multiple="multiple"
         :menu-props="{ closeOnContentClick: true }"
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import utils from '@/utils';
+
 export default {
 
   props: {
@@ -39,50 +41,57 @@ export default {
       required: false,
       default: false
     },
-    store_loader: {
+    items: {
+      type: Array,
+      required: false,
+      default: null
+    },
+    loader: {
       type: String,
       required: false,
       default: null
     },
-    store_getter: {
-      type: String,
-      required: false,
-      default: null
-    },
-    options_loader: {
+    loader_context: {
       type: Object,
-      required: false,
-      default: () => {}
+      required: false
     }
   },
 
   data: function() {
     return {
-      items_: []
+      items_: null
     };
   },
 
   computed: {
-
     _value: {
       get() {
         let val_default = this.multiple ? [] : '';
-        return this.value || val_default;
+        return this.value ? this.value : val_default;
       },
       set(val) {
         this.$emit('input', val);
       }
-    },
-
-    items() {
-      if (! this.items_.length) {
-        this.$store.dispatch(this.store_loader, this.options_loader || {}).then(() => {
-          this.items_ = this.$store.getters[this.store_getter];
-        });
-      }
-      return this.items_;
     }
+  },
 
+  methods: {
+    async load() {
+      let options = {};
+      if (this.loader_context) {
+        options.url = this.loader_context['@id'];
+      }
+      let items = await this.$store.dispatch(this.loader, options);
+      this.items_ = utils.items_from_vocab(items);
+    }
+  },
+
+  mounted() {
+    if (this.items) {
+      this.items_ = this.items;
+    } else {
+      this.load();
+    }
   }
 
 };

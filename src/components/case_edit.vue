@@ -28,8 +28,7 @@
           :label="'Klient*in'"
           :edit="true"
           :multiple="true"
-          :store_getter="'users/users'"
-          :store_loader="'users/LOAD_USERS'"
+          :loader="'users/LOAD_USERS'"
         />
 
         <Autocomplete
@@ -37,8 +36,7 @@
           :label="'Koordinator*in'"
           :edit="true"
           :multiple="true"
-          :store_getter="'users/users'"
-          :store_loader="'users/LOAD_USERS'"
+          :loader="'users/LOAD_USERS'"
         />
 
         <Autocomplete
@@ -46,8 +44,7 @@
           :label="'Expert*innen Pool'"
           :edit="true"
           :multiple="true"
-          :store_getter="'users/users'"
-          :store_loader="'users/LOAD_USERS'"
+          :loader="'users/LOAD_USERS'"
         />
 
       </v-form>
@@ -83,7 +80,6 @@ import {
 import Autocomplete from '@/elements/Autocomplete';
 import TextEditor from '@/elements/TextEditor';
 import TextLine from '@/elements/TextLine';
-import utils from '@/utils';
 
 
 export default {
@@ -91,7 +87,7 @@ export default {
   components: {
     Autocomplete,
     TextLine,
-    TextEditor,
+    TextEditor
   },
 
   props: {
@@ -112,12 +108,6 @@ export default {
   computed: {
     title() {
       return `${this.mode_add ? 'Add' : 'Edit'} ${this.context['@type']}`;
-    },
-    parent_url() {
-      if (this.context.parent) {
-        return this.context.parent['@id'];
-      }
-      return utils.parentURL(this.context['@id']);
     }
   },
 
@@ -130,7 +120,7 @@ export default {
         await this.$store.dispatch('context/PATCH', { context: this.context });
       } else {
         await this.$store.dispatch('context/POST', {
-          parent_url: this.parent_url,
+          parent_url: this.context.parent['@id'],
           context: this.context
         });
       }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import config from '@/config';
 import utils from '@/utils';
+import Vue from 'vue';
 
 export default {
 
@@ -10,19 +11,6 @@ export default {
     users: {
       '@id': '',
       'items': []
-    },
-    allowed_users: {
-      '@id': '',
-      'items': []
-    }
-  },
-
-  getters: {
-    users: state => {
-      return state.users.items.map(it => { return { 'text': it.title, 'value': it.token }; });
-    },
-    allowed_users: state => {
-      return state.allowed_users.items.map(it => { return { 'text': it.title, 'value': it.token }; });
     }
   },
 
@@ -38,6 +26,7 @@ export default {
         utils.logger.debug(`LOAD_USERS: ${url}`);
         const response = await axios.get(url);
         commit('ADD_USERS', { users: response.data });
+        return response.data;
       } catch(error) {
         utils.logger.error('Error while LOAD_USERS');
         utils.logger.error(error);
@@ -49,25 +38,20 @@ export default {
       try {
         utils.logger.debug(`LOAD_ALLOWED_USERS: ${url}`);
         const response = await axios.get(url);
-        commit('ADD_ALLOWED_USERS', { allowed_users: response.data });
+        return response.data;
       } catch (error) {
         utils.logger.error('Error while LOAD_ALLOWED_USERS');
         utils.logger.error(error);
       }
     },
 
- },
+  },
 
   mutations: {
 
     ADD_USERS: (state, { users }) => {
-      state.users = users;
+      Vue.set(state, 'users', users);
       utils.logger.debug('ADD_USERS');
-    },
-
-    ADD_ALLOWED_USERS: (state, { allowed_users }) => {
-      state.allowed_users = allowed_users;
-      utils.logger.debug(`ADD_ALLOWED_USERS ${allowed_users}`);
     }
 
   }

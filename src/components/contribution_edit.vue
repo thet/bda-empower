@@ -18,14 +18,12 @@
           />
 
         <Autocomplete
-          v-if="false"
           v-model="context.experts_assigned"
           :label="'Zugewiesene Expert*innen'"
           :edit="true"
           :multiple="true"
-          :store_getter="'users/allowed_users'"
-          :store_loader="'users/LOAD_ALLOWED_USERS'"
-          :options_loader="{ url: parent_url }"
+          :loader="'users/LOAD_ALLOWED_USERS'"
+          :loader_context="context.parent"
           />
 
       </v-form>
@@ -61,14 +59,13 @@ import {
 import Autocomplete from '@/elements/Autocomplete';
 import TextEditor from '@/elements/TextEditor';
 import TextLine from '@/elements/TextLine';
-import utils from '@/utils';
 
 export default {
 
   components: {
     Autocomplete,
     TextLine,
-    TextEditor,
+    TextEditor
   },
 
   props: {
@@ -89,12 +86,6 @@ export default {
   computed: {
     title() {
       return `${this.mode_add ? 'Add' : 'Edit'} ${this.context['@type']}`;
-    },
-    parent_url() {
-      if (this.context.parent) {
-        return this.context.parent['@id'];
-      }
-      return utils.parentURL(this.context['@id']);
     }
   },
 
@@ -107,7 +98,7 @@ export default {
         await this.$store.dispatch('context/PATCH', { context: this.context });
       } else {
         await this.$store.dispatch('context/POST', {
-          parent_url: this.parent_url,
+          parent_url: this.context.parent['@id'],
           context: this.context
         });
       }

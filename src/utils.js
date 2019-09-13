@@ -35,6 +35,9 @@ export default {
       return default_;
     }
   },
+  items_from_vocab(vocab) {
+      return vocab.items.map(it => { return { 'text': it.title, 'value': it.token }; });
+  },
   logger: {
     log(msg) {
       if (!Vue.config.silent) {
