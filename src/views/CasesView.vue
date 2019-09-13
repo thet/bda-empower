@@ -1,8 +1,8 @@
 <template>
-  <div v-if="_context" class="viewWrapper">
+  <div v-if="localcontext" class="viewWrapper">
 
     <section class="em-cases-overview">
-      <ContributionSmall v-for="item in _context.items" :key="item['@id']" :item="item" />
+      <ContributionSmall v-for="item in cases" :key="item.UID" :item="item" />
     </section>
 
     <AddButton
@@ -33,14 +33,19 @@ export default {
   },
 
   data: () => ({
-    _context: null
+    localcontext: null
   }),
 
+  computed: {
+    cases() {
+      return this.localcontext.items.filter(it => it['@type'] === 'Case');
+    }
+  },
   methods: {
     async load(force=false) {
-      this._context = this.context;
+      this.localcontext = this.context;
       if (force) {
-        this._context = await this.$store.dispatch('context/LOAD_CONTEXT', { url: this.context['@id'], force: force });
+        this.localcontext = await this.$store.dispatch('context/LOAD_CONTEXT', { url: this.context['@id'], force: force });
       }
     }
   },
