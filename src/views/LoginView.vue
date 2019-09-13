@@ -8,11 +8,13 @@
     <v-btn type="submit">Login</v-btn>
   </v-form>
 </template>
+
 <script>
 import config from '@/config';
 import utils from '@/utils';
 
 export default {
+
   data() {
     return {
       username: '',
@@ -47,5 +49,6 @@ export default {
         });
     }
   }
+
 };
 </script>

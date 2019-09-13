@@ -10,6 +10,7 @@
     <div v-if="!edit && _value" v-html="_value"></div>
   </div>
 </template>
+
 <script>
 import 'medium-editor/dist/css/medium-editor.css';
 import 'medium-editor/dist/css/themes/default.css';

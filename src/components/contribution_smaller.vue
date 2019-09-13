@@ -15,20 +15,24 @@
       </header>
     </article>
 </template>
+
 <script>
 import utils from '@/utils';
 
 export default {
+
   props: {
     item: {
       type: Object,
       required: true
     }
   },
+
   methods: {
     makePath(url) {
       return utils.makePath(url);
     }
   }
+
 };
 </script>

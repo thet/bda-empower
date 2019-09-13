@@ -6,19 +6,14 @@
     fill-height
     app
   >
-
     <AccountInfo />
-
     <v-divider></v-divider>
-
     <FolderNavigation />
-
     <v-divider></v-divider>
-
     <LoginButton />
-
   </v-navigation-drawer>
 </template>
+
 <script>
 import AccountInfo from '@/components/account_info';
 import FolderNavigation from '@/components/foldernavigation';

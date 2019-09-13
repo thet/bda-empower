@@ -52,8 +52,6 @@ class GenericContextModel {
 }
 
 class ContributionModel {
-  // ContributionModel for editing. The real content object has much more
-  // attributes.
   constructor({
     title = '',
     text = { data: '' },
@@ -71,7 +69,6 @@ class ContributionModel {
 }
 
 class CaseModel {
-  // CaseModel for editing. The real content object has much more attributes.
   constructor({
     title = '',
     description = '',
@@ -94,23 +91,13 @@ class CaseModel {
   }
 }
 
-class ThreadModel {
-  constructor({
-    id = '',
-    items = [],
-  }) {
-    this['@id'] = id;
-    this.items = items;
-  }
-}
-
 export default {
   DEVELOPMENT: DEVELOPMENT,
   // baseURI: 'http://matt.zoplo.com:35180/Plone',
-  baseURI: 'http://localhost:8080/Plone',
-  basePath: '/Plone',
-  //baseURI: 'http://localhost:8080/p',
-  //basePath: '/p',
+  //baseURI: 'http://localhost:8080/Plone',
+  //basePath: '/Plone',
+  baseURI: 'http://localhost:8080/p',
+  basePath: '/p',
   GenericContextModel: GenericContextModel,
   ContributionModel: ContributionModel,
   CaseModel: CaseModel,

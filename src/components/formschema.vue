@@ -15,6 +15,7 @@
     </v-dialog>
   </v-layout>
 </template>
+
 <script>
 import FormSchema from '@formschema/native'
 import utils from '@/utils';

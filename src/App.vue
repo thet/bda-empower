@@ -1,13 +1,11 @@
 <template>
-  <div id="app">
-    <v-app>
-      <Toolbar></Toolbar>
-      <v-content>
-        <PortalMessage />
-        <router-view />
-      </v-content>
-    </v-app>
-  </div>
+  <v-app id="app">
+    <Toolbar></Toolbar>
+    <v-content>
+      <PortalMessage />
+      <router-view />
+    </v-content>
+  </v-app>
 </template>
 
 <script>
@@ -15,7 +13,6 @@ import PortalMessage from '@/components/portal_message';
 import Toolbar from '@/components/toolbar';
 
 export default {
-
   name: 'app',
 
   components: {
@@ -30,12 +27,13 @@ export default {
       this.$store.dispatch('context/LOAD_CONTEXT', { path: path, set_current: true });
     }
   },
+
   created() {
     this.load();
   },
-  watch: {
-    $route: 'load'  // call again the method if the route changes
-  }
 
+  watch: {
+    $route: 'load' // call again the method if the route changes
+  }
 };
 </script>

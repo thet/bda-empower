@@ -13,8 +13,8 @@
 import { mapState } from 'vuex';
 import utils from '@/utils';
 
-
 export default {
+
   computed: {
     current_workspace() {
       return this.$route.params.workspace || this.current_context.workspace;
@@ -36,6 +36,6 @@ export default {
       current_context: state => state.context.current_context
     })
   }
-};
 
+};
 </script>

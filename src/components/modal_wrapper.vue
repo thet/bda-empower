@@ -1,11 +1,12 @@
 <script>
 export default {
+
   name: 'modalwrapper',
 
   props: {
     active: {
       type: Boolean,
-      default: true  // active per default. allows for v-if="false"
+      default: true // active per default. allows for v-if="false"
     }
   },
 

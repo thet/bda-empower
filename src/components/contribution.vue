@@ -119,6 +119,7 @@
 
   </article>
 </template>
+
 <script>
 import AccountIcon from '@/components/account_icon';
 import AddButton from '@/components/buttons/add';
@@ -139,12 +140,14 @@ export default {
     TextArea,
     TextEditor
   },
+
   props: {
     context: {
       type: Object,
       required: true
     }
   },
+
   computed: {
     editable() {
       return this.context.can_edit;
@@ -154,6 +157,7 @@ export default {
       return ws[this.context.workspace].next;
     }
   },
+
   methods: {
     available_field(name) {
       return this.context.hasOwnProperty(name);
@@ -162,5 +166,6 @@ export default {
       return utils.makePath(url);
     }
   }
+
 };
 </script>

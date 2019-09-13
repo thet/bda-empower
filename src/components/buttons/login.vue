@@ -25,6 +25,7 @@
     </v-list-item>
   </v-list>
 </template>
+
 <script>
 import {
   mdiAccount,
@@ -50,7 +51,7 @@ export default {
         this.$router.push('login');
       });
     }
-  },
+  }
 
 };
 </script>

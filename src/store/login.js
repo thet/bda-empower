@@ -3,6 +3,7 @@ import config from '@/config';
 import utils from '@/utils';
 
 export default {
+
   namespaced: true,
 
   state: {
@@ -60,7 +61,7 @@ export default {
     async LOGOUT({ commit }) {
       commit('AUTH_LOGOUT');
       utils.logger.debug(`LOGOUT ${username}`);
-    },
+    }
 
   },
 
@@ -91,7 +92,8 @@ export default {
 
     SET_CURRENT_USER: (state, user) => {
       state.user = user;
-    },
+    }
 
   }
+
 };

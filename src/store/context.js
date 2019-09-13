@@ -11,8 +11,8 @@ import utils from '@/utils';
 import Vue from 'vue';
 import qs from 'qs';
 
-
 export default {
+
   namespaced: true,
 
   state: {
@@ -151,7 +151,7 @@ export default {
         utils.logger.error(`Error while POST at context: ${parent_url}`);
         utils.logger.error(error);
       }
-    },
+    }
 
   },
 

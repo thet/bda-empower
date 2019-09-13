@@ -4,6 +4,7 @@
     <Workspace :context="context" :workspace="workspace" />
   </div>
 </template>
+
 <script>
 import { mapState } from 'vuex';
 import Workspace from '@/components/workspace';

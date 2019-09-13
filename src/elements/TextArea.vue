@@ -8,6 +8,7 @@
     <div v-if="!edit && value" v-html="value"></div>
   </div>
 </template>
+
 <script>
 export default {
 

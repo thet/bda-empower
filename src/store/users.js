@@ -3,6 +3,7 @@ import config from '@/config';
 import utils from '@/utils';
 
 export default {
+
   namespaced: true,
 
   state: {
@@ -70,4 +71,5 @@ export default {
     }
 
   }
+
 };

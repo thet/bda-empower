@@ -3,6 +3,7 @@
     <component v-if="context" :is="component" :context="context" />
   </div>
 </template>
+
 <script>
 import { mapState } from 'vuex';
 import CasesView from '@/views/CasesView';
@@ -12,12 +13,14 @@ import DefaultView from '@/views/DefaultView';
 import utils from '@/utils';
 
 export default {
+
   components: {
     CasesView,
     CaseView,
     ContributionView,
     DefaultView
   },
+
   computed: {
     component() {
       if (!this.context) {
@@ -46,5 +49,6 @@ export default {
       context: state => state.context.current_context
     })
   }
+
 };
 </script>

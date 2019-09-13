@@ -14,6 +14,7 @@
 
   </div>
 </template>
+
 <script>
 import AddButton from '@/components/buttons/add';
 import ContributionSmall from '@/components/contribution_small';

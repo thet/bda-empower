@@ -28,11 +28,13 @@ import ContributionEdit from '@/components/contribution_edit';
 import ModalWrapper from '@/components/modal_wrapper';
 
 export default {
+
   components: {
     CaseEdit,
     ContributionEdit,
     ModalWrapper
   },
+
   props: {
     parent: {
       type: Object,
@@ -49,12 +51,14 @@ export default {
       default: null
     }
   },
+
   data: function() {
     return {
       active: false,
       icon_add: mdiPlus
     };
   },
+
   computed: {
     _content_type() {
       return this.content_type ? this.content_type : this.parent['@type'];
@@ -71,6 +75,7 @@ export default {
       return `${this._content_type}Edit`;
     }
   },
+
   methods: {
     open() {
       this.active = true;
@@ -79,5 +84,6 @@ export default {
       this.active = false;
     }
   }
+
 };
 </script>

@@ -26,12 +26,14 @@
     </v-list-item>
   </v-list>
 </template>
+
 <script>
 import { mapState } from 'vuex';
 import { mdiArrowLeft } from '@mdi/js';
 import utils from '@/utils';
 
 export default {
+
   data: () => ({
     icon_back: mdiArrowLeft
   }),

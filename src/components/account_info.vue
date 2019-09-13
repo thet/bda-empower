@@ -5,10 +5,12 @@
     <p v-if="roles">{{roles}}</p>
   </div>
 </template>
+
 <script>
 import { mapState } from 'vuex';
 
 export default {
+
   computed: {
     description() {
       return [this.user.description, this.user.email].map(it => it).join(', ');
@@ -20,6 +22,6 @@ export default {
       user: state => state.login.user,
     })
   }
-};
 
+};
 </script>

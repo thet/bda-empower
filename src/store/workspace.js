@@ -1,8 +1,8 @@
 export default {
+
   namespaced: true,
 
   state: {
-
     specification: {
       "case": {
           "title": "Case",
@@ -25,7 +25,6 @@ export default {
           "next": ["strategy", "action"],
       }
     }
-
-  },
+  }
 
 };

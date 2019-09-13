@@ -27,28 +27,33 @@ import ContributionEdit from '@/components/contribution_edit';
 import ModalWrapper from '@/components/modal_wrapper';
 
 export default {
+
   components: {
     CaseEdit,
     ContributionEdit,
     ModalWrapper
   },
+
   props: {
     context: {
       type: Object,
       required: true
     }
   },
+
   data: function() {
     return {
       active: false,
       icon_edit: mdiPencil
     };
   },
+
   computed: {
     component() {
       return `${this.context['@type']}Edit`;
     }
   },
+
   methods: {
     open() {
       this.active = true;
@@ -57,5 +62,6 @@ export default {
       this.active = false;
     }
   }
+
 };
 </script>

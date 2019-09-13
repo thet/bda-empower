@@ -52,6 +52,7 @@
 
   </v-card>
 </template>
+
 <script>
 import {
   mdiCancel,
@@ -61,7 +62,6 @@ import Autocomplete from '@/elements/Autocomplete';
 import TextEditor from '@/elements/TextEditor';
 import TextLine from '@/elements/TextLine';
 import utils from '@/utils';
-
 
 export default {
 

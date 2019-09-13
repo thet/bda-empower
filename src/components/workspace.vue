@@ -21,8 +21,8 @@ import ContributionSmall from '@/components/contribution_small';
 import ContributionSmaller from '@/components/contribution_smaller';
 import utils from '@/utils';
 
-
 export default {
+
   components: {
     ContributionSmall,
     ContributionSmaller

@@ -4,6 +4,7 @@
     <Workspace :context="context" :workspace="'case'" />
   </div>
 </template>
+
 <script>
 import Workspace from '@/components/workspace';
 import WorkspaceTabs from '@/components/workspace_tabs';

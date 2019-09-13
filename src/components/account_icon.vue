@@ -7,10 +7,12 @@
     {{ icon_account }}
   </v-icon>
 </template>
+
 <script>
 import { mdiAccount } from '@mdi/js';
 
 export default {
+
   props: {
     account: {
       type: String,
@@ -21,8 +23,10 @@ export default {
       required: true
     }
   },
+
   data: () => ({
     icon_account: mdiAccount
   }),
+
 };
 </script>

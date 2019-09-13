@@ -14,6 +14,7 @@
     <span v-if="!edit && value">{{ value }}</span>
   </span>
 </template>
+
 <script>
 export default {
 

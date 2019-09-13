@@ -7,8 +7,10 @@
     <span v-if="!edit && value">{{ value }}</span>
   </span>
 </template>
+
 <script>
 export default {
+
   props: {
     value: {
       type: String,
@@ -25,6 +27,7 @@ export default {
       default: ''
     }
   },
+
   computed: {
     _value: {
       get: function() {
@@ -35,5 +38,6 @@ export default {
       }
     }
   }
+
 };
 </script>

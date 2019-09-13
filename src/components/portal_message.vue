@@ -10,14 +10,17 @@
   </section>
   </div>
 </template>
+
 <script>
 import { mapState } from 'vuex';
 
 export default {
+
   computed: {
     ...mapState({
       messages: state => state.portal_message.messages,
     })
   }
+
 };
 </script>

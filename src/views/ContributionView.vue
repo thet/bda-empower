@@ -6,9 +6,9 @@
     </section>
   </div>
 </template>
+
 <script>
 import Thread from '@/components/thread';
-import utils from '@/utils';
 import WorkspaceTabs from '@/components/workspace_tabs';
 
 export default {
@@ -23,11 +23,7 @@ export default {
       type: Object,
       required: true
     }
-  },
-
-  mounted() {
-    utils.logger.debug(`ContributionView context id: ${this.context['@id']}`);
-  },
+  }
 
 };
 </script>
