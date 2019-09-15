@@ -104,6 +104,7 @@ export default {
     },
 
     async PATCH({ dispatch, commit, state }, { url=null, context=null, model=null }) {
+      let ret;
       if (context) {
         url = context['@id'];
         model = JSON.parse(JSON.stringify(context));
@@ -120,16 +121,17 @@ export default {
         const response = await axios.patch(
           url,
           model
-          // {headers: {'Prefer': 'return=representation'}},  // return the updated context from server.
         );
-        //dispatch('LOAD_CONTEXT', { url: url, force: true });
+        ret = response.data;
       } catch (error) {
         utils.logger.error(`Error while PATCH for context: ${url}`);
         utils.logger.error(error);
       }
+      return ret;
     },
 
     async POST({ dispatch, commit, state }, { parent_url, context }) {
+      let ret;
       let model = JSON.parse(JSON.stringify(context));
       // Clean the data with what we want need to save
       let post_model = new config[`${context['@type']}Model`]({});
@@ -144,13 +146,13 @@ export default {
         const response = await axios.post(
           parent_url,
           model
-          // {headers: {'Prefer': 'return=representation'}},  // return the updated context from server.
         );
-        //dispatch('LOAD_CONTEXT', { url: response.data['@id'], force: true });
+        ret = response.data;
       } catch (error) {
         utils.logger.error(`Error while POST at context: ${parent_url}`);
         utils.logger.error(error);
       }
+      return ret;
     }
 
   },
