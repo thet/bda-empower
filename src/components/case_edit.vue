@@ -47,6 +47,13 @@
           :loader="'users/LOAD_USERS'"
         />
 
+        <FileUpload
+          v-model="context.files"
+          :label="'Files'"
+          :edit="true"
+          :multiple="true"
+        />
+
       </v-form>
     </v-card-text>
 
@@ -78,6 +85,7 @@ import {
   mdiContentSave,
 } from '@mdi/js';
 import Autocomplete from '@/elements/Autocomplete';
+import FileUpload from '@/elements/FileUpload';
 import TextEditor from '@/elements/TextEditor';
 import TextLine from '@/elements/TextLine';
 
@@ -86,6 +94,7 @@ export default {
 
   components: {
     Autocomplete,
+    FileUpload,
     TextLine,
     TextEditor
   },
