@@ -48,10 +48,14 @@
         />
 
         <FileUpload
-          v-model="context.files"
+          ref="fileupload"
+          :context="context"
           :label="'Files'"
           :edit="true"
           :multiple="true"
+          :store_save="'context/SAVE_FILES'"
+          :store_load="'context/LOAD_FILES'"
+          :store_delete="'context/DELETE_FILES'"
         />
 
       </v-form>
@@ -133,6 +137,7 @@ export default {
           context: this.context
         });
       }
+      await this.$refs.fileupload.save_files();
       this.$bubble('save');
     }
   }

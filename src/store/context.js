@@ -29,8 +29,8 @@ export default {
       set_case=false,
       force=false
     }) {
-      url = url || utils.makeURL(path);
-      path = path || utils.makePath(url);
+      url = url ? url : utils.makeURL(path);
+      path = path ? path : utils.makePath(url);
 
       let context = null;
 
@@ -103,7 +103,7 @@ export default {
       return context;
     },
 
-    async PATCH({ dispatch, commit, state }, { url=null, context=null, model=null }) {
+    async PATCH({}, { url=null, context=null, model=null }) {
       let ret;
       if (context) {
         url = context['@id'];
@@ -130,7 +130,7 @@ export default {
       return ret;
     },
 
-    async POST({ dispatch, commit, state }, { parent_url, context }) {
+    async POST({}, { parent_url, context }) {
       let ret;
       let model = JSON.parse(JSON.stringify(context));
       // Clean the data with what we want need to save
@@ -153,7 +153,41 @@ export default {
         utils.logger.error(error);
       }
       return ret;
-    }
+    },
+
+    async LOAD_FILES({}, { url }) {
+      try {
+        const response = await axios.get(url);
+        return response.data.items.filter(it => it['@type'] === 'Image' || it['@type'] === 'File');
+      } catch (error) {
+        utils.logger.error(`Error while LOAD_FILES for: ${url}`);
+        utils.logger.error(error);
+      }
+    },
+
+    async SAVE_FILES({}, { url, files }) {
+      try {
+        utils.logger.debug(`SAVE_FILES at: ${url}`);
+        for (let file of files) {
+          const type_ = file.file.type.toLowerCase().indexOf('image') > -1 ? 'Image' : 'File';
+          const file_data = {
+            data: file.src.split(',')[1], // strip off metadata
+            encoding: 'base64',
+            filename: file.file.name,
+            'content-type': file.file.type
+          };
+          const file_model = {
+            title: file.file.name,
+            '@type': type_
+          }
+          file_model[type_.toLowerCase()] = file_data;
+          await axios.post(url, file_model);
+        }
+      } catch (error) {
+        utils.logger.error(`Error while SAVE_FILES at: ${url}`);
+        utils.logger.error(error);
+      }
+    },
 
   },
 

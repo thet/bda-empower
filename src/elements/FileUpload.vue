@@ -10,7 +10,8 @@
     <input type="file" multiple @change="handle_input">
     <label>Select some files</label>
 
-    <div class="filedrop-previews">
+    <div v-if="files" class="filedrop-previews">
+      <strong>Files to upload</strong>
       <div class="filedrop-preview" v-for="(preview, cnt) of files" :key="`preview_${cnt}`">
         <img class="filedrop-preview-image" v-if="preview.src" :src="preview.src" />
         <div class="filedrop-preview-file" v-if="!preview.src">{{ preview.file.name }}</div>
@@ -24,6 +25,23 @@
         </v-btn>
       </div>
     </div>
+
+    <div v-if="existing_files" class="filedrop-previews">
+      <strong>Existing files</strong>
+      <div class="filedrop-preview" v-for="(preview, cnt) of existing_files" :key="`preview_existing_${cnt}`">
+        <img class="filedrop-preview-image" v-if="preview.src" :src="preview.src" />
+        <div class="filedrop-preview-file" v-if="!preview.src">{{ preview.file.name }}</div>
+        <v-btn
+          class="filedrop-preview-delete"
+          fab dark small color="red"
+          title="Delete"
+          @click="delete_file(preview)"
+          >
+          <v-icon dark>{{ icon_close }}</v-icon>
+        </v-btn>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -35,11 +53,11 @@ import {
 export default {
 
   props: {
-    value: {
-      type: Array,
-      required: false
-    },
     // from here on, only required if edit is true.
+    context: {
+      type: Object,
+      required: true
+    },
     edit: {
       type: Boolean,
       required: false,
@@ -54,6 +72,18 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    store_save: {
+      type: String,
+      required: false
+    },
+    store_load: {
+      type: String,
+      required: false
+    },
+    store_delete: {
+      type: String,
+      required: false
     }
   },
 
@@ -61,7 +91,8 @@ export default {
     return {
       icon_close: mdiClose,
       active: false,
-      files: []
+      files: [],
+      existing_files: []
     };
   },
 
@@ -101,16 +132,44 @@ export default {
           };
         }
       }
-      this.$emit('input', this.files);
     },
 
-    delete_file(file) {
-      const idx = this.files.indexOf(file);
-      if (idx > -1) {
-        this.files.splice(idx, 1);
+    async delete_file(file) {
+      if (file.file instanceof File) {
+        // delete added and not uploaded file
+        const idx = this.files.indexOf(file);
+        if (idx > -1) {
+          this.files.splice(idx, 1);
+        }
+      } else {
+        // delete file from server
+        await this.$store.dispatch(this.store_delete, { url: file.src } );
+        const idx = this.existing_files.indexOf(file);
+        if (idx > -1) {
+          this.existing_files.splice(idx, 1);
+        }
       }
-      this.$emit('input', this.files);
+    },
+
+    async save_files() {
+      return await this.$store.dispatch(this.store_save, { url: this.context['@id'], files: this.files });
+    },
+
+    async get_files() {
+      // get already uploaded files for display
+      if (! this.store_load) { return; }
+      const response = await this.$store.dispatch(this.store_load, { url: this.context['@id'] });
+
+      this.existing_files = response.map(it => ({
+        file: null,
+        src: it['@id']
+      }));
     }
+
+  },
+
+  mounted() {
+    this.get_files();
   }
 
 };
