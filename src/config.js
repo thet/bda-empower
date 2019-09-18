@@ -101,6 +101,7 @@ export default {
   GenericContextModel: GenericContextModel,
   ContributionModel: ContributionModel,
   CaseModel: CaseModel,
+  inline_types: ['Image', 'File'],
   portal_messages: {
     LOGIN_ERROR_TITLE: 'Login Error',
     LOGIN_ERROR_TEXT: 'Could not login'

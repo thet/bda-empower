@@ -50,6 +50,12 @@
       />
     </div>
 
+    <div v-if="files" class="em-contribution-sidebar">
+      <ul>
+        <li v-for="file of files" :key="`file-${file.UID}`"><a :href="file['@id']" target="_blank">{{ file.title }}</a></li>
+      </ul>
+    </div>
+
     <footer class="em-contribution-footer">
 
       <div class="em-contribution-meta">
@@ -155,6 +161,9 @@ export default {
     next_ws() {
       let ws = this.$store.state.workspace.specification;
       return ws[this.context.workspace].next;
+    },
+    files() {
+      return this.context.items.filter(it => utils.is_inline_type(it));
     }
   },
 

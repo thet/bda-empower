@@ -45,6 +45,9 @@ export default {
     // https://stackoverflow.com/a/1026087/1337474
     return string.charAt(0).toUpperCase() + string.slice(1);
   },
+  is_inline_type(item) {
+    return config.inline_types.includes(item['@type']);
+  },
   logger: {
     log(msg) {
       if (!Vue.config.silent) {

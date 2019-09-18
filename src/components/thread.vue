@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import utils from '@/utils';
 import Intersect from 'vue-intersect'
 import Contribution from '@/components/contribution';
 import ContributionSmall from '@/components/contribution_small';
@@ -37,11 +38,11 @@ export default {
   computed: {
     next_ws_items() {
       const ws = this.context.workspace;
-      return this.context.items.filter(it => it.workspace !== ws);
+      return this.context.items.filter(it => it.workspace !== ws && !utils.is_inline_type(it));
     },
     thread_items() {
       const ws = this.context.workspace;
-      return this.context.items.filter(it => it.workspace === ws);
+      return this.context.items.filter(it => it.workspace === ws && !utils.is_inline_type(it));
     }
   },
 
