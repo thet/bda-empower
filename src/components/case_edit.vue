@@ -55,7 +55,7 @@
           :multiple="true"
           :store_save="'context/SAVE_FILES'"
           :store_load="'context/LOAD_FILES'"
-          :store_delete="'context/DELETE_FILES'"
+          :store_delete="'context/DELETE_FILE'"
         />
 
       </v-form>

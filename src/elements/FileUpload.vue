@@ -35,10 +35,23 @@
           class="filedrop-preview-delete"
           fab dark small color="red"
           title="Delete"
-          @click="delete_file(preview)"
+          @click="overlay = true"
           >
           <v-icon dark>{{ icon_close }}</v-icon>
         </v-btn>
+        <v-overlay
+          :absolute="true"
+          :opacity="1"
+          :value="overlay"
+        >
+          <strong>Really delete file from server?</strong>
+          <v-btn
+            color="orange lighten-2"
+            @click="delete_file(preview)"
+          >
+            <v-icon dark>{{ icon_close }}</v-icon>
+          </v-btn>
+        </v-overlay>
       </div>
     </div>
 
@@ -93,7 +106,8 @@ export default {
       icon_close: mdiClose,
       active: false,
       files: [],
-      existing_files: []
+      existing_files: [],
+      overlay: false
     };
   },
 
@@ -140,6 +154,7 @@ export default {
     },
 
     async delete_file(file) {
+      this.overlay = false;
       if (file.file instanceof File) {
         // delete added and not uploaded file
         const idx = this.files.indexOf(file);

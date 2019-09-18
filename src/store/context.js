@@ -189,6 +189,16 @@ export default {
       }
     },
 
+    async DELETE_FILE({}, { url }) {
+      try {
+        utils.logger.debug(`DELETE_FILE at: ${url}`);
+        await axios.delete(url);
+      } catch (error) {
+        utils.logger.error(`Error while DELETE_FILE at: ${url}`);
+        utils.logger.error(error);
+      }
+    }
+
   },
 
   mutations: {
