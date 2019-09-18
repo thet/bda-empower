@@ -169,7 +169,7 @@ export default {
       try {
         utils.logger.debug(`SAVE_FILES at: ${url}`);
         for (let file of files) {
-          const type_ = file.file.type.toLowerCase().indexOf('image') > -1 ? 'Image' : 'File';
+          const type_ = utils.image_or_file(file.file);
           const file_data = {
             data: file.src.split(',')[1], // strip off metadata
             encoding: 'base64',
@@ -178,9 +178,9 @@ export default {
           };
           const file_model = {
             title: file.file.name,
-            '@type': type_
+            '@type': utils.capitalize(type_)
           }
-          file_model[type_.toLowerCase()] = file_data;
+          file_model[type_] = file_data;
           await axios.post(url, file_model);
         }
       } catch (error) {

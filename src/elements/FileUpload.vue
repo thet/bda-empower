@@ -10,11 +10,11 @@
     <input type="file" multiple @change="handle_input">
     <label>Select some files</label>
 
-    <div v-if="files" class="filedrop-previews">
+    <div v-if="files.length" class="filedrop-previews">
       <strong>Files to upload</strong>
       <div class="filedrop-preview" v-for="(preview, cnt) of files" :key="`preview_${cnt}`">
-        <img class="filedrop-preview-image" v-if="preview.src" :src="preview.src" />
-        <div class="filedrop-preview-file" v-if="!preview.src">{{ preview.file.name }}</div>
+        <img v-if="is_image(preview.file)" class="filedrop-preview-image" :src="preview.src" title="preview.name" />
+        <div v-if="!is_image(preview.file)" class="filedrop-preview-file">{{ preview.file.name }}</div>
         <v-btn
           class="filedrop-preview-delete"
           fab dark small color="red"
@@ -26,11 +26,11 @@
       </div>
     </div>
 
-    <div v-if="existing_files" class="filedrop-previews">
+    <div v-if="existing_files.length" class="filedrop-previews">
       <strong>Existing files</strong>
       <div class="filedrop-preview" v-for="(preview, cnt) of existing_files" :key="`preview_existing_${cnt}`">
-        <img class="filedrop-preview-image" v-if="preview.src" :src="preview.src" />
-        <div class="filedrop-preview-file" v-if="!preview.src">{{ preview.file.name }}</div>
+        <a v-if="is_image(preview.file)" :href="preview.src" target="_blank"><img class="filedrop-preview-image" :src="preview.src" /></a>
+        <a v-if="!is_image(preview.file)" :href="preview.src" target="_blank" class="filedrop-preview-file">{{ preview.file.name }}</a>
         <v-btn
           class="filedrop-preview-delete"
           fab dark small color="red"
@@ -49,6 +49,7 @@
 import {
   mdiClose,
 } from '@mdi/js';
+import utils from '@/utils';
 
 export default {
 
@@ -116,6 +117,10 @@ export default {
       this.add_files(event.target.files);
     },
 
+    is_image(file) {
+      return utils.image_or_file(file) === 'image';
+    },
+
     add_files(files) {
       files = [...files];
       for (let file of files) {
@@ -124,7 +129,7 @@ export default {
           src: null
         };
         this.files.push(file_);
-        if (file.type.indexOf('image') !== -1) {
+        if (this.is_image(file)) {
           const reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onloadend = () => {
@@ -161,7 +166,10 @@ export default {
       const response = await this.$store.dispatch(this.store_load, { url: this.context['@id'] });
 
       this.existing_files = response.map(it => ({
-        file: null,
+        file: {
+          name: it.title,
+          type: it['@type'].toLowerCase() // hack to fullfill contract when checking for type,
+        },
         src: it['@id']
       }));
     }

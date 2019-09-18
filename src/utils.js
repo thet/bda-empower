@@ -38,6 +38,13 @@ export default {
   items_from_vocab(vocab) {
       return vocab.items.map(it => { return { 'text': it.title, 'value': it.token }; });
   },
+  image_or_file(file) {
+    return file.type.toLowerCase().indexOf('image') > -1 ? 'image' : 'file';
+  },
+  capitalize(string) {
+    // https://stackoverflow.com/a/1026087/1337474
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  },
   logger: {
     log(msg) {
       if (!Vue.config.silent) {
