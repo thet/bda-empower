@@ -26,6 +26,17 @@
           :loader_context="context.parent"
           />
 
+        <FileUpload
+          ref="fileupload"
+          :context="context"
+          :label="'Files'"
+          :edit="true"
+          :multiple="true"
+          :store_save="'context/SAVE_FILES'"
+          :store_load="'context/LOAD_FILES'"
+          :store_delete="'context/DELETE_FILE'"
+        />
+
       </v-form>
     </v-card-text>
 
@@ -57,6 +68,7 @@ import {
   mdiContentSave,
 } from '@mdi/js';
 import Autocomplete from '@/elements/Autocomplete';
+import FileUpload from '@/elements/FileUpload';
 import TextEditor from '@/elements/TextEditor';
 import TextLine from '@/elements/TextLine';
 
@@ -64,6 +76,7 @@ export default {
 
   components: {
     Autocomplete,
+    FileUpload,
     TextLine,
     TextEditor
   },
@@ -94,14 +107,16 @@ export default {
       this.$emit('cancel');
     },
     async save() {
+      let ret;
       if (!this.mode_add) {
-        await this.$store.dispatch('context/PATCH', { context: this.context });
+        ret = await this.$store.dispatch('context/PATCH', { context: this.context });
       } else {
-        await this.$store.dispatch('context/POST', {
+        ret = await this.$store.dispatch('context/POST', {
           parent_url: this.context.parent['@id'],
           context: this.context
         });
       }
+      await this.$refs.fileupload.save_files(ret['@id']);
       this.$bubble('save');
     }
   }

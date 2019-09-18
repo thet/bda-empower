@@ -171,13 +171,14 @@ export default {
       }
     },
 
-    async save_files() {
-      return await this.$store.dispatch(this.store_save, { url: this.context['@id'], files: this.files });
+    async save_files(url = null) {
+      url = url ? url : this.context['@id'];
+      return await this.$store.dispatch(this.store_save, { url: url, files: this.files });
     },
 
     async get_files() {
       // get already uploaded files for display
-      if (! this.store_load) { return; }
+      if (! this.store_load || ! this.context['@id']) { return; }
       const response = await this.$store.dispatch(this.store_load, { url: this.context['@id'] });
 
       this.existing_files = response.map(it => ({

@@ -129,15 +129,16 @@ export default {
       this.$emit('cancel');
     },
     async save() {
+      let ret;
       if (!this.mode_add) {
-        await this.$store.dispatch('context/PATCH', { context: this.context });
+        ret = await this.$store.dispatch('context/PATCH', { context: this.context });
       } else {
-        await this.$store.dispatch('context/POST', {
+        ret = await this.$store.dispatch('context/POST', {
           parent_url: this.context.parent['@id'],
           context: this.context
         });
       }
-      await this.$refs.fileupload.save_files();
+      await this.$refs.fileupload.save_files(ret['@id']);
       this.$bubble('save');
     }
   }
