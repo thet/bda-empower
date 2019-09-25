@@ -4,6 +4,7 @@ import App from '@/App.vue';
 import axios_setup from '@/plugins/axios';
 import bubble from '@/plugins/bubble';
 import config from '@/config';
+import i18n from '@/i18n';
 import router from '@/router';
 import store from '@/store';
 import utils from '@/utils';
@@ -27,9 +28,10 @@ Vue.filter('format_date', function (value) {
 })
 
 new Vue({
+  bubble,
+  i18n,
   router,
   store,
   vuetify,
-  bubble,
   render: h => h(App)
 }).$mount('#app');
