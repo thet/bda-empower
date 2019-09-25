@@ -8,7 +8,7 @@ export default {
 
   state: {
     auth_status: '',
-    auth_token: sessionStorage.getItem('auth_token') || undefined,
+    auth_token: undefined, // sessionStorage.getItem('auth_token') || undefined,
     user: {},
   },
 
