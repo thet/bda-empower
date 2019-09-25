@@ -59,6 +59,12 @@
 </template>
 
 <script>
+// Inspired by: https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+// Refs: https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API/File_drag_and_drop
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file
+// https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
+// https://gist.github.com/virolea/e1af9359fe071f24de3da3500ff0f429
+// https://stackoverflow.com/questions/44936028/progress-bar-with-axios
 import {
   mdiClose,
 } from '@mdi/js';
