@@ -115,10 +115,18 @@
       </div>
 
       <div class="em-actions" v-if="editable">
-        <EditButton :context="context" />
-        <AddButton :parent="context" :content_type="'Contribution'" />
-
-        <AddButton v-for="ws of next_ws" :key='`add-${ws}`' :parent="context" :content_type="'Contribution'" :workspace="ws" />
+        <EditButton :context="context"/>
+        <AddButton
+          :parent="context"
+          :content_type="'Contribution'"
+        >{{ $t('contribution.add_answer') }}</AddButton>
+        <AddButton
+          v-for="ws of next_ws"
+          :key='`add-${ws}`'
+          :parent="context"
+          :content_type="'Contribution'"
+          :workspace="ws"
+        >{{ $t('contribution.add_workspace', { ws: $t(`workspace.${ws}`) }) }}</AddButton>
       </div>
 
     </footer>

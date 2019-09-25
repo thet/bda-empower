@@ -1,5 +1,6 @@
 <template>
   <div class="em-buttonwrapper">
+    <slot></slot>
     <v-btn
       fab
       dark
