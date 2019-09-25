@@ -58,9 +58,9 @@ export default {
       }
     },
 
-    async LOGOUT({ commit }) {
+    async LOGOUT({ commit, state }) {
+      utils.logger.debug(`LOGOUT ${state?.user?.username}`);
       commit('AUTH_LOGOUT');
-      utils.logger.debug(`LOGOUT ${username}`);
     }
 
   },
