@@ -1,3 +1,4 @@
+import App from '@/store/app';
 import Context from '@/store/context';
 import Login from '@/store/login';
 import PortalMessage  from '@/store/portal_message';
@@ -11,6 +12,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
+    app: App,
     login: Login,
     context: Context,
     portal_message: PortalMessage,

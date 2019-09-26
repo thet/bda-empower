@@ -1,14 +1,29 @@
 import utils from '@/utils';
 
+
+function get_default_state() {
+  return {
+    messages: []
+  };
+}
+
 export default {
 
   namespaced: true,
 
-  state: {
-    messages: []
+  state: get_default_state(),
+
+  actions: {
+    async RESET_STATE({ commit }) {
+      commit('RESET_STATE');
+    },
   },
 
   mutations: {
+
+    RESET_STATE(state) {
+      Object.assign(state, get_default_state());
+    },
 
     ADD_MESSAGE: (state, { title, text, type }) => {
       state.messages.push({

@@ -1,12 +1,34 @@
 <template>
-  <v-form class="login" @submit.prevent="login">
-    <h1>Sign in</h1>
-    <label>User Name</label>
-    <v-text-field required v-model="username" placeholder="User name" />
-    <label>Password</label>
-    <v-text-field required v-model="password" type="password" placeholder="Password" />
-    <v-btn type="submit">Login</v-btn>
-  </v-form>
+  <v-card>
+    <v-card-title>{{ $t('login.title') }}</v-card-title>
+
+    <v-card-text>
+      <v-form class="login" @submit.prevent="login">
+        <h1>Sign in</h1>
+        <label>User Name</label>
+        <v-text-field required v-model="username" placeholder="User name" />
+        <label>Password</label>
+        <v-text-field required v-model="password" type="password" placeholder="Password" />
+      </v-form>
+    </v-card-text>
+
+    <v-card-actions>
+      <v-spacer></v-spacer>
+
+      <v-btn type="submit">Login</v-btn>
+
+      <v-btn
+        fab dark small color="green"
+        type="submit"
+        @click.stop="login"
+      >
+        Login
+      </v-btn>
+    </v-card-actions>
+
+  </v-card>
+
+
 </template>
 
 <script>
@@ -29,7 +51,8 @@ export default {
       this.$store
         .dispatch('login/LOGIN', { username, password })
         .then(() => {
-          this.$router.push({ path: '/' })
+          this.$bubble('logged_in');
+          this.$router.push('/cases').catch(() => {});
         })
         .catch(error => {
           let title = config.portal_messages.LOGIN_ERROR_TITLE;
@@ -40,6 +63,8 @@ export default {
           } catch {
             title = `${error.response.status} - ${error.response.statusText}`;
           }
+          this.$bubble('login_error');
+
           this.$store.commit('portal_message/ADD_MESSAGE', {
             title: title,
             text: text,

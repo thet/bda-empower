@@ -1,7 +1,8 @@
 <template>
-  <v-app id="app">
+  <v-app id="app" key="app_refresh_key">
     <Toolbar></Toolbar>
     <v-content>
+      <LoginButton />
       <PortalMessage />
       <router-view />
     </v-content>
@@ -9,15 +10,24 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import PortalMessage from '@/components/portal_message';
 import Toolbar from '@/components/toolbar';
+import LoginButton from '@/components/buttons/login';
 
 export default {
   name: 'app',
 
   components: {
     PortalMessage,
-    Toolbar
+    Toolbar,
+    LoginButton,
+  },
+
+  computed: {
+    ...mapState({
+      app_refresh_key: state => state.app_refresh_key,
+    })
   },
 
   methods: {
@@ -33,7 +43,8 @@ export default {
   },
 
   watch: {
-    $route: 'load' // call again the method if the route changes
+    $route: 'load',
+    app_refresh_key: 'load'
   }
 };
 </script>

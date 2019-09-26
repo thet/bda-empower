@@ -10,6 +10,9 @@ const messages = {
       add_answer: 'Add answer',
       add_workspace: 'Add {ws}',
     },
+    login: {
+      title: 'Login',
+    },
     workspace: {
       case: 'Case',
       analysis: 'Analysis',
@@ -22,6 +25,9 @@ const messages = {
     contribution: {
       add_answer: 'Antworten',
       add_workspace: '{ws} anlegen',
+    },
+    login: {
+      title: 'Anmelden',
     },
     workspace: {
       case: 'Fall',

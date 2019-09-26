@@ -3,16 +3,21 @@ import config from '@/config';
 import utils from '@/utils';
 import Vue from 'vue';
 
-export default {
 
-  namespaced: true,
-
-  state: {
+function get_default_state() {
+  return {
     users: {
       '@id': '',
       'items': []
     }
-  },
+  };
+}
+
+export default {
+
+  namespaced: true,
+
+  state: get_default_state(),
 
   actions: {
 
@@ -45,9 +50,17 @@ export default {
       }
     },
 
+    async RESET_STATE({ commit }) {
+      commit('RESET_STATE');
+    },
+
   },
 
   mutations: {
+
+    RESET_STATE(state) {
+      Object.assign(state, get_default_state());
+    },
 
     ADD_USERS: (state, { users }) => {
       Vue.set(state, 'users', users);

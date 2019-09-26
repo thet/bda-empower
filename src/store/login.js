@@ -2,15 +2,20 @@ import axios from 'axios';
 import config from '@/config';
 import utils from '@/utils';
 
+
+function get_default_state() {
+  return {
+    auth_status: '',
+    auth_token: undefined, // sessionStorage.getItem('auth_token') || undefined,
+    user: {},
+  };
+}
+
 export default {
 
   namespaced: true,
 
-  state: {
-    auth_status: '',
-    auth_token: undefined, // sessionStorage.getItem('auth_token') || undefined,
-    user: {},
-  },
+  state: get_default_state(),
 
   getters: {
     isLoggedIn: state => !!state.auth_token
@@ -58,14 +63,27 @@ export default {
       }
     },
 
-    async LOGOUT({ commit, state }) {
+    async LOGOUT({ dispatch, commit, state }) {
       utils.logger.debug(`LOGOUT ${state?.user?.username}`);
-      commit('AUTH_LOGOUT');
-    }
+      commit('RESET_STATE');
+      await dispatch('context/RESET_STATE', {}, { root: true });
+      await dispatch('portal_message/RESET_STATE', {}, { root: true });
+      await dispatch('users/RESET_STATE', {}, { root: true });
+      await dispatch('app/RESET_STATE', {}, { root: true });
+    },
+
+    async RESET_STATE({ commit }) {
+      commit('RESET_STATE');
+    },
 
   },
 
   mutations: {
+
+    RESET_STATE(state) {
+      utils.logger.debug('RESET_STATE');
+      Object.assign(state, get_default_state());
+    },
 
     AUTH_REQUEST: state => {
       state.auth_status = 'loading';

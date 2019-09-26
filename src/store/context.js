@@ -11,15 +11,20 @@ import utils from '@/utils';
 import Vue from 'vue';
 import qs from 'qs';
 
+
+function get_default_state() {
+  return {
+    items: {},
+    current_context: new config.GenericContextModel({}),
+    current_case: new config.GenericContextModel({})
+  };
+}
+
 export default {
 
   namespaced: true,
 
-  state: {
-    items: {},
-    current_context: new config.GenericContextModel({}),
-    current_case: new config.GenericContextModel({})
-  },
+  state: get_default_state(),
 
   actions: {
     async LOAD_CONTEXT({ dispatch, commit, state }, {
@@ -197,11 +202,19 @@ export default {
         utils.logger.error(`Error while DELETE_FILE at: ${url}`);
         utils.logger.error(error);
       }
-    }
+    },
+
+    async RESET_STATE({ commit }) {
+      commit('RESET_STATE');
+    },
 
   },
 
   mutations: {
+
+    RESET_STATE(state) {
+      Object.assign(state, get_default_state());
+    },
 
     ADD_CONTEXT: (state, { context }) => {
       context._loaded = new Date();

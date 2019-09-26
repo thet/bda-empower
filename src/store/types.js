@@ -1,13 +1,18 @@
 import axios from 'axios';
 import utils from '@/utils';
 
+
+function get_default_state() {
+  return {
+    types: []
+  };
+}
+
 export default {
 
   namespaced: true,
 
-  state: {
-    types: []
-  },
+  state: get_default_state(),
 
   getters: {
     types: state => {
@@ -37,9 +42,17 @@ export default {
       }
     },
 
+    async RESET_STATE({ commit }) {
+      commit('RESET_STATE');
+    },
+
  },
 
   mutations: {
+
+    RESET_STATE(state) {
+      Object.assign(state, get_default_state());
+    },
 
     ADD_TYPE: (state, { type, schema }) => {
       state.types.push({
@@ -49,11 +62,6 @@ export default {
       });
       utils.logger.debug(`ADD_TYPE ${type}`);
     },
-
-    CLEAR_TYPES: (state) => {
-      state.types = [];
-      utils.logger.debug(`CLEAR_TYPE ${type}`);
-    }
 
   }
 
