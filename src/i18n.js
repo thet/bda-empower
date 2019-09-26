@@ -12,6 +12,9 @@ const messages = {
     },
     login: {
       title: 'Login',
+      username: 'User name',
+      username_placeholder: 'name@example.org',
+      password: 'Password',
     },
     workspace: {
       case: 'Case',
@@ -28,6 +31,9 @@ const messages = {
     },
     login: {
       title: 'Anmelden',
+      username: 'Benutzername',
+      username_placeholder: 'name@beispiel.at',
+      password: 'Passwort',
     },
     workspace: {
       case: 'Fall',

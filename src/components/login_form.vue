@@ -4,11 +4,17 @@
 
     <v-card-text>
       <v-form class="login" @submit.prevent="login">
-        <h1>Sign in</h1>
-        <label>User Name</label>
-        <v-text-field required v-model="username" placeholder="User name" />
-        <label>Password</label>
-        <v-text-field required v-model="password" type="password" placeholder="Password" />
+        <v-text-field
+          required
+          v-model="username"
+          :label="$t('login.username')"
+          :placeholder="$t('login.username_placeholder')"
+        />
+        <v-text-field
+          required
+          v-model="password"
+          :label="$t('login.password')"
+          type="password" />
       </v-form>
     </v-card-text>
 
