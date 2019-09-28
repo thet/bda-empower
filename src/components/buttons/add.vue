@@ -57,6 +57,7 @@ export default {
   data: function() {
     return {
       active: false,
+      context: null,
       icon_add: mdiPlus
     };
   },
@@ -65,26 +66,31 @@ export default {
     _content_type() {
       return this.content_type ? this.content_type : this.parent['@type'];
     },
-    context() {
-      const _workspace = this.workspace ? this.workspace : this.parent.workspace;
-      const context = new config[`${this._content_type}Model`]({
-        workspace: _workspace
-      });
-      return context;
-    },
     component() {
       return `${this._content_type}Edit`;
     }
   },
 
   methods: {
+    set_context() {
+      const _workspace = this.workspace ? this.workspace : this.parent.workspace;
+      const context = new config[`${this._content_type}Model`]({
+        workspace: _workspace
+      });
+      this.context = context;
+    },
     open() {
+      this.set_context();
       this.active = true;
     },
     close() {
       this.active = false;
     }
-  }
+  },
+
+  created() {
+    this.set_context();
+  },
 
 };
 </script>
