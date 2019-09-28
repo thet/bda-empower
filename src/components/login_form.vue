@@ -1,9 +1,9 @@
 <template>
-  <v-card>
-    <v-card-title>{{ $t('login.title') }}</v-card-title>
+  <v-form class="login" @submit.prevent="login">
+    <v-card>
+      <v-card-title>{{ $t('login.title') }}</v-card-title>
 
-    <v-card-text>
-      <v-form class="login" @submit.prevent="login">
+      <v-card-text>
         <v-text-field
           required
           v-model="username"
@@ -15,26 +15,21 @@
           v-model="password"
           :label="$t('login.password')"
           type="password" />
-      </v-form>
-    </v-card-text>
+      </v-card-text>
 
-    <v-card-actions>
-      <v-spacer></v-spacer>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+          fab dark small color="green"
+          type="submit"
+          @click.stop="login"
+        >
+          Login
+        </v-btn>
+      </v-card-actions>
 
-      <v-btn type="submit">Login</v-btn>
-
-      <v-btn
-        fab dark small color="green"
-        type="submit"
-        @click.stop="login"
-      >
-        Login
-      </v-btn>
-    </v-card-actions>
-
-  </v-card>
-
-
+    </v-card>
+  </v-form>
 </template>
 
 <script>

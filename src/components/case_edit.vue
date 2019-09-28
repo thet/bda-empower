@@ -1,10 +1,9 @@
 <template>
-  <v-card>
-    <v-card-title>{{ title }}</v-card-title>
+  <v-form @submit.prevent.stop="save">
+    <v-card>
+      <v-card-title>{{ title }}</v-card-title>
 
-    <v-card-text>
-      <v-form @submit.prevent.stop="save">
-
+      <v-card-text>
         <TextLine
           v-model="context.title"
           :label="'Title'"
@@ -57,30 +56,29 @@
           :store_load="'context/LOAD_FILES'"
           :store_delete="'context/DELETE_FILE'"
         />
+      </v-card-text>
 
-      </v-form>
-    </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+          fab dark small color="red"
+          title="Cancel"
+          @click.stop="cancel"
+        >
+          <v-icon dark>{{ icon_cancel }}</v-icon>
+        </v-btn>
+        <v-btn
+          fab dark small color="green"
+          title="Save"
+          type="submit"
+          @click.stop="save"
+        >
+          <v-icon dark>{{ icon_save }}</v-icon>
+        </v-btn>
+      </v-card-actions>
 
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn
-        fab dark small color="red"
-        title="Cancel"
-        @click.stop="cancel"
-      >
-        <v-icon dark>{{ icon_cancel }}</v-icon>
-      </v-btn>
-      <v-btn
-        fab dark small color="green"
-        title="Save"
-        type="submit"
-        @click.stop="save"
-      >
-        <v-icon dark>{{ icon_save }}</v-icon>
-      </v-btn>
-    </v-card-actions>
-
-  </v-card>
+    </v-card>
+  </v-form>
 </template>
 
 <script>
