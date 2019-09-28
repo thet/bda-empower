@@ -1,5 +1,21 @@
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
 
+
+const PERMISSION_MAP = {
+  'add': 'Add portal content',
+  'add_contribution': 'bda.empower: Add Contribution',
+  'add_case': 'bda.empower: Add Case',
+  'modify': 'Modify portal content',
+  'modify_client': 'bda.empower: Modify Client',
+  'modify_expert_pool': 'bda.empower: Modify Expert Pool',
+  'modify_coordinators': 'bda.empower: Modify Coordinators',
+  'modify_experts_assigned': 'bda.empower: Modify Experts Assigned',
+  'modify_workspace_type': 'bda.empower: Modify Workspace Type',
+}
+
+
+// These content models define what can be submitted to the server for POST/PATCH requests.
+//
 class GenericContextModel {
   constructor({
     components_ = {},
@@ -87,6 +103,7 @@ class CaseModel {
 
 export default {
   DEVELOPMENT: DEVELOPMENT,
+  PERMISSION_MAP: PERMISSION_MAP,
   // baseURI: 'http://matt.zoplo.com:35180/Plone',
   //baseURI: 'http://localhost:8080/Plone',
   //basePath: '/Plone',

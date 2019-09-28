@@ -1,4 +1,5 @@
 import '@/assets/styles/main.css';
+import '@/directives/can';
 import 'intersection-observer'; // W3C Polyfill
 import App from '@/App.vue';
 import axios_setup from '@/plugins/axios';
@@ -16,6 +17,7 @@ axios_setup();
 Vue.config.productionTip = !config.DEVELOPMENT;
 Vue.config.silent = !config.DEVELOPMENT;
 //Vue.config.devtools = config.DEVELOPMENT;
+
 
 Vue.filter('format_date', function (value) {
   if (!value) {

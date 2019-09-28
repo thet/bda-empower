@@ -115,12 +115,17 @@
       </div>
 
       <div class="em-actions" v-if="editable">
-        <EditButton :context="context"/>
+        <EditButton
+          v-can:modify="context"
+          :context="context"
+        />
         <AddButton
+          v-can:add_contribution="context"
           :parent="context"
           :content_type="'Contribution'"
         >{{ $t('contribution.add_answer') }}</AddButton>
         <AddButton
+          v-can:add_contribution="context"
           v-for="ws of next_ws"
           :key='`add-${ws}`'
           :parent="context"

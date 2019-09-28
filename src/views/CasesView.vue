@@ -6,6 +6,7 @@
     </section>
 
     <AddButton
+      v-can:add_case="context"
       :parent="context"
       :content_type="'Case'"
       :workspace="'case'"
