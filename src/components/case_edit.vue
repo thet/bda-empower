@@ -105,7 +105,11 @@ export default {
     context: {
       type: Object,
       required: true
-    }
+    },
+    parent: {
+      type: Object,
+      required: false
+    },
   },
 
   data: function() {
@@ -132,7 +136,7 @@ export default {
         ret = await this.$store.dispatch('context/PATCH', { context: this.context });
       } else {
         ret = await this.$store.dispatch('context/POST', {
-          parent_url: this.context.parent['@id'],
+          parent_url: this.parent['@id'],
           context: this.context
         });
       }

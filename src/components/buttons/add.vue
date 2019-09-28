@@ -15,6 +15,7 @@
       <component
         :is="component"
         :context="context"
+        :parent="parent"
         @save="close"
         @cancel="close"
       />
@@ -67,7 +68,6 @@ export default {
     context() {
       const _workspace = this.workspace ? this.workspace : this.parent.workspace;
       const context = new config[`${this._content_type}Model`]({
-        parent: this.parent,
         workspace: _workspace
       });
       return context;

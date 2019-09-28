@@ -18,7 +18,6 @@ class GenericContextModel {
     items_total = 0,
     layout = '',
     modified = null,
-    parent = '',
     review_state = '',
     rights = '',
     text = '',
@@ -41,7 +40,6 @@ class GenericContextModel {
     this.items_total = 0;
     this.layout = '';
     this.modified = null;
-    this.parent = '';
     this.review_state = '';
     this.rights = '';
     this.text = '';
@@ -57,14 +55,12 @@ class ContributionModel {
     text = { data: '' },
     experts_assigned = [],
     workspace = '',
-    parent = null
   }) {
     this['@type'] = 'Contribution';
     this.title = title;
     this.text = text;
     this.experts_assigned = experts_assigned;
     this.workspace = workspace;
-    this.parent = parent;
   }
 }
 
@@ -77,7 +73,6 @@ class CaseModel {
     coordinators = [],
     expert_pool = [],
     workspace = 'case',
-    parent = null
   }) {
     this['@type'] = 'Case';
     this.title = title;
@@ -87,7 +82,6 @@ class CaseModel {
     this.coordinators = coordinators;
     this.expert_pool = expert_pool;
     this.workspace = workspace;
-    this.parent = parent;
   }
 }
 
