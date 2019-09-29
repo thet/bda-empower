@@ -11,6 +11,7 @@ const PERMISSION_MAP = {
   'modify_coordinators': 'bda.empower: Modify Coordinators',
   'modify_experts_assigned': 'bda.empower: Modify Experts Assigned',
   'modify_workspace_type': 'bda.empower: Modify Workspace Type',
+  'delete': 'Delete objects',
 }
 
 

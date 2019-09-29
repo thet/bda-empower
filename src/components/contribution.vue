@@ -119,6 +119,10 @@
           v-can:modify="context"
           :context="context"
         />
+        <DeleteButton
+          v-can:delete="context"
+          :context="context"
+        />
         <AddButton
           v-can:add_contribution="context"
           :parent="context"
@@ -143,6 +147,7 @@
 import AccountIcon from '@/components/account_icon';
 import AddButton from '@/components/buttons/add';
 import EditButton from '@/components/buttons/edit';
+import DeleteButton from '@/components/buttons/delete';
 import TextArea from '@/elements/TextArea';
 import TextEditor from '@/elements/TextEditor';
 import TextLine from '@/elements/TextLine';
@@ -155,6 +160,7 @@ export default {
     AccountIcon,
     AddButton,
     EditButton,
+    DeleteButton,
     TextLine,
     TextArea,
     TextEditor

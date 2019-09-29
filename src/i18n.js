@@ -23,6 +23,12 @@ const messages = {
       action: 'Action',
       evaluation: 'Evaluation',
     },
+    buttons: {
+      delete_title: 'Delete {type}',
+      delete_ok: 'Delete now',
+      delete_cancel: 'Cancel',
+      delete_text: 'Do you really want to delete {title}?',
+    },
   },
   de: {
     contribution: {
@@ -41,6 +47,12 @@ const messages = {
       strategy: 'Strategie',
       action: 'Aktion',
       evaluation: 'Evaluierung',
+    },
+    buttons: {
+      delete_title: '{type} löschen',
+      delete_ok: 'Jetzt löschen',
+      delete_cancel: 'Abbrechen',
+      delete_text: 'Möchten sie wirklich {title} löschen?',
     },
   },
 };

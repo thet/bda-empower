@@ -1,5 +1,6 @@
 import '@/assets/styles/main.css';
 import '@/directives/can';
+import '@/directives/focus';
 import 'intersection-observer'; // W3C Polyfill
 import App from '@/App.vue';
 import axios_setup from '@/plugins/axios';

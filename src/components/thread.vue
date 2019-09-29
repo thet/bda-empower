@@ -1,6 +1,6 @@
 <template>
     <div v-if="context" class="article_wrapper" :class="context.workspace_root ? 'em-workspace-root' : null">
-      <Contribution :context="context" @save="() => load({ force: true })" />
+      <Contribution :context="context" @save="() => load({ force: true })" @delete="() => load({ force: true })" />
       <ContributionSmall v-for="item of next_ws_items" :key="item.UID" :item="item" />
       <Thread v-for="item of thread_items" :key="item.UID" :item="item" />
     </div>

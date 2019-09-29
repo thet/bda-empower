@@ -160,6 +160,20 @@ export default {
       return ret;
     },
 
+    async DELETE({}, { context }) {
+      const url = context['@id'];
+      let ret = null;
+      try {
+        utils.logger.debug(`DELETE at: ${url}`);
+        const response = await axios.delete(url);
+        ret = response.data;
+      } catch (error) {
+        utils.logger.error(`Error while DELETE at context: ${url}`);
+        utils.logger.error(error);
+      }
+      return ret;
+    },
+
     async LOAD_FILES({}, { url }) {
       try {
         const response = await axios.get(url);
