@@ -59,83 +59,95 @@
     <footer class="em-contribution-footer">
 
       <div class="em-contribution-meta">
-        <div v-if="available_field('coordinators')">
-          Koordinator*in
-          <AccountIcon
-            v-for="(account, cnt) in context.coordinators || []"
-            :key="cnt"
-            :account="account"
-            :role="'Koordinator*in'" />
+        <div class="em-contribution-meta-users">
+          <div class="em-contribution-meta-users-coordinators" v-if="available_field('coordinators')">
+            Koordinator*in
+            <AccountIcon
+              v-for="(account, cnt) in context.coordinators || []"
+              :key="cnt"
+              :account="account"
+              :role="'Koordinator*in'" />
+          </div>
+
+          <div class="em-contribution-meta-users-expert_pool" v-if="available_field('expert_pool')">
+            Expert*innen Pool:
+            <AccountIcon
+              v-for="(account, cnt) in context.expert_pool || []"
+              :key="cnt"
+              :account="account"
+              :role="'Expert*in'" />
+          </div>
+
+          <div class="em-contribution-meta-users-experts_assigned" v-if="available_field('experts_assigned')">
+            Leseberechtigung
+            <AccountIcon
+              v-for="(account, cnt) in context.experts_assigned || []"
+              :key="cnt"
+              :account="account"
+              :role="'Account'" />
+          </div>
         </div>
 
-        <div v-if="available_field('expert_pool')">
-          Expert*innen Pool:
-          <AccountIcon
-            v-for="(account, cnt) in context.expert_pool || []"
-            :key="cnt"
-            :account="account"
-            :role="'Expert*in'" />
-        </div>
+        <div class="em-contribution-meta-info" v-if="context">
+          <div class="em-contribution-meta-info-workspace" v-if="context.workspace">
+            <strong>Workspace:</strong>
+            <span>{{ context.workspace }}</span>
+          </div>
 
-        <div v-if="available_field('experts_assigned')">
-          Leseberechtigung
-          <AccountIcon
-            v-for="(account, cnt) in context.experts_assigned || []"
-            :key="cnt"
-            :account="account"
-            :role="'Account'" />
-        </div>
-      </div>
+          <div class="em-contribution-meta-info-url">
+            <strong>URL:</strong>
+            <router-link :to="{ path: makePath(context['@id']) }">{{ context.title }}</router-link>
+          </div>
 
-      <div class="em-editarea" v-if="context">
-        <div v-if="context.workspace">
-          <strong>Workspace:</strong>
-          <span>{{ context.workspace }}</span>
-        </div>
-        <div>
-          <strong>URL:</strong>
-          <router-link :to="{ path: makePath(context['@id']) }">{{ context.title }}</router-link>
-        </div>
-        <div v-if="false">
-        <div v-if="item.previous_workspace">
-          <strong>Zum vorherigen Workspace:</strong>
-          <router-link :to="{ path: makePath(item.previous_workspace['@id']) }">{{ item.previous_workspace.title }}</router-link>
-        </div>
-        <div v-if="item.next_workspaces && item.next_workspaces.length">
-          <strong>Zum nächsten Workspace:</strong>
-          <ul>
-            <li
-                v-for="ws in item.next_workspaces"
-                :key="ws.path">
-              <router-link :to="{ path: makePath(ws['@id']) }">{{ ws.title }}</router-link>
-            </li>
-          </ul>
-        </div>
+          <div class="em-contribution-meta-info-previous_workspace" v-if="false">
+          <div v-if="item.previous_workspace">
+            <strong>Zum vorherigen Workspace:</strong>
+            <router-link :to="{ path: makePath(item.previous_workspace['@id']) }">{{ item.previous_workspace.title }}</router-link>
+          </div>
+          <div class="em-contribution-meta-info-next_workspace" v-if="item.next_workspaces && item.next_workspaces.length">
+            <strong>Zum nächsten Workspace:</strong>
+            <ul>
+              <li
+                  v-for="ws in item.next_workspaces"
+                  :key="ws.path">
+                <router-link :to="{ path: makePath(ws['@id']) }">{{ ws.title }}</router-link>
+              </li>
+            </ul>
+          </div>
+          </div>
         </div>
       </div>
 
       <div class="em-actions" v-if="editable">
-        <EditButton
-          v-can:modify="context"
-          :context="context"
-        />
-        <DeleteButton
-          v-can:delete="context"
-          :context="context"
-        />
-        <AddButton
-          v-can:add_contribution="context"
-          :parent="context"
-          :content_type="'Contribution'"
-        >{{ $t('contribution.add_answer') }}</AddButton>
-        <AddButton
-          v-can:add_contribution="context"
-          v-for="ws of next_ws"
-          :key='`add-${ws}`'
-          :parent="context"
-          :content_type="'Contribution'"
-          :workspace="ws"
-        >{{ $t('contribution.add_workspace', { ws: $t(`workspace.${ws}`) }) }}</AddButton>
+        <div class="em-actions-context">
+          <EditButton
+            class="em-button-edit"
+            v-can:modify="context"
+            :context="context"
+          />
+          <DeleteButton
+            class="em-button-delete"
+            v-can:delete="context"
+            :context="context"
+          />
+        </div>
+        <div class="em-actions-contents">
+          <AddButton
+            class="em-button-add-answer"
+            v-can:add_contribution="context"
+            :parent="context"
+            :content_type="'Contribution'"
+          >{{ $t('contribution.add_answer') }}</AddButton>
+          <AddButton
+            class="em-button-add-workspace"
+            v-can:add_contribution="context"
+            v-for="ws of next_ws"
+            :key='`add-${ws}`'
+            :parent="context"
+            :content_type="'Contribution'"
+            :workspace="ws"
+          >{{ $t('contribution.add_workspace', { ws: $t(`workspace.${ws}`) }) }}</AddButton>
+        </div>
       </div>
 
     </footer>

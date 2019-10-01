@@ -59,7 +59,53 @@
     }
 }
 
+.em-contribution-footer > *:not(:last-child) {
+    margin-bottom: 0.5em;
+}
+.em-contribution-footer > * > *:not(:last-child),
+.em-contribution-footer > * > * > *:not(:last-child) {
+    margin-right: 0.5em;
+}
+.em-contribution-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.em-contribution-meta-users {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.em-contribution-meta-info {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.em-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.em-actions-context {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.em-actions-contents {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
 
+.em-contribution-meta-users-coordinators {}
+.em-contribution-meta-users-expert_pool {}
+.em-contribution-meta-users-experts_assigned {}
+.em-contribution-meta-info-workspace {}
+.em-contribution-meta-info-url {}
+.em-button-edit {}
+.em-button-delete {}
+.em-button-add-answer {}
+.em-button-add-workspace {}
 
 
 /* end */
