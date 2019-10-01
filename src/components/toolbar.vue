@@ -6,9 +6,9 @@
     fill-height
     app
   >
-    <AccountInfo />
+    <AccountInfo :class="'em-toolbar-content'"/>
     <v-divider></v-divider>
-    <FolderNavigation />
+    <FolderNavigation :class="'em-toolbar-content'" />
     <v-divider></v-divider>
   </v-navigation-drawer>
 </template>

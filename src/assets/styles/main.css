@@ -46,6 +46,7 @@ html {
 @import 'components/workspace_tabs.css';
 @import 'components/editui.css';
 @import 'components/modal.css';
+@import 'components/toolbar.css';
 
 
 .em-btn {

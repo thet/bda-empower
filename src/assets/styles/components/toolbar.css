@@ -1,0 +1,10 @@
+
+.em-toolbar-content {
+    @apply p-4;
+}
+
+.em-toolbar-content > * {
+    @apply px-0;
+}
+
+
