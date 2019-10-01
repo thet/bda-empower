@@ -20,7 +20,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
-          fab dark small color="green"
+          dark small color="green"
           type="submit"
           @click.stop="login"
         >
