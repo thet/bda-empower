@@ -17,14 +17,3 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
-
-# excludes
-!.babelrc
-!.coveragerc
-!.dockerignore
-!.editorconfig
-!.gitattributes
-!.gitignore
-!.gitkeep
-!.gitlab-ci.yml
-!.travis.yml
