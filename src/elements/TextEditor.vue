@@ -2,6 +2,7 @@
   <div>
     <TextEditor
       v-if="edit"
+      class="edit_text"
       :text="_value"
       :options="editor_options"
       v-on:edit="editor_edit"
@@ -81,3 +82,10 @@ export default {
 
 };
 </script>
+
+<style>
+.edit_text {
+  border: 1px solid #CCC;
+  min-height: 8em;
+}
+</style>
