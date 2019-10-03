@@ -5,7 +5,7 @@ import axios from 'axios';
 export default function setup() {
   // AXIOS Config
   axios.defaults.headers.common['Accept'] = 'application/json';
-  axios.defaults.baseURL = config.baseURL;
+  axios.defaults.baseURL = config.API_URL;
 
   // Add a request interceptor
   // See: https://stackoverflow.com/a/47946984/1337474

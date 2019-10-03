@@ -9,7 +9,7 @@ export default {
     return url.split('?')[0].split('+')[0].split('#')[0].split('&')[0];
   },
   makePath: url => {
-    let path = url.replace(config.baseURL, '');
+    let path = url.replace(config.API_URL, '');
     if (path[0] !== '/') {
       path = `/${path}`;
     }

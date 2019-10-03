@@ -1,4 +1,5 @@
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
+const API_URL = DEVELOPMENT ? 'http://localhost:8080/p' : 'https://empowerapi.programmatic.pro/';
 
 
 const PERMISSION_MAP = {
@@ -105,9 +106,7 @@ class CaseModel {
 export default {
   DEVELOPMENT: DEVELOPMENT,
   PERMISSION_MAP: PERMISSION_MAP,
-  baseURL: 'http://l1:8080/',
-  //baseURL: 'http://localhost:8080/p',
-  //baseURL: 'https://empowerapi.programmatic.pro/',
+  API_URL: API_URL,
   GenericContextModel: GenericContextModel,
   ContributionModel: ContributionModel,
   CaseModel: CaseModel,
