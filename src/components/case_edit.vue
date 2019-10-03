@@ -11,6 +11,7 @@
         />
 
         <TextArea
+          v-if="false"
           v-model="context.description"
           :label="'Description'"
           :edit="true"
