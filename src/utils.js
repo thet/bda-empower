@@ -10,6 +10,9 @@ export default {
   },
   makePath: url => {
     let path = url.replace(config.baseURL, '');
+    if (path[0] !== '/') {
+      path = `/${path}`;
+    }
     //if (path.endsWith('/')) {
     //  path = path.slice(0, -1);
     //}
