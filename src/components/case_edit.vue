@@ -71,7 +71,6 @@
           fab dark small color="green"
           title="Save"
           type="submit"
-          @click.stop="save"
         >
           <v-icon dark>{{ icon_save }}</v-icon>
         </v-btn>
