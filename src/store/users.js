@@ -1,5 +1,4 @@
 import axios from 'axios';
-import config from '@/config';
 import utils from '@/utils';
 import Vue from 'vue';
 
@@ -26,7 +25,7 @@ export default {
         utils.logger.debug('LOAD_USERS - use cache');
         return;
       }
-      let url = `${config.baseURI}/@vocabularies/plone.app.vocabularies.Users`;
+      let url = '/@vocabularies/plone.app.vocabularies.Users';
       try {
         utils.logger.debug(`LOAD_USERS: ${url}`);
         const response = await axios.get(url);

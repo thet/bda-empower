@@ -9,14 +9,11 @@ export default {
     return url.split('?')[0].split('+')[0].split('#')[0].split('&')[0];
   },
   makePath: url => {
-    let path = url.replace(config.baseURI, '').replace(config.basePath, '');
-    if (path.endsWith('/')) {
-      path = path.slice(0, -1);
-    }
+    let path = url.replace(config.baseURL, '');
+    //if (path.endsWith('/')) {
+    //  path = path.slice(0, -1);
+    //}
     return path;
-  },
-  makeURL: path => {
-    return config.baseURI + path.replace(config.basePath, '');
   },
   parentURL: url => {
     let parts = url.split('/');

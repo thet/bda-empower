@@ -1,5 +1,4 @@
 import axios from 'axios';
-import config from '@/config';
 import utils from '@/utils';
 
 
@@ -27,7 +26,7 @@ export default {
       try {
         utils.logger.debug(`LOGIN ${username}`);
         const response = await axios.post(
-          config.baseURI + '/@login',
+          '/@login',
           {
             login: username,
             password: password
@@ -41,7 +40,7 @@ export default {
         commit('AUTH_SUCCESS', token);
 
         // Get current user details
-        const response2 = await axios.get(`${config.baseURI}/@userinfo`);
+        const response2 = await axios.get('/@userinfo');
         commit('SET_CURRENT_USER', response2.data);
       } catch (error) {
         commit('AUTH_ERROR');
@@ -52,7 +51,7 @@ export default {
       commit('AUTH_REQUEST');
       try {
         utils.logger.debug('LOGIN_RENEW');
-        const response = await axios.post(config.baseURI + '/@login-renew');
+        const response = await axios.post('/@login-renew');
         const token = response.data.token;
         if (! token) {
           throw 'Could not renew log in.';

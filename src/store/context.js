@@ -34,7 +34,6 @@ export default {
       set_case=false,
       force=false
     }) {
-      url = url ? url : utils.makeURL(path);
       path = path ? path : utils.makePath(url);
 
       let context = null;
@@ -44,7 +43,9 @@ export default {
         context = state.items[path];
         if (set_current) {
           commit('SET_CURRENT_CONTEXT', { context: context });
-          dispatch('LOAD_CONTEXT', { url: context.current_case, set_case: true });
+          if (context.current_case) {
+            dispatch('LOAD_CONTEXT', { url: context.current_case['@id'], set_case: true });
+          }
         }
         if (set_case) {
           commit('SET_CURRENT_CASE', { context: context });
@@ -53,8 +54,8 @@ export default {
       }
 
       try {
-        utils.logger.debug(`LOAD_CONTEXT: ${url}`);
-        const response = await axios.get(url, {
+        utils.logger.debug(`LOAD_CONTEXT: ${path}`);
+        const response = await axios.get(path, {
           params: {
             metadata_fields: [
               'workspace',
@@ -96,7 +97,9 @@ export default {
         commit('ADD_CONTEXT', { context: context });
         if (set_current) {
           commit('SET_CURRENT_CONTEXT', { context: context });
-          dispatch('LOAD_CONTEXT', { url: context.current_case, set_case: true });
+          if (context.current_case) {
+            dispatch('LOAD_CONTEXT', { url: context.current_case['@id'], set_case: true });
+          }
         }
         if (set_case) {
           commit('SET_CURRENT_CASE', { context: context });
@@ -121,15 +124,16 @@ export default {
           }
         }
       }
+      const path = utils.makePath(url);
       try {
-        utils.logger.debug(`PATCH: ${url}`);
+        utils.logger.debug(`PATCH: ${path}`);
         const response = await axios.patch(
-          url,
+          path,
           model
         );
         ret = response.data;
       } catch (error) {
-        utils.logger.error(`Error while PATCH for context: ${url}`);
+        utils.logger.error(`Error while PATCH for context: ${path}`);
         utils.logger.error(error);
       }
       return ret;
@@ -146,47 +150,50 @@ export default {
         }
       }
 
+      const parent_path = utils.makePath(parent_url);
       try {
-        utils.logger.debug(`POST at: ${parent_url}`);
+        utils.logger.debug(`POST at: ${parent_path}`);
         const response = await axios.post(
-          parent_url,
+          parent_path,
           model
         );
         ret = response.data;
       } catch (error) {
-        utils.logger.error(`Error while POST at context: ${parent_url}`);
+        utils.logger.error(`Error while POST at context: ${parent_path}`);
         utils.logger.error(error);
       }
       return ret;
     },
 
     async DELETE({}, { context }) {
-      const url = context['@id'];
+      const path = utils.makePath(context['@id']);
       let ret = null;
       try {
-        utils.logger.debug(`DELETE at: ${url}`);
-        const response = await axios.delete(url);
+        utils.logger.debug(`DELETE at: ${path}`);
+        const response = await axios.delete(path);
         ret = response.data;
       } catch (error) {
-        utils.logger.error(`Error while DELETE at context: ${url}`);
+        utils.logger.error(`Error while DELETE at context: ${path}`);
         utils.logger.error(error);
       }
       return ret;
     },
 
     async LOAD_FILES({}, { url }) {
+      const path = utils.makePath(url);
       try {
-        const response = await axios.get(url);
+        const response = await axios.get(path);
         return response.data.items.filter(it => it['@type'] === 'Image' || it['@type'] === 'File');
       } catch (error) {
-        utils.logger.error(`Error while LOAD_FILES for: ${url}`);
+        utils.logger.error(`Error while LOAD_FILES for: ${path}`);
         utils.logger.error(error);
       }
     },
 
     async SAVE_FILES({}, { url, files }) {
+      const path = utils.makePath(url);
       try {
-        utils.logger.debug(`SAVE_FILES at: ${url}`);
+        utils.logger.debug(`SAVE_FILES at: ${path}`);
         for (let file of files) {
           const type_ = utils.image_or_file(file.file);
           const file_data = {
@@ -200,20 +207,21 @@ export default {
             '@type': utils.capitalize(type_)
           }
           file_model[type_] = file_data;
-          await axios.post(url, file_model);
+          await axios.post(path, file_model);
         }
       } catch (error) {
-        utils.logger.error(`Error while SAVE_FILES at: ${url}`);
+        utils.logger.error(`Error while SAVE_FILES at: ${path}`);
         utils.logger.error(error);
       }
     },
 
     async DELETE_FILE({}, { url }) {
+      const path = utils.makePath(url);
       try {
-        utils.logger.debug(`DELETE_FILE at: ${url}`);
-        await axios.delete(url);
+        utils.logger.debug(`DELETE_FILE at: ${path}`);
+        await axios.delete(path);
       } catch (error) {
-        utils.logger.error(`Error while DELETE_FILE at: ${url}`);
+        utils.logger.error(`Error while DELETE_FILE at: ${path}`);
         utils.logger.error(error);
       }
     },

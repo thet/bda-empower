@@ -105,10 +105,9 @@ class CaseModel {
 export default {
   DEVELOPMENT: DEVELOPMENT,
   PERMISSION_MAP: PERMISSION_MAP,
-  //baseURI: 'http://localhost:8080/p',
-  //basePath: '/p',
-  baseURI: 'https://empowerapi.programmatic.pro/',
-  basePath: '[[not a path]]',
+  baseURL: 'http://l1:8080/',
+  //baseURL: 'http://localhost:8080/p',
+  //baseURL: 'https://empowerapi.programmatic.pro/',
   GenericContextModel: GenericContextModel,
   ContributionModel: ContributionModel,
   CaseModel: CaseModel,
