@@ -8,6 +8,7 @@
           v-model="context.title"
           :label="'Title'"
           :edit="true"
+          :focus="true"
         />
 
         <TextArea

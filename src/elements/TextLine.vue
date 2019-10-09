@@ -2,6 +2,7 @@
   <span>
     <v-text-field
         v-if="edit"
+        ref="input"
         v-model="_value"
         :label="label"></v-text-field>
     <span v-if="!edit && value">{{ value }}</span>
@@ -25,6 +26,11 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    focus: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
 
@@ -36,6 +42,13 @@ export default {
       set: function(val) {
         this.$emit('input', val);
       }
+    }
+  },
+
+  mounted() {
+    if (this.focus) {
+      // https://github.com/vuetifyjs/vuetify/issues/1587#issuecomment-326967711
+      this.$nextTick(this.$refs.input.focus);
     }
   }
 
