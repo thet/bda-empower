@@ -1,5 +1,5 @@
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
-const API_URL = DEVELOPMENT ? 'http://localhost:8080/p' : 'https://empowerapi.programmatic.pro/';
+const API_URL = DEVELOPMENT ? 'http://localhost:8080/Plone' : 'https://empowerapi.programmatic.pro/';
 
 
 const PERMISSION_MAP = {
