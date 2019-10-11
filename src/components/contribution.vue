@@ -52,7 +52,9 @@
 
     <div v-if="files" class="em-contribution-sidebar">
       <ul>
-        <li v-for="file of files" :key="`file-${file.UID}`"><a :href="file['@id']" target="_blank">{{ file.title }}</a></li>
+        <li v-for="file of files" :key="`file-${file.UID}`">
+          <router-link :to="{ path: makePath(file['@id']) }">{{ file.title }}</router-link>
+        </li>
       </ul>
     </div>
 
