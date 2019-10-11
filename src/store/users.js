@@ -5,10 +5,7 @@ import Vue from 'vue';
 
 function get_default_state() {
   return {
-    users: {
-      '@id': '',
-      'items': []
-    }
+    users: []
   };
 }
 
@@ -18,19 +15,27 @@ export default {
 
   state: get_default_state(),
 
+  getters: {
+    user_by_id: state => id => {
+      const users = state.users.filter(it => it.value === id);
+      return users.length ? users[0] : null;
+    }
+  },
+
   actions: {
 
     async LOAD_USERS({ commit, state }, { force=false }) {
-      if (!force && state.users.items.length) {
+      if (!force && state.users.length) {
         utils.logger.debug('LOAD_USERS - use cache');
-        return;
+        return state.users;
       }
-      let url = '/@vocabularies/plone.app.vocabularies.Users';
+      const url = '/@vocabularies/plone.app.vocabularies.Users';
       try {
         utils.logger.debug(`LOAD_USERS: ${url}`);
         const response = await axios.get(url);
-        commit('ADD_USERS', { users: response.data });
-        return response.data;
+        const items = utils.items_from_vocab(response.data);
+        commit('ADD_USERS', { users: items });
+        return items;
       } catch(error) {
         utils.logger.error('Error while LOAD_USERS');
         utils.logger.error(error);
@@ -42,7 +47,7 @@ export default {
       try {
         utils.logger.debug(`LOAD_ALLOWED_USERS: ${url}`);
         const response = await axios.get(url);
-        return response.data;
+        return utils.items_from_vocab(response.data);
       } catch (error) {
         utils.logger.error('Error while LOAD_ALLOWED_USERS');
         utils.logger.error(error);

@@ -81,8 +81,7 @@ export default {
       if (this.loader_context) {
         options.url = this.loader_context['@id'];
       }
-      let items = await this.$store.dispatch(this.loader, options);
-      this.items_ = utils.items_from_vocab(items);
+      this.items_ = await this.$store.dispatch(this.loader, options);
     }
   },
 
