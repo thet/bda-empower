@@ -54,10 +54,6 @@ export default {
 
   created() {
     this.load();
-  },
-
-  watch: {
-    context: 'load' // reload thread when item changes
   }
 
 };

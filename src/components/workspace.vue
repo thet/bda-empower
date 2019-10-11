@@ -64,8 +64,8 @@ export default {
   },
 
   watch: {
-    // load thread when context changes
-    context: 'load'
+    context: 'load',
+    workspace: 'load'
   }
 
 };
