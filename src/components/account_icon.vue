@@ -1,11 +1,13 @@
 <template>
-  <v-icon
-    dark
-    class="em-person"
-    :title="`${role} ${account}`"
-  >
-    {{ icon_account }}
-  </v-icon>
+  <span class="clickable" :title="`${role} ${account}`" @click="showinfo = !showinfo">
+    <v-icon
+      dark
+      class="em-person"
+    >
+      {{ icon_account }}
+    </v-icon>
+    <span v-if="showinfo">{{ `${role} ${account}` }}</span>
+  </span>
 </template>
 
 <script>
@@ -25,7 +27,8 @@ export default {
   },
 
   data: () => ({
-    icon_account: mdiAccount
+    icon_account: mdiAccount,
+    showinfo: false
   }),
 
 };

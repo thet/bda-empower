@@ -48,6 +48,10 @@ html {
 @import 'components/modal.css';
 @import 'components/toolbar.css';
 
+.clickable {
+    @apply cursor-pointer;
+}
+
 
 .em-btn {
     @apply text-em-lighter;
