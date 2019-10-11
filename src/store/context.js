@@ -44,7 +44,7 @@ export default {
         if (set_current) {
           commit('SET_CURRENT_CONTEXT', { context: context });
           if (context.current_case) {
-            dispatch('LOAD_CONTEXT', { url: context.current_case['@id'], set_case: true });
+            dispatch('LOAD_CONTEXT', { url: context.current_case, set_case: true });
           }
         }
         if (set_case) {
@@ -98,7 +98,7 @@ export default {
         if (set_current) {
           commit('SET_CURRENT_CONTEXT', { context: context });
           if (context.current_case) {
-            dispatch('LOAD_CONTEXT', { url: context.current_case['@id'], set_case: true });
+            dispatch('LOAD_CONTEXT', { url: context.current_case, set_case: true });
           }
         }
         if (set_case) {
