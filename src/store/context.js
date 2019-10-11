@@ -73,7 +73,7 @@ export default {
         });
         context = response.data;
         context.workspace = utils.getattr(context.workspace, 'token', '');
-        context.items = context.items.map(it => {
+        context.items = context?.items.map(it => {
           switch (it['@type']) {
             case 'Folder':
               it.icon = mdiFolder;
@@ -91,7 +91,7 @@ export default {
               it.icon = mdiForum;
           }
           return it;
-        });
+        }) || [];
         context['@id'] = utils.cleanURL(context['@id']);
 
         commit('ADD_CONTEXT', { context: context });
