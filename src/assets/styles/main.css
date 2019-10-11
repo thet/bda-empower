@@ -52,9 +52,10 @@ html {
     @apply cursor-pointer;
 }
 
-
+.em-btn.em-btn { /* higher specificity, as ``.v-application a`` overrides too much. */
+    @apply text-em-lighter clickable;
+}
 .em-btn {
-    @apply text-em-lighter;
     display: inline-block;
     &.active {
         @apply underline;
