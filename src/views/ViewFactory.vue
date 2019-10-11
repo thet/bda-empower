@@ -7,7 +7,6 @@
 <script>
 import { mapState } from 'vuex';
 import CasesView from '@/views/CasesView';
-import CaseView from '@/views/CaseView';
 import ContributionView from '@/views/ContributionView';
 import DefaultView from '@/views/DefaultView';
 import utils from '@/utils';
@@ -16,7 +15,6 @@ export default {
 
   components: {
     CasesView,
-    CaseView,
     ContributionView,
     DefaultView
   },
