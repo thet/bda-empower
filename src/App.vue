@@ -1,5 +1,5 @@
 <template>
-  <v-app id="app" key="app_refresh_key">
+  <v-app id="app" :key="app_refresh_key">
     <Toolbar></Toolbar>
     <v-content>
       <LoginButton />
